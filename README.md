@@ -22,7 +22,7 @@ traced back to the committer and show in what category a user is spending in.
 <li>User anlaytics page where user can see budget analytics.</li>
 <li>Login for existing users.</li>
 <li>Walkthrough budget setup.</li>
-<li>User mailbox for liking budget requests.</li>
+<li>User mailbox for linking budgets.</li>
 <li>Mobile app api to enhance budget usability.</li>
 </ul>
 
