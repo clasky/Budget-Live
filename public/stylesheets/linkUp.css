@@ -1,0 +1,97 @@
+
+button
+{
+	background: #8258FA;
+	height: 120px;
+    width: 120px;
+    border-radius: 100%;
+    display: inline-block;
+    color: #FFFFFF;
+    font-family: Verdana, Arial, Sans-Serif;
+    text-align: center;
+    line-height: 120px;
+    font-size: 20px;
+}
+
+linkRegistration
+{
+	background:#82FA58;
+	width: 300px;
+	position: absolute;
+	height: 540px;
+	left: 820px;
+	top: 105px;
+	opacity: .85;
+}
+
+input
+{
+	height:30px;
+	width: 180px;
+	font-size:17px;
+	position:absolute;
+}
+
+form
+{
+	position:absolute;
+	left:880px;
+	top: 130px;
+	font-family: Verdana, Arial, Sans-Serif;
+	color: #000;
+	font-size: 15px;
+	
+}
+
+#signUpButton
+{
+	height: 35px;
+    width: 180px;
+	left:880px;
+	top: 575px;
+	position: absolute;
+    border-radius: 0%;
+    background: #FFBF00;
+    display: inline-block;
+    color: #FFFFFF;
+    font-family: Verdana, Arial, Sans-Serif;
+    text-align: center;
+    line-height: 30px;
+    font-size: 17px;
+	border-radius: 10px ;
+	-moz-border-radius: 10px ;
+	-webkit-border-radius: 10px ;
+}
+
+#menu ul
+{
+	height: auto;
+    padding: 8px 0px;
+    margin: 0px;
+
+}
+
+#menu li
+{
+	display:inline;
+	padding: 20px
+}
+
+#menu a 
+{
+    text-decoration: none;
+    color: #EFEFFB;
+    padding: 8px 8px 8px 8px;
+}
+
+#menu 
+{
+    width: 1350px;
+    height: 35px;
+    font-size: 16px;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-weight: bold;
+    text-align: right;
+    background-color: #2E2E2E;
+    border-radius: 8px;
+}

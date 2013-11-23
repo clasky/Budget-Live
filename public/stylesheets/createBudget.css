@@ -1,0 +1,283 @@
+
+button
+{
+	height: 120px;
+    width: 120px;
+    border-radius: 100%;
+    background: #FFBF00;
+    display: inline-block;
+    color: #FFFFFF;
+    font-family: Verdana, Arial, Sans-Serif;
+    text-align: center;
+    line-height: 120px;
+    font-size: 20px;
+}
+
+category
+{
+    height:100px;
+    width:100px;
+	border-radius: 100%;
+    display: inline-block;
+	background-color: #000;
+    color: #FFFFFF;
+	opacity: 0.75;
+	font-family: Verdana, Arial, Sans-Serif;
+    text-align: center;
+    line-height: 100px;
+    font-size: 20px;
+}
+
+registration
+{
+	background: #82FA58;
+	width: 300px;
+	position: absolute;
+	height: 500px;
+	left: 820px;
+	top: 75px;
+	opacity: .85;
+}
+
+input
+{
+	height:30px;
+	width: 180px;
+	font-size:17px;
+	position:absolute;
+}
+
+form
+{
+	position:absolute;
+	left:880px;
+	top: 130px;
+	font-family: Verdana, Arial, Sans-Serif;
+	color: #000;
+	font-size: 15px;
+	
+}
+
+#additionalInfo
+{
+	color: #000;
+	font-family: Verdana, Arial, Sans-Serif;
+	left:1px;
+	font-size: 20px;
+}
+
+#signUpButton
+{
+	height: 35px;
+    width: 180px;
+	left:880px;
+	top: 500px;
+	position: absolute;
+    border-radius: 0%;
+    background: #FFBF00;
+    display: inline-block;
+    color: #FFFFFF;
+    font-family: Verdana, Arial, Sans-Serif;
+    text-align: center;
+    line-height: 30px;
+    font-size: 17px;
+	border-radius: 10px ;
+	-moz-border-radius: 10px ;
+	-webkit-border-radius: 10px ;
+}
+
+#currentImage{}
+
+
+#progressBar 
+{
+	width: 400px;
+	height: 22px;
+	/*border: 1px solid #111;*/
+	background-color: #FFF;
+	position: absolute;
+	left: 300px;
+	top: 200px;
+	border-radius: 10px ;
+	-moz-border-radius: 10px ;
+	-webkit-border-radius: 10px ;
+}
+ 
+#progressBar div 
+{
+	height: 100%;
+	color: #000;
+	text-align: right;
+	/*line-height: 22px; same as #progressBar height if we want text middle aligned */
+	width: 0;
+	background-color: gray;
+	background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.5) 35px, rgba(255,255,255,.5) 70px);
+	font-family: Verdana, Arial, Sans-Serif;
+}
+
+
+#catagorySelection
+{
+	position: absolute;
+	left:760px;
+	top:310px;
+    margin: -10px 0 0 -8px;
+    height: 175px;
+    width: 230px;
+    background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,rgba(254,252,234,1)), color-stop(0%,rgba(241,218,54,1)));
+    color: #FFFFFF;
+	opacity: 0.75;
+    font-family: Verdana, Arial, Sans-Serif;
+    display:none;
+	border-radius: 10px ;
+	-moz-border-radius: 10px ;
+	-webkit-border-radius: 10px ;
+}
+
+#addAmountToCategory
+{
+	position:absolute;
+	left:1075px;
+	top:300px;
+	background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,rgba(169,3,41,1)), color-stop(44%,rgba(143,2,34,1)), color-stop(100%,rgba(109,0,25,1)));
+	height: 50px;
+	width: 50px;
+	line-height: 50px;
+    font-size: 15px;
+}
+
+#addCategory
+{
+	position:absolute;
+	left:905px;
+	top:227px;
+	background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,rgba(169,3,41,1)), color-stop(44%,rgba(143,2,34,1)), color-stop(100%,rgba(109,0,25,1)));
+    color: #FFFFFF;
+	height: 50px;
+	width: 50px;
+	line-height: 10px;
+    font-size: 15px;
+}
+
+#categoryTextBox
+{
+	height:30px;
+	width: 180px;
+	font-size:20px;
+	position:absolute;
+	left:875px;
+	top:310px;
+}
+#categoryAmount
+{
+	position: absolute;
+	left:860px;
+	top:310px;
+    margin: -10px 0 0 -8px;
+    height: 130px;
+    width: 230px;
+    background-color: #000000;
+    color: #FFFFFF;
+	opacity: 0.75;
+    font-family: Verdana, Arial, Sans-Serif;
+    display:none;
+	border-radius: 10px ;
+	-moz-border-radius: 10px ;
+	-webkit-border-radius: 10px ;
+}
+
+
+#next
+{
+	position:absolute;
+	left:1200px;
+	top:520px;
+	background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,rgba(254,252,234,1)), color-stop(0%,rgba(241,218,54,1)));
+    color: #FFFFFF;
+	opacity: 0.95;
+}
+
+#categoryChoice
+{
+	height:30px;
+	width: 180px;
+	font-size:20px;
+	position:absolute;
+	left:700px;
+	top:235px;
+}
+
+#budgetTotal
+{
+	height:30px;
+	width: 220px;
+	font-size:20px;
+	position:absolute;
+	left:690px;
+	top:250px;
+}
+
+#enterAmount
+{
+	background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,rgba(254,252,234,1)), color-stop(0%,rgba(241,218,54,1)));
+	position:absolute;
+	left:1200px;
+	top:520px;
+}
+
+#ready
+{
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(169,3,41,1)), color-stop(44%,rgba(143,2,34,1)), color-stop(100%,rgba(109,0,25,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(169,3,41,1) 0%,rgba(143,2,34,1) 44%,rgba(109,0,25,1) 100%); /* Chrome10+,Safari5.1+ */
+}
+
+#twoWeek
+{
+	background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,rgba(254,252,234,1)), color-stop(0%,rgba(241,218,54,1)));
+	left:840px;
+	top:190px;
+	position:absolute;
+}
+
+#oneMonth
+{
+	position:absolute;
+	left:840px;
+	top:370px;
+	background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,rgba(254,252,234,1)), color-stop(0%,rgba(241,218,54,1)));
+}
+
+#menu ul
+{
+	height: auto;
+    padding: 8px 0px;
+    margin: 0px;
+
+}
+
+#menu li
+{
+	display:inline;
+	padding: 20px
+}
+
+#menu a 
+{
+    text-decoration: none;
+    color: #EFEFFB;
+    padding: 8px 8px 8px 8px;
+}
+
+#menu 
+{
+    width: 1350px;
+    height: 35px;
+    font-size: 16px;
+    font-family: Tahoma, Geneva, sans-serif;
+    font-weight: bold;
+    text-align: right;
+    background-color: #2E2E2E;
+    border-radius: 8px;
+}
+
+
