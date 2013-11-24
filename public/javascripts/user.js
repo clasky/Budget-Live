@@ -1,52 +1,213 @@
-$(document).ready(function()
+$(function () 
 {
-  
-	var s1 = [['Sony',7], ['Samsumg',13.3], ['LG',14.7], ['Vizio',5.2], ['Insignia', 1.2]];
-         
-    var categories = $.jqplot('categories', [s1], 
+    $('#container').highcharts(
 	{
-	
-		seriesColors: [ "#DD1E2F", "#EBB035", "#06A2CB", "#218559","#D0C6B1" ,"192823",
-		                "#90CA77","#81C6DD","#E9B64D"],
-		
-        grid: 
+        chart: 
 		{
-            drawBorder: false, 
-            drawGridlines: false,
-            background: '#ffffff',
-            shadow:false
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false
         },
-		
-        axesDefaults: 
+        title: 
 		{
-             
+            text: 'Budget Cateogories',
+			//y: 100
         },
-		
-        seriesDefaults:
+        tooltip:
 		{
-            renderer:$.jqplot.PieRenderer,
-            rendererOptions: 
+    	    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: 
+		{
+            pie: 
 			{
-                showDataLabels: true
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: 
+				{
+                   enabled: false
+                },
+				showInLegend: true
+            },
+			series:
+			{
+                cursor: 'pointer',
+                point: 
+				{
+                    events: 
+					{
+                        click: function() 
+						{
+                            var chart = $('#container').highcharts();
+                            for (var i = 0; i <  chart.series[0].data.length; i++)
+							{
+                                if (chart.series[0].data[i] == this)
+								{
+                                    toggleLI(i);
+                                    return;
+                                }
+                            }
+                           
+                        }
+                    }
+                }
             }
         },
-        legend:
+        series: 
+		[{
+            type: 'pie',
+            name: 'Categories',
+            data: 
+			[
+                ['Groceries',   45.0],
+                ['Utilites',       26.8],
+                {
+                    name: 'Car Payment',
+                    y: 12.8,
+                    sliced: true,
+                    selected: true
+                },
+                ['Gas',    8.5],
+                ['Dates',     6.2],
+                ['Clothes',   0.7]
+            ]
+        }]
+    });
+    
+    var chart = $('#container').highcharts();
+
+    $.each(chart.series[0].data, function( index, value ) 
+	{
+        $('#extra-data').append('<li id="extra-item-'+index+'" class="more" data-id="'
+		+index+'">'+value.name+'  '+value.y+' click here <div id="hidden-content-'+index
+		+'" style="display:none" class="hiddenable">more data</div></li>');
+    });
+    
+    $(".more").click(function()
+	{
+        toggleElement($(this).attr('data-id'));
+    });
+	
+    $(".hiddenable").click(function(event)
+	{
+		event.stopPropagation();
+		toggleElement($(this).parent().attr('data-id'));
+    });   
+    
+    function toggleElement(index)
+	{
+		toggleLI(index);
+        chart.series[0].data[index].select();
+           
+    }
+    
+    function toggleLI(index)
+	{
+		$(".hiddenable").not(
+		$(("#hidden-content-"+index))).hide("slow",function()
+	    {
+			   
+	    });
+	    $(("#hidden-content-"+index)).toggle( "slow" );
+    }
+    
+});
+
+$(function () 
+{
+	$('#bar').highcharts(
+	{
+		chart: 
 		{
-            show: true,
-            rendererOptions: 
-			{
-                numberRows: 1
-            },
-            location: "s",
-			xoffset: 0,        // pixel offset of the legend box from the x (or x2) axis.
-			yoffset: 160,        // pixel offset of the legend box from the y (or y2) axis.
-        },
-		
+			type: 'bar'
+		},
 		title: 
 		{
-			text: 'Categories',  
-			show: true,
-		}
-		
-    }); 
+			text: 'Spent vs Total'
+		},
+		xAxis:
+		{
+			categories: ['Eric', 'Iris']
+		},
+		yAxis: 
+		{
+			min: 0,
+			title: 
+			{
+				text: 'Total Category Amount'
+			}
+		},
+		legend: 
+		{
+			backgroundColor: '#FFFFFF',
+			reversed: true
+		},
+		plotOptions:
+		{
+			series: 
+			{
+				stacking: 'normal'
+			}
+		},
+		series: 
+		[{
+			name: 'Remaining Amount',
+			data: [70, 50]
+		}, 
+		{
+			name: 'Spent',
+			data: [30, 50]
+		}]
+	});
 });
+
+$(function () 
+ {
+	$('#SpendingOverTime').highcharts(
+	{
+		title: 
+		{
+			text: 'Spending Over Time Frame',
+			x: -20 //center
+		},
+		xAxis: 
+		{
+			categories: ['Week 1', 'Week 2', 'Week 3', 'Week 4']
+		},
+		yAxis: 
+		{
+			title: 
+			{
+				text: 'Spending (Dollars)'
+			},
+			plotLines: 
+			[{
+				value: 0,
+				width: 1,
+				color: '#808080'
+			}]
+		},
+		tooltip: 
+		{
+			valuePrefix: '$'
+		},
+		legend:
+		{
+			layout: 'vertical',
+			align: 'right',
+			verticalAlign: 'middle',
+			borderWidth: 0
+		},
+		series: 
+		[{
+			name: 'Eric',
+			data: [20,10,15,5]
+		},
+		{
+			name: 'Iris',
+			data: [10,30,10,20]
+		}]
+	});
+	});
+    
+
