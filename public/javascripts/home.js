@@ -32,12 +32,19 @@ $(document).ready(function()
 						"<input id = \"password\" type=\"password\" placeholder=\"password\">"+
 						"</form>");
 		$("body").append("<button id = \"signIn\"><strong>login</strong></button>");
-		$("body").append("<img id=\"welcomeMessage\" src=\"../images/welcome.png\">");
+		$("body").append("<img id=\"welcomeMessage\" src=\"../public/images/welcome.png\">");
 		$("#welcomeMessage").hide().delay(500);
 		$("#welcomeMessage").fadeIn("fast");
-		
+		goToUserProfile();
 	}
 	
+	function goToUserProfile()
+	{
+		$("#signIn").click(function()
+		{
+			window.location.href = "user.html";
+		});
+	}
     
     
 });

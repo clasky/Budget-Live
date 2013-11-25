@@ -19,6 +19,37 @@ a
     padding: 8px 8px 8px 8px;
 }
 
+form
+{
+	position:absolute;
+	left: 820px; 
+	top: 150px;
+	font-family: Verdana, Arial, Sans-Serif;
+	color: #000;
+	font-size: 15px;
+	
+}
+
+backDrop
+{
+	background: #E6E6E6;
+	width: 400px;
+	position: absolute;
+	height: 530px;
+	left: 800px;
+	top: 120px;
+	opacity: .85;
+}
+
+#spent
+{
+	height:30px;
+	width: 353px;
+	font-size:20px;
+	position:absolute;
+	
+}
+
 #menu ul
 {
 	height: auto;

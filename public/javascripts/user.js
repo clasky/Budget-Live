@@ -1,6 +1,15 @@
+$(document).ready(function()
+{
+    /*$('#left-menu').sidr(
+	{
+      name: 'sidr-left',
+      side: 'left'
+    });*/
+});
+
 $(function () 
 {
-    $('#container').highcharts(
+    $('#pieChart').highcharts(
 	{
         chart: 
 		{
@@ -38,16 +47,17 @@ $(function ()
 					{
                         click: function() 
 						{
-                            var chart = $('#container').highcharts();
+                            var chart = $('#pieChart').highcharts();
                             for (var i = 0; i <  chart.series[0].data.length; i++)
 							{
                                 if (chart.series[0].data[i] == this)
 								{
                                     toggleLI(i);
+									$("h1").html("<center>"+chart.series[0].data[i].name);
                                     return;
                                 }
                             }
-                           
+                            $("h1").html("<center>Overall Budget");
                         }
                     }
                 }
@@ -66,15 +76,12 @@ $(function ()
                     y: 12.8,
                     sliced: true,
                     selected: true
-                },
-                ['Gas',    8.5],
-                ['Dates',     6.2],
-                ['Clothes',   0.7]
+                }
             ]
         }]
     });
     
-    var chart = $('#container').highcharts();
+    var chart = $('#pieChart').highcharts();
 
     $.each(chart.series[0].data, function( index, value ) 
 	{
