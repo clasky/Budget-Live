@@ -315,7 +315,7 @@ $(document).ready(function()
 		// Put the javascript to call your GET on the page.
 		$("#signUpButton").click(function()
 		{
-			window.location.href = "user.html";
+			window.location.href = "user";
 		});
 	}
 	

@@ -42,7 +42,7 @@ $(document).ready(function()
 	{
 		$("#signIn").click(function()
 		{
-			window.location.href = "user.html";
+			window.location.href = "user";
 		});
 	}
     

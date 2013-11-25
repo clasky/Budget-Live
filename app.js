@@ -1,11 +1,13 @@
 var express = require('express');
-var database = require('./routes/database');
+//var database = require('./routes/database');
 var budgetCreator = require('./routes/createBudget');
 var http = require('http');
 var path = require('path');
 var app = express();
 
 //USE PASSPORT
+//URL for Website
+//http://budgetlive-budget-live.nodejitsu.com
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
@@ -28,7 +30,7 @@ if ('development' == app.get('env')) {
 }
 
 //Create Database if it doesn't exist
-database.initDatabase();
+//database.initDatabase();
 
 app.get('/', function(req, res){res.sendfile('views/index.html');});
 app.get('/home', function(req, res){res.sendfile('views/index.html');});
@@ -36,8 +38,9 @@ app.get('/aboutus', function(req, res){res.sendfile('views/aboutus.html');});
 app.get('/services', function(req, res){res.sendfile('views/services.html');});
 app.get('/contactus', function(req, res){res.sendfile('views/contactus.html');});
 app.get('/linkUp', function(req, res){res.sendfile('views/linkUp.html');});
+app.get('/user', function(req, res){res.sendfile('views/user.html');});
 app.get('/createBudget', budgetCreator.get);
-app.post('/createBudget', budgetCreator.post);
+//app.post('/createBudget', budgetCreator.post);
 
 //app.get('/login', login.get);
 //app.post('/login', login.post);
