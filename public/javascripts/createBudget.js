@@ -315,10 +315,7 @@ $(document).ready(function()
 		// Put the javascript to call your GET on the page.
 		$("#signUpButton").click(function()
 		{
-			// for checking that the button works
-			// in order for Jquery to work
-			// you need to be connected to the internet
-			$("#signUpButton").fadeOut("slow");
+			window.location.href = "user.html";
 		});
 	}
 	

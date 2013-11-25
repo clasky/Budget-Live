@@ -174,7 +174,7 @@ $(function ()
 	{
 		title: 
 		{
-			text: 'Spending Over Time Frame',
+			text: 'Spending over Time',
 			x: -20 //center
 		},
 		xAxis: 
