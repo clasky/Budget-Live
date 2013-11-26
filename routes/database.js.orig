@@ -30,4 +30,8 @@ connection.query('CREATE DATABASE IF NOT EXISTS budgetLive', function (err) {
 exports.getConnection = function()
 {
 	return connection;
+<<<<<<< Updated upstream
 }*/
+=======
+}*/
+>>>>>>> Stashed changes
