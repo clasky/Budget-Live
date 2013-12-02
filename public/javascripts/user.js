@@ -5,84 +5,33 @@ $(document).ready(function()
       name: 'sidr-left',
       side: 'left'
     });*/
-});
+	
+	var pieData = [
+		['Groceries', 45.0],
+		['Utilites',  26.8],
+		{
+			name: 'Car Payment', 
+			y: 12.8, // value
+			sliced: true,
+			selected: true
+		}
+    ];
+	
+	var userNames = ["Eric","Iris"];
+	var userOneBar = [70, 50];
+	var userTwoBar = [30, 50];
+	var timeFrameLine = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
+	
+	
+	//creating charts
+	
+    createPieChart($('#pieChart'));
+	createBarChart($('#barChart'));
+	createLineChart($('#SpendingOverTime'));
+	var linegraph = $('#SpendingOverTime').highcharts();
 
-$(function () 
-{
-    $('#pieChart').highcharts(
-	{
-        chart: 
-		{
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false
-        },
-        title: 
-		{
-            text: 'Budget Cateogories',
-			//y: 100
-        },
-        tooltip:
-		{
-    	    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        plotOptions: 
-		{
-            pie: 
-			{
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: 
-				{
-                   enabled: false
-                },
-				showInLegend: true
-            },
-			series:
-			{
-                cursor: 'pointer',
-                point: 
-				{
-                    events: 
-					{
-                        click: function() 
-						{
-                            var chart = $('#pieChart').highcharts();
-                            for (var i = 0; i <  chart.series[0].data.length; i++)
-							{
-                                if (chart.series[0].data[i] == this)
-								{
-                                    toggleLI(i);
-									$("h1").html("<center>"+chart.series[0].data[i].name);
-                                    return;
-                                }
-                            }
-                            $("h1").html("<center>Overall Budget");
-                        }
-                    }
-                }
-            }
-        },
-        series: 
-		[{
-            type: 'pie',
-            name: 'Categories',
-            data: 
-			[
-                ['Groceries',   45.0],
-                ['Utilites',       26.8],
-                {
-                    name: 'Car Payment',
-                    y: 12.8,
-                    sliced: true,
-                    selected: true
-                }
-            ]
-        }]
-    });
-    
-    var chart = $('#pieChart').highcharts();
-
+	
+	// pie chart animation
     $.each(chart.series[0].data, function( index, value ) 
 	{
         $('#extra-data').append('<li id="extra-item-'+index+'" class="more" data-id="'
@@ -117,104 +66,171 @@ $(function ()
 	    });
 	    $(("#hidden-content-"+index)).toggle( "slow" );
     }
-    
-});
-
-$(function () 
-{
-	$('#bar').highcharts(
+	
+	// creates Pie Chart
+	function createPieChart(pie)
 	{
-		chart: 
+		$(pie).highcharts(
 		{
-			type: 'bar'
-		},
-		title: 
-		{
-			text: 'Spent vs Total'
-		},
-		xAxis:
-		{
-			categories: ['Eric', 'Iris']
-		},
-		yAxis: 
-		{
-			min: 0,
-			title: 
+			chart: 
 			{
-				text: 'Total Category Amount'
-			}
-		},
-		legend: 
-		{
-			backgroundColor: '#FFFFFF',
-			reversed: true
-		},
-		plotOptions:
-		{
-			series: 
-			{
-				stacking: 'normal'
-			}
-		},
-		series: 
-		[{
-			name: 'Remaining Amount',
-			data: [70, 50]
-		}, 
-		{
-			name: 'Spent',
-			data: [30, 50]
-		}]
-	});
-});
-
-$(function () 
- {
-	$('#SpendingOverTime').highcharts(
-	{
-		title: 
-		{
-			text: 'Spending over Time',
-			x: -20 //center
-		},
-		xAxis: 
-		{
-			categories: ['Week 1', 'Week 2', 'Week 3', 'Week 4']
-		},
-		yAxis: 
-		{
-			title: 
-			{
-				text: 'Spending (Dollars)'
+				plotBackgroundColor: null,
+				plotBorderWidth: null,
+				plotShadow: false
 			},
-			plotLines: 
+			title: 
+			{
+				text: 'Budget Cateogories',
+				//y: 100
+			},
+			tooltip:
+			{
+				pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+			},
+			plotOptions: 
+			{
+				pie: 
+				{
+					allowPointSelect: true,
+					cursor: 'pointer',
+					dataLabels: 
+					{
+					   enabled: false
+					},
+					showInLegend: true
+				},
+				series:
+				{
+					cursor: 'pointer',
+					point: 
+					{
+						events: 
+						{
+							click: function() 
+							{
+								var chart = $('#pieChart').highcharts();
+								for (var i = 0; i <  chart.series[0].data.length; i++)
+								{
+									if (chart.series[0].data[i] == this)
+									{
+										toggleLI(i);
+										$("h1").html("<center>"+chart.series[0].data[i].name);
+										return;
+									}
+								}
+								$("h1").html("<center>Overall Budget");
+							}
+						}
+					}
+				}
+			},
+			series: 
 			[{
-				value: 0,
-				width: 1,
-				color: '#808080'
+				type: 'pie',
+				name: 'Categories',
+				data: pieData
 			}]
-		},
-		tooltip: 
+		});
+	}
+	
+	// creates Bar Chart
+	function createBarChart(bar)
+	{
+		bar.highcharts(
 		{
-			valuePrefix: '$'
-		},
-		legend:
+			chart: 
+			{
+				type: 'bar'
+			},
+			title: 
+			{
+				text: 'Spent vs Total'
+			},
+			xAxis:
+			{
+				categories: userNames
+			},
+			yAxis: 
+			{
+				min: 0,
+				title: 
+				{
+					text: 'Total Category Amount'
+				}
+			},
+			legend: 
+			{
+				backgroundColor: '#FFFFFF',
+				reversed: true
+			},
+			plotOptions:
+			{
+				series: 
+				{
+					stacking: 'normal'
+				}
+			},
+			series: 
+			[{
+				name: 'Remaining Amount',
+				data: userOneBar
+			}, 
+			{
+				name: 'Spent',
+				data: userTwoBar
+			}]
+		});
+	}
+	
+	// creates line chart
+	function createLineChart(line)
+	{
+		line.highcharts(
 		{
-			layout: 'vertical',
-			align: 'right',
-			verticalAlign: 'middle',
-			borderWidth: 0
-		},
-		series: 
-		[{
-			name: 'Eric',
-			data: [20,10,15,5]
-		},
-		{
-			name: 'Iris',
-			data: [10,30,10,20]
-		}]
-	});
-	});
+			title: 
+			{
+				text: 'Spending over Time',
+				x: -20 //center
+			},
+			xAxis: 
+			{
+				categories: timeFrameLine 
+			},
+			yAxis: 
+			{
+				title: 
+				{
+					text: 'Spending (Dollars)'
+				},
+				plotLines: 
+				[{
+					value: 0,
+					width: 1,
+					color: '#808080'
+				}]
+			},
+			tooltip: 
+			{
+				valuePrefix: '$'
+			},
+			legend:
+			{
+				layout: 'vertical',
+				align: 'right',
+				verticalAlign: 'middle',
+				borderWidth: 0
+			},
+			series: 
+			[{
+				name: userNames[0],
+				data: [20,10,15,5]
+			}]
+		});
+	}
+	
+	
+});
+
+
     
 
