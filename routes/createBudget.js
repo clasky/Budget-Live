@@ -1,37 +1,51 @@
 var database = require('../routes/database');
+var async = require('async');
 
-function validateUser(user)
-{	
-	var userExists = false;
-	connection = database.getConnection();
+function validateUser(email,cb)
+{
+var userExists = false;
 	console.log("Validating User");
 	
-	//Get all users in the database
-	connection.query('USE budgetLive', function (err)
-	{
-		connection.query("SELECT username FROM users;", 
-        function (err, result) {
-            if (err)
-			{						
-				throw err;
-			}
-			else
-			{
-				for(dbUser in result.name)
-				{
-					console.log(dbUser);
-					if(user === dbUser)
+	async.series([
+		function(callback)
+		{
+			retrieveData(function(queryData){
+				console.log(queryData);
+				for(var i = 0; i < Object.keys(queryData).length; i++)
+				{	
+					if(queryData[i].email === email)
 					{
 						userExists = true;
+						break;
 					}
 				}
-			}
-        });
-	});
+				callback();
+			});
+		}
+	],
+    function (err) 
+	{
+        console.log(userExists);	
+		cb(userExists);
+    });
+};
+
+function retrieveData(callback)
+{
+	connection = database.getConnection();
 	
-	console.log(userExists);
-	return userExists;
-}
+	connection.query('USE budgetLive', function (err)
+	{
+		connection.query("SELECT email FROM users;", function (err, result)
+		{
+			if (err)
+			{
+				throw err;
+			} 
+			callback(result);
+		});
+	});
+};
 
 
 exports.get = function(req, res){
@@ -40,6 +54,10 @@ exports.get = function(req, res){
 
 exports.post = function(req, res){
 	//var numberOfCategories = req.param("categories");//Modify to match Iris name.
+	
+	//******************************NOTE**************************** 
+	//Now that the initial set up of validation is done make sure that I am validating the right info in the database.
+	//**************************************************************
 	var budgetEmail = req.param("budget_email");
 	var userEmail = req.param("user_email");
 	var name = req.param("first_name");
@@ -60,17 +78,19 @@ exports.post = function(req, res){
 	console.log("Username = " + username);
 	console.log("Password = " + password);
 	console.log("Confirmed Password = " + confirmedPass);
+
+	validateUser(userEmail, function(cb){
+		if(cb)
+		{
+			res.sendfile('views/thankyou.html');
+		}
+		else
+		{	
+			res.sendfile('views/invalidEmail.html');
+		}
+	});
 	
-	if(validateUser(name))
-	{
-		res.sendfile('views/thankyou.html');
-	}
-	else
-	{	
-		
-	}
-	
-	connection = database.getConnection();
+	/*connection = database.getConnection();
 	
 	//Add Data to the Database
 	connection.query('USE budgetLive', function (err)
@@ -79,6 +99,6 @@ exports.post = function(req, res){
         function (err, result) {
             if (err) throw err;
 			console.log('User added to database with ID: ' + result.insertId);
-        });*/
-	});
+        });
+	});*/
 };
