@@ -1,3 +1,25 @@
+.error {
+  /* supply height to ensure consistent positioning for every browser */
+  height:15px;
+  background-color:#FFFE36;
+  border:1px solid #E1E16D;
+  font-size:11px;
+  color:#000;
+  padding:3px 10px;
+  margin-left:-2px;
+ 
+
+  /* CSS3 spicing for mozilla and webkit */
+  -moz-border-radius:4px;
+  -webkit-border-radius:4px;
+  -moz-border-radius-bottomleft:0;
+  -moz-border-radius-topleft:0;
+  -webkit-border-bottom-left-radius:0;
+  -webkit-border-top-left-radius:0;
+ 
+  -moz-box-shadow:0 0 6px #ddd;
+  -webkit-box-shadow:0 0 6px #ddd;
+}
 
 button
 {
@@ -45,22 +67,13 @@ form
 
 #signUpButton
 {
-	height: 35px;
-    width: 180px;
-	left:880px;
-	top: 575px;
-	position: absolute;
-    border-radius: 0%;
-    background: #FFBF00;
-    display: inline-block;
+   background-color: #FFBF00;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius:10px;
     color: #FFFFFF;
-    font-family: Verdana, Arial, Sans-Serif;
-    text-align: center;
-    line-height: 30px;
+    font-family: Veranda, Arial, Sans-Serif;
     font-size: 17px;
-	border-radius: 10px ;
-	-moz-border-radius: 10px ;
-	-webkit-border-radius: 10px ;
 }
 
 #menu ul

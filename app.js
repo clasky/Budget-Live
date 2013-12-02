@@ -1,5 +1,5 @@
 var express = require('express');
-//var database = require('./routes/database');
+var database = require('./routes/database');
 var budgetCreator = require('./routes/createBudget');
 var http = require('http');
 var path = require('path');
@@ -7,8 +7,9 @@ var app = express();
 
 //USE PASSPORT
 //URL for Website
-//http://budgetlive-budget-live.nodejitsu.com
+//http://budgetlive.nodejitsu.com
 // all environments
+
 app.set('port', process.env.PORT || 8000);
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -22,7 +23,7 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use("/public", express.static(__dirname + '/public'));
 
-//app.use(express.bodyParser());
+app.use(express.bodyParser());
 
 // development only
 if ('development' == app.get('env')) {
@@ -30,7 +31,7 @@ if ('development' == app.get('env')) {
 }
 
 //Create Database if it doesn't exist
-//database.initDatabase();
+database.initDatabase();
 
 app.get('/', function(req, res){res.sendfile('views/index.html');});
 app.get('/home', function(req, res){res.sendfile('views/index.html');});
@@ -40,10 +41,9 @@ app.get('/contactus', function(req, res){res.sendfile('views/contactus.html');})
 app.get('/linkUp', function(req, res){res.sendfile('views/linkUp.html');});
 app.get('/user', function(req, res){res.sendfile('views/user.html');});
 app.get('/createBudget', budgetCreator.get);
-//app.post('/createBudget', budgetCreator.post);
-
-//app.get('/login', login.get);
-//app.post('/login', login.post);
+app.post('/createBudget', budgetCreator.post);
+app.get('/signup', budgetCreator.get);
+app.post('/signup', budgetCreator.post);
 
 
 http.createServer(app).listen(app.get('port'), function(){

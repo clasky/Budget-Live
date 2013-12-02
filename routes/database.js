@@ -1,5 +1,4 @@
-/*var mysql = require('mysql');
-
+var mysql = require('mysql');
 var connection = mysql.createConnection({
 	host : 'localhost',
 	user : 'root',
@@ -8,7 +7,7 @@ var connection = mysql.createConnection({
 
 exports.initDatabase = function()
 {
-connection.query('CREATE DATABASE IF NOT EXISTS budgetLive', function (err) {
+connection.query('CREATE DATABASE IF NOT EXISTS budgetlive', function (err) {
     console.log("Creating Budget Live Database");
 	if (err) throw err;
     connection.query('USE budgetLive', function (err) {
@@ -30,4 +29,4 @@ connection.query('CREATE DATABASE IF NOT EXISTS budgetLive', function (err) {
 exports.getConnection = function()
 {
 	return connection;
-}*/
+}
