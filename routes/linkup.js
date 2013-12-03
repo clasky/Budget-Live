@@ -77,7 +77,8 @@ exports.get = function(req, res){
 	res.sendfile('views/createBudget.html');
 };
 
-exports.post = function(req, res){
+exports.post = function(req, res){	
+	var budgetEmail = req.param("budget_email");
 	var userEmail = req.param("user_email");
 	var username = req.param("username");
 	var name = req.param("first_name");

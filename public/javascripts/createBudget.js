@@ -278,14 +278,18 @@ $(document).ready(function()
 		$("#currentImage").hide().delay(500);
 		$("#currentImage").fadeIn("fast");
 		$("body").append("<registration></registration>");
-		$("body").append("<form>E-mail<br><input type=\"text\" placeholder=\"E-mail\"/><br><br><br>"
-		+"First Name<br><input type=\"text\" placeholder=\"First Name\"/><br><br><br>"
-		+"Username<br><input type=\"text\" placeholder=\"Username\"/><br><br><br>"
-		+"Password<br><input type=\"password\" placeholder=\"Password\"/><br><br><br>"
-		+"Confirm Password<br><input type=\"password\" placeholder=\"Password\"/></form>");
-		$("body").append("<button id = \"signUpButton\">Sign Up</button>");
-		setUpUserInfo();
 		
+		$("body").append("<form method=\"POST\" action=\"/createBudget\" id=\"signUp\">"
+		+"E-mail<br><input type=\"text\" name=\"user_email\"/><br><br><br>"
+		+"First Name<br><input type=\"text\" name=\"first_name\"/><br><br><br>"
+		+"Username<br><input type=\"text\" name=\"username\"/><br><br><br>"
+		+"Password<br><input type=\"password\" name=\"password\"/><br><br><br>"
+		+"Confirm Password<br><input type=\"password\" name=\"confirm_password\"/><br><br><br>"
+		+"<input type=\"submit\" value=\"Sign Up\" id=\"signUpButton\"/></form>");
+		
+		//$("#signUp").validator();
+		
+		setUpUserInfo();
 	}
 	
 	function setUpUserInfo()

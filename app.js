@@ -1,6 +1,7 @@
 var express = require('express');
 var database = require('./routes/database');
 var budgetCreator = require('./routes/createBudget');
+var linkCreator = require('./routes/linkup');
 var http = require('http');
 var path = require('path');
 var app = express();
@@ -42,8 +43,8 @@ app.get('/linkUp', function(req, res){res.sendfile('views/linkUp.html');});
 app.get('/user', function(req, res){res.sendfile('views/user.html');});
 app.get('/createBudget', budgetCreator.get);
 app.post('/createBudget', budgetCreator.post);
-app.get('/signup', budgetCreator.get);
-app.post('/signup', budgetCreator.post);
+app.get('/link', linkCreator.get);
+app.post('/link', linkCreator.post);
 
 
 http.createServer(app).listen(app.get('port'), function(){

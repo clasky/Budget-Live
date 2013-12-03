@@ -13,13 +13,24 @@ connection.query('CREATE DATABASE IF NOT EXISTS budgetlive', function (err) {
     connection.query('USE budgetLive', function (err) {
         if (err) throw err;
         connection.query('CREATE TABLE IF NOT EXISTS users('
-            + 'id INT NOT NULL AUTO_INCREMENT,'
-            + 'PRIMARY KEY(id),'
-            + 'name VARCHAR(30),'
+            + 'userId INT NOT NULL AUTO_INCREMENT,'
+            + 'PRIMARY KEY(userId),'
 			+ 'email VARCHAR(60),'
-			+ 'username VARCHAR(60),'
-			+ 'password VARCHAR(60)'
-            +  ')', function (err) {
+            + 'username VARCHAR(30),'
+			+ 'password VARCHAR(60),'
+			+ 'budgetId INT,'
+			+ 'linked VARCHAR(30)'
+            + ');',function (err) {
+                if (err) throw err;
+            });
+		
+		connection.query('CREATE TABLE IF NOT EXISTS budget('
+			+ 'budgetId INT NOT NULL,'
+            + 'category VARCHAR(60),'
+			+ 'ammountBudgeted INT,'
+            + 'ammountSpent INT'
+			+ ');'
+			, function (err) {
                 if (err) throw err;
             });
     });
