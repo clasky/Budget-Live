@@ -6,6 +6,57 @@ $(document).ready(function()
       side: 'left'
     });*/
 	
+//=======================================================================================
+//		Iris here is where we are getting the database data from the back end.
+//		Feel free to change how this works if you want.  I made some "global"? variables
+//		email, username, and a map of arrays for categories.  The arrays hold the 
+//		amount budgeted data and the amount spend data. Enjoy!
+//
+//		The database schema is email, username, category, ammountBudgeted, ammountSpent.
+//=======================================================================================
+
+	//Global? variables for user data
+	var email;
+	var username;
+	var categories = {};
+
+	//This is the request to get the JSON object
+	$.ajax({
+	type: "GET",
+	url: '/loginData',
+	dataType: 'json',
+	success: function(data){
+		
+		//If successful we assign the global variables to the JSON object data
+		email = data[0].email;
+		username = data[0].username
+		categories = {};
+		
+		//Look through the categories to get the amount budgeted and amount spent.  They are placed in a map
+		//the key is the category and the values are an array which contains amount Budgeted in position 0 and amount Spent in position 1.
+		for(var key in data)
+		{	
+			var budget_and_spending = new Array(data[key].ammountBudgeted,data[key].ammountSpent);
+			categories[data[key].category] = budget_and_spending;
+		}
+			
+		//For convenience in printing things out I then put everything into a string var so I could show all the data in one alert.
+		var dataString = "Username: " + username + "\nEmail: " + email + "\n\n";
+		for(var key in categories)
+		{
+			dataString += ("Category: " + key + "\nAmmount Budgeted: " + categories[key][0] + "\nAmmount Spent: "  + categories[key][1] + "\n\n");
+		}
+		
+		alert(dataString);
+	},
+	error: function(responseText){
+		alert('Error: ' +  responseText.toString());
+	}
+	});
+//=======================================================================================
+//=======================================================================================
+	
+	
 	var pieData = [
 		['Groceries', 45.0],
 		['Utilites',  26.8],

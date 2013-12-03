@@ -80,43 +80,33 @@ a
 }
 
 
-#signIn
-{   
-	position: absolute;
-	left:775px;
-	top:420px;
-    height: 40px;
-    width: 185px;
-    line-height: 40px;
-	font-size:15px;
-	background-color: #FFBF00;
-	color: #FFFFFF;
-    text-align: center;
-	border-radius: 5px ;
-	-moz-border-radius: 5px ;
-	-webkit-border-radius: 5px ;
-}
-
-#username
+#signUpButton
 {
-    height:30px;
-	width: 180px;
-	font-size:20px;
-	color: #888;
-	position:absolute;
-	left:775px;
-	top:330px
+   background-color: #FFBF00;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius:10px;
+    color: #FFFFFF;
+    font-family: Veranda, Arial, Sans-Serif;
+    font-size: 17px;
 }
 
-#password
+input
 {
 	height:30px;
 	width: 180px;
-	font-size:20px;
-	color: #888;
+	font-size:17px;
 	position:absolute;
-	left: 775px;
-	top: 370px
+}
+
+form
+{
+	position:absolute;
+	left:775px;
+	top: 310px;
+	font-family: Verdana, Arial, Sans-Serif;
+	color: #000;
+	font-size: 15px;
 }
 
 #linkUpButton

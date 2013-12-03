@@ -27,11 +27,11 @@ $(document).ready(function()
 	{
 		$("body").append("<div id=\"login\"; style=\"position:absolute;left:760px;top:310px\"></div>");
 		$("#login").slideDown("slow");
-		$("body").append("<form>"+
-						"<input id = \"username\" type=\"text\" placeholder=\"username\"><br>"+
-						"<input id = \"password\" type=\"password\" placeholder=\"password\">"+
+		$("body").append("<form method=\"POST\" action=\"/login\" id=\"signUp\">"+
+						"Username<br><input type=\"text\" name=\"username\" id=\"username\"><br><br><br>"+
+						"Password<br><input type=\"password\" name=\"password\" id=\"password\"/><br><br><br>"+
+						"<input type=\"submit\" value=\"Login\" id=\"signInButton\"/>"+
 						"</form>");
-		$("body").append("<button id = \"signIn\"><strong>login</strong></button>");
 		$("body").append("<img id=\"welcomeMessage\" src=\"../public/images/welcome.png\">");
 		$("#welcomeMessage").hide().delay(500);
 		$("#welcomeMessage").fadeIn("fast");
