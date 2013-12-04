@@ -1,6 +1,5 @@
 $(document).ready(function()
 {
-    
     $("button").mouseenter(function()
     {
 		$(this).animate({top:'+=10px'},200);
@@ -30,7 +29,7 @@ $(document).ready(function()
 		$("body").append("<form method=\"POST\" action=\"/login\" id=\"signUp\">"+
 						"Username<br><input type=\"text\" name=\"username\" id=\"username\"><br><br><br>"+
 						"Password<br><input type=\"password\" name=\"password\" id=\"password\"/><br><br><br>"+
-						"<input type=\"submit\" value=\"Login\" id=\"signInButton\"/>"+
+						"<input type=\"submit\" value=\"Login\" id=\"signUpButton\"/>"+
 						"</form>");
 		$("body").append("<img id=\"welcomeMessage\" src=\"../public/images/welcome.png\">");
 		$("#welcomeMessage").hide().delay(500);
