@@ -67,13 +67,22 @@ form
 
 #signUpButton
 {
-   background-color: #FFBF00;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    border-radius:10px;
+	height: 35px;
+    width: 180px;
+	left:880px;
+	top: 500px;
+	position: absolute;
+    border-radius: 0%;
+    background: #FFBF00;
+    display: inline-block;
     color: #FFFFFF;
-    font-family: Veranda, Arial, Sans-Serif;
+    font-family: Verdana, Arial, Sans-Serif;
+    text-align: center;
+    line-height: 30px;
     font-size: 17px;
+	border-radius: 10px ;
+	-moz-border-radius: 10px ;
+	-webkit-border-radius: 10px ;
 }
 
 #menu ul

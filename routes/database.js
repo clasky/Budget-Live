@@ -15,20 +15,32 @@ connection.query('CREATE DATABASE IF NOT EXISTS budgetlive', function (err) {
         connection.query('CREATE TABLE IF NOT EXISTS users('
             + 'userId INT NOT NULL AUTO_INCREMENT,'
             + 'PRIMARY KEY(userId),'
+			+ 'name VARCHAR(30),'
 			+ 'email VARCHAR(60),'
             + 'username VARCHAR(30),'
 			+ 'password VARCHAR(60),'
-			+ 'budgetId INT,'
+			+ 'budgetId INT NOT NULL,'
 			+ 'linked VARCHAR(30)'
             + ');',function (err) {
                 if (err) throw err;
             });
 		
 		connection.query('CREATE TABLE IF NOT EXISTS budget('
-			+ 'budgetId INT NOT NULL,'
+			+ 'budgetId INT,'
             + 'category VARCHAR(60),'
-			+ 'ammountBudgeted INT,'
-            + 'ammountSpent INT'
+			+ 'amountBudgeted INT,'
+            + 'amountSpent INT'
+			+ ');'
+			, function (err) {
+                if (err) throw err;
+            });
+			
+			connection.query('CREATE TABLE IF NOT EXISTS transactions('
+			+ 'budgetId INT,'
+            + 'category VARCHAR(60),'
+			+ 'transaciontAmount INT,'
+            + 'amountSpent INT,'
+			+ 'date VARCHAR(30)'
 			+ ');'
 			, function (err) {
                 if (err) throw err;

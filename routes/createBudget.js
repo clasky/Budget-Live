@@ -1,6 +1,7 @@
 var database = require('../routes/database');
 var async = require('async');
 
+
 function validateUser(budgetEmail, userEmail, username, cb)
 {
 	var budgetExists = false;

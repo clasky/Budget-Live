@@ -320,8 +320,21 @@ $(document).ready(function()
 		$("#signUpButton").click(function()
 		{
 			window.location.href = "user";
+			sendData();
 		});
 	}
+	
+	function sendData() {
+    $.ajax({
+            url: '/createBudget',
+            type: 'POST',
+            contentType: 'application/json',
+            data: {json: JSON.stringify({name:"Bob"})},
+            dataType: 'json'
+        });
+        alert("Json Posted!");
+    };
+}
 	
 	function addAmountToCategory( t,  amount)
 	{
