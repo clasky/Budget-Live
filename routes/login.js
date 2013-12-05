@@ -18,8 +18,8 @@ exports.getData = function(req, res){
 exports.post = function(req, res){
 	var username = req.param("username");
 	var password = req.param("password")
-	console.log("username = "+username);
-	console.log("password = "+password);
+	console.log("username = " + username);
+	console.log("password = " + password);
 	
 	validateUser(username, password, function(valid){
 		if(valid)
@@ -89,7 +89,7 @@ function retrieveBudgetData(callback)
 	
 	connection.query('USE budgetlive', function (err)
 	{
-		var query = "SELECT email, username, category, ammountBudgeted, ammountSpent " +  
+		var query = "SELECT name, email, username, category, amountBudgeted, amountSpent " +  
 					"FROM users INNER JOIN budget ON users.budgetId = budget.budgetId "+
 					"WHERE username = " + "\"" + user + "\";";
 					

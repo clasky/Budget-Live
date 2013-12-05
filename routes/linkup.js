@@ -47,7 +47,7 @@ function retrieveData(callback)
 	
 	connection.query('USE budgetlive', function (err)
 	{
-		connection.query("SELECT email, username, budgetId FROM users;", function (err, result)
+		connection.query("SELECT name, email, username, budgetId FROM users;", function (err, result)
 		{
 			if (err)
 			{
@@ -58,13 +58,13 @@ function retrieveData(callback)
 	});
 };
 
-function insertData(userEmail, username, password, budgetId)
+function insertData(name, userEmail, username, password, budgetId)
 {
 	connection = database.getConnection();
 
 	connection.query('USE budgetlive', function (err)
 	{
-		connection.query("INSERT INTO users(email, username, password, budgetId, linked) VALUES('"+userEmail+"','"+username+"','"+password+"','"+budgetId+"','pending');", 
+		connection.query("INSERT INTO users(name, email, username, password, budgetId, linked) VALUES('"+name+"','"+userEmail+"','"+username+"','"+password+"','"+budgetId+"','pending');", 
         function (err, result) {
             if (err) throw err;
 			console.log('User added to database with ID: ' + result.insertId);
@@ -95,7 +95,7 @@ exports.post = function(req, res){
 	validateUser(budgetEmail, userEmail, username, function(budgetExists, unique, budgetId){
 		if(budgetExists && unique)
 		{
-			insertData(userEmail, username, password, budgetId);
+			insertData(name, userEmail, username, password, budgetId);
 			res.sendfile('views/thankyou.html');
 		}
 		else if(!budgetExists)

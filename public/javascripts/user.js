@@ -42,7 +42,8 @@ $(document).ready(function()
 			}
 		}
 	}
-
+	
+	var name;
 	var email;
 	var username;
 	var categories = {};
@@ -72,6 +73,8 @@ $(document).ready(function()
 	function handleData(data)
 	{
 		//If successful we assign the global variables to the JSON object data
+		name = data[0].name;
+		alert(name);
 		email = data[0].email;
 		username = data[0].username
 		categories = {};
