@@ -38,7 +38,7 @@ connection.query('CREATE DATABASE IF NOT EXISTS budgetlive', function (err) {
 			connection.query('CREATE TABLE IF NOT EXISTS transactions('
 			+ 'budgetId INT,'
             + 'category VARCHAR(60),'
-			+ 'transaciontAmount INT,'
+			+ 'transactionAmount INT,'
 			+ 'date VARCHAR(30)'
 			+ ');'
 			, function (err) {

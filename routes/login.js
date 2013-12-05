@@ -88,9 +88,10 @@ function retrieveBudgetData(callback)
 	connection = database.getConnection();
 	
 	connection.query('USE budgetlive', function (err)
-	{
-		var query = "SELECT name, email, username, category, amountBudgeted, amountSpent " +  
-					"FROM users INNER JOIN budget ON users.budgetId = budget.budgetId "+
+	{	
+		var query = "SELECT name, email, username, budget.category, amountBudgeted, amountSpent, transactionAmount, date " +  
+					"FROM users INNER JOIN budget ON users.budgetId = budget.budgetId " +
+					"INNER JOIN transactions ON budget.budgetId = transactions.budgetId AND budget.category = transactions.category " +
 					"WHERE username = " + "\"" + user + "\";";
 					
 		console.log(query);
