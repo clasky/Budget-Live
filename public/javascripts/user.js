@@ -3,8 +3,51 @@
 
 $(document).ready(function()
 {
+	var email;
+	var name;
+	var username;
+	var categories = {};
+	var dataString;
+	var pieData = [];
+	var userNames = [];
+	var userOneBar = [];
+	var userTwoBar = [];
+	var lineSeries = [];
+	var timeFrameLine = [];
+	var seqSpending = {};
    
 	$("#addSpent").click( function()
+	{
+		var value = parseFloat($("#spent").val());
+		var chosen = false;
+		for(var key in categories)
+		{
+			if ( key === $("h1").text())
+			{
+				chosen = true;
+				var total = parseFloat(categories[key][0]);
+				var spent = parseFloat([key][1]);
+				var left = total - spent - value;
+				alert( "total: " + total + " spent: " + spent + " left: " + left);
+				if ( left >= 0 )
+				{
+					addTransaction();
+					$("#spent").val("");
+				}
+				else
+				{
+					alert("You'll go over your budget buddy.");
+				}
+			}
+		}
+		if ( !chosen)
+		{
+			alert("WOAH! Make sure you pick a category.");
+		}
+		$("#spent").val("");
+	});
+	
+	function addTransaction()
 	{
 		var currentdate = new Date(); 
 		var datetime = "Added: " 
@@ -19,41 +62,26 @@ $(document).ready(function()
 				+ currentdate.getDate();
 		var y = parseInt($("#spent").val());
 		line.series[0].addPoint([x, y]);
-		//alert("Spending $"+ $("#spent").val() + " " + datetime);
-		//updateCategorySpent();
-		//alert($("h1").html());
-		$("#spent").val("");
-	});
+		updatebBar(y);
+	}
 	
-	function updateCategorySpent()
+	function updatebBar(spent)
 	{
 		for(var key in categories)
 		{
-			if ( key === $("h1").val())
+			if ( key === $("h1").text())
 			{
-				alert(key);
-				/*userOneBar = [];
+				userOneBar = [];
 				userTwoBar = [];
+				categories[key][1] = categories[key][1] +spent;
 				userOneBar.push(categories[key][0]- categories[key][1]);
 				userTwoBar.push(categories[key][1] );
 				var bar = $('#barChart').highcharts();
 				bar.destroy();
-				createBarChart($('#barChart'));*/
+				createBarChart($('#barChart'));
 			}
 		}
 	}
-	
-	var name;
-	var email;
-	var username;
-	var categories = {};
-	var dataString;
-	var pieData = [];
-	var userNames = [];
-	var userOneBar = [];
-	var userTwoBar = [];
-	var timeFrameLine = [];
-	var seqSpending = [];
 
 	//This is the request to get the JSON object
 
@@ -74,7 +102,6 @@ $(document).ready(function()
 	{
 		//If successful we assign the global variables to the JSON object data
 		name = data[0].name;
-		alert(name);
 		email = data[0].email;
 		username = data[0].username
 		categories = {};
@@ -91,12 +118,13 @@ $(document).ready(function()
 		//dataString = "Username: " + username + "\nEmail: " + email + "\n\n";
 		
 		//Adding information in graphs
-		userNames.push(username);
+		userNames.push(name);
 		for(var key in categories)
 		{
 			pieData.push([key, categories[key][0]]);
 			//dataString += ("Category: " + key + "\nAmount Budgeted: " + categories[key][0] + "\nAmount Spent: "  + categories[key][1] + "\n\n");
 		}
+		
 		
 		//creating charts
 		createPieChart($('#pieChart'));
@@ -206,7 +234,6 @@ $(document).ready(function()
 										return;
 									}
 								}
-								$("h1").html("<center>Overall Budget");
 							}
 						}
 					}
@@ -277,12 +304,12 @@ $(document).ready(function()
 		{
 			title: 
 			{
-				text: 'Spending over Time',
+				text: 'Total Spending over Time',
 				x: -20 //center
 			},
 			xAxis: 
 			{
-				categories: timeFrameLine 
+				categories: timeFrameLine
 			},
 			yAxis: 
 			{
@@ -311,7 +338,7 @@ $(document).ready(function()
 			series: 
 			[{
 				name: userNames[0],
-				data: seqSpending
+				data: lineSeries
 			}]
 		});
 	}
