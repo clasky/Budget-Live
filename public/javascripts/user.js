@@ -12,8 +12,34 @@ $(document).ready(function()
 	var userTwoBar = [];
 	var lineSeries = [];
 	var timeFrameLine = [];
-	var seqSpending = {};
-   
+	var transSize = 0;
+
+	$.ajax(
+	{
+		type: "GET",
+		url: '/budgetData',
+		dataType: 'json',
+		success: function(data){
+			handleBudgetData(data);
+		},
+		error: function(responseText){
+			alert('Error: ' +  responseText.toString());
+		}
+	});
+	
+	$.ajax(
+	{
+		type: "GET",
+		url: '/transactionData',
+		dataType: 'json',
+		success: function(data){
+			handleTransactionData(data);
+		},
+		error: function(responseText){
+			alert('Error: ' +  responseText.toString());
+		}
+	});
+	
 	$("#addSpent").click( function()
 	{
 		var value = parseFloat($("#spent").val());
@@ -47,19 +73,27 @@ $(document).ready(function()
 	function addTransaction()
 	{
 		var currentdate = new Date(); 
-		var datetime = "Added: " 
-                + (currentdate.getMonth()+1)  + "/" 
-				+ currentdate.getDate() + "/"
-                + currentdate.getFullYear() + " @ "  
-                + currentdate.getHours() + ":"  
-                + currentdate.getMinutes() + ":" 
-                + currentdate.getSeconds();
 		var line = $('#SpendingOverTime').highcharts()
 		var x = (currentdate.getMonth()+1)  + "/" 
-				+ currentdate.getDate();
+				+ currentdate.getDate() + "/"
+                + currentdate.getFullYear();
 		var y = parseInt($("#spent").val());
 		line.series[0].addPoint([x, y]);
 		updatebBar(y);
+		var transaction = new Object();
+		transaction.category = $("h1").text();
+		transaction.amountSpent = y;
+		transaction.date = x;
+		transactions[transSize] = transaction;
+		transSize = transSize + 1;
+		
+		/***************************************************************
+		Cameron, this is where you would want to send over 'transaction'
+		back to the DB. 
+		
+		
+		****************************************************************/
+		
 	}
 	
 	function updatebBar(spent)
@@ -79,34 +113,6 @@ $(document).ready(function()
 			}
 		}
 	}
-
-	//This is the request to get the JSON object
-
-	$.ajax(
-	{
-		type: "GET",
-		url: '/budgetData',
-		dataType: 'json',
-		success: function(data){
-			handleBudgetData(data);
-		},
-		error: function(responseText){
-			alert('Error: ' +  responseText.toString());
-		}
-	});
-	
-	$.ajax(
-	{
-		type: "GET",
-		url: '/transactionData',
-		dataType: 'json',
-		success: function(data){
-			handleTransactionData(data);
-		},
-		error: function(responseText){
-			alert('Error: ' +  responseText.toString());
-		}
-	});
 	
 	function handleBudgetData(data)
 	{
@@ -140,24 +146,35 @@ $(document).ready(function()
 		createPieChart($('#pieChart'));
 		createBarChart($('#barChart'));
 		createLineChart($('#SpendingOverTime'));
-		var linegraph = $('#SpendingOverTime').highcharts();
 	}
 	
 	function handleTransactionData(data)
 	{
 		for(var key in data)
 		{	
+			//alert ("key: " + key);
 			var transaction = new Object();
 			transaction.category = data[key].category;
 			transaction.amountSpent = data[key].transactionAmount;
 			transaction.date = data[key].date;
 			transactions[key] = transaction;
+			transSize = transSize + 1;
 		}
 		
+		updateLine();
+	}
+	
+	function updateLine()
+	{
 		for(var key in transactions)
 		{
-			alert(transactions[key].category + "\n" + transactions[key].amountSpent + "\n" + transactions[key].date);
+			var line = $('#SpendingOverTime').highcharts()
+			var x = transactions[key].date;
+			var y = transactions[key].amountSpent;
+			line.series[0].addPoint([x, y]);
+			
 		}
+		
 	}
 
 	// pie chart animation
