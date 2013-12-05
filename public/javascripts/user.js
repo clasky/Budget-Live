@@ -3,22 +3,46 @@
 
 $(document).ready(function()
 {
-    /*$('#left-menu').sidr(
+   
+	$("#addSpent").click( function()
 	{
-      name: 'sidr-left',
-      side: 'left'
-    });*/
+		var currentdate = new Date(); 
+		var datetime = "Added: " 
+                + (currentdate.getMonth()+1)  + "/" 
+				+ currentdate.getDate() + "/"
+                + currentdate.getFullYear() + " @ "  
+                + currentdate.getHours() + ":"  
+                + currentdate.getMinutes() + ":" 
+                + currentdate.getSeconds();
+		var line = $('#SpendingOverTime').highcharts()
+		var x = (currentdate.getMonth()+1)  + "/" 
+				+ currentdate.getDate();
+		var y = parseInt($("#spent").val());
+		line.series[0].addPoint([x, y]);
+		//alert("Spending $"+ $("#spent").val() + " " + datetime);
+		//updateCategorySpent();
+		//alert($("h1").html());
+		$("#spent").val("");
+	});
 	
-//=======================================================================================
-//		Iris here is where we are getting the database data from the back end.
-//		Feel free to change how this works if you want.  I made some "global"? variables
-//		email, username, and a map of arrays for categories.  The arrays hold the 
-//		amount budgeted data and the amount spend data. Enjoy!
-//
-//		The database schema is email, username, category, ammountBudgeted, ammountSpent.
-//=======================================================================================
+	function updateCategorySpent()
+	{
+		for(var key in categories)
+		{
+			if ( key === $("h1").val())
+			{
+				alert(key);
+				/*userOneBar = [];
+				userTwoBar = [];
+				userOneBar.push(categories[key][0]- categories[key][1]);
+				userTwoBar.push(categories[key][1] );
+				var bar = $('#barChart').highcharts();
+				bar.destroy();
+				createBarChart($('#barChart'));*/
+			}
+		}
+	}
 
-	//Global? variables for user data
 	var email;
 	var username;
 	var categories = {};
@@ -27,7 +51,8 @@ $(document).ready(function()
 	var userNames = [];
 	var userOneBar = [];
 	var userTwoBar = [];
-	var timeFrameLine = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
+	var timeFrameLine = [];
+	var seqSpending = [];
 
 	//This is the request to get the JSON object
 
@@ -55,7 +80,7 @@ $(document).ready(function()
 		//the key is the category and the values are an array which contains amount Budgeted in position 0 and amount Spent in position 1.
 		for(var key in data)
 		{	
-			var budget_and_spending = new Array(data[key].ammountBudgeted,data[key].ammountSpent);
+			var budget_and_spending = new Array(data[key].amountBudgeted,data[key].amountSpent);
 			categories[data[key].category] = budget_and_spending;
 		}
 			
@@ -64,8 +89,6 @@ $(document).ready(function()
 		
 		//Adding information in graphs
 		userNames.push(username);
-		userOneBar.push(70);
-	    userTwoBar.push(30);
 		for(var key in categories)
 		{
 			pieData.push([key, categories[key][0]]);
@@ -285,7 +308,7 @@ $(document).ready(function()
 			series: 
 			[{
 				name: userNames[0],
-				data: [20,10,15,5]
+				data: seqSpending
 			}]
 		});
 	}
