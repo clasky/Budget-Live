@@ -48,7 +48,8 @@ app.get('/link', linkCreator.get);
 app.post('/link', linkCreator.post);
 app.get('/login', login.get);
 app.post('/login', login.post);
-app.get('/loginData', login.getData);
+app.get('/budgetData', login.getBudgetData);
+app.get('/transactionData', login.getTransactionData);
 
 
 http.createServer(app).listen(app.get('port'), function(){

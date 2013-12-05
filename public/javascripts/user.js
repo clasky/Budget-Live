@@ -1,12 +1,10 @@
-
-
-
 $(document).ready(function()
 {
 	var email;
 	var name;
 	var username;
 	var categories = {};
+	var transactions = {};
 	var dataString;
 	var pieData = [];
 	var userNames = [];
@@ -87,17 +85,30 @@ $(document).ready(function()
 	$.ajax(
 	{
 		type: "GET",
-		url: '/loginData',
+		url: '/budgetData',
 		dataType: 'json',
 		success: function(data){
-			handleData(data);
+			handleBudgetData(data);
 		},
 		error: function(responseText){
 			alert('Error: ' +  responseText.toString());
 		}
 	});
 	
-	function handleData(data)
+	$.ajax(
+	{
+		type: "GET",
+		url: '/transactionData',
+		dataType: 'json',
+		success: function(data){
+			handleTransactionData(data);
+		},
+		error: function(responseText){
+			alert('Error: ' +  responseText.toString());
+		}
+	});
+	
+	function handleBudgetData(data)
 	{
 		//If successful we assign the global variables to the JSON object data
 		name = data[0].name;
@@ -130,6 +141,23 @@ $(document).ready(function()
 		createBarChart($('#barChart'));
 		createLineChart($('#SpendingOverTime'));
 		var linegraph = $('#SpendingOverTime').highcharts();
+	}
+	
+	function handleTransactionData(data)
+	{
+		for(var key in data)
+		{	
+			var transaction = new Object();
+			transaction.category = data[key].category;
+			transaction.amountSpent = data[key].transactionAmount;
+			transaction.date = data[key].date;
+			transactions[key] = transaction;
+		}
+		
+		for(var key in transactions)
+		{
+			alert(transactions[key].category + "\n" + transactions[key].amountSpent + "\n" + transactions[key].date);
+		}
 	}
 
 	// pie chart animation
@@ -343,7 +371,3 @@ $(document).ready(function()
 	}
 	
 });
-
-
-    
-

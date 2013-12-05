@@ -6,12 +6,21 @@ exports.get = function(req, res){
 	res.sendfile('views/user.html');
 };
 
-exports.getData = function(req, res){
-	console.log("GETTING DATA");
-	retrieveBudgetData(function(budgetData)
+exports.getBudgetData = function(req, res){
+	console.log("GETTING BUDGET DATA");
+	retrieveData("budget", function(budgetData)
 	{
 		console.log(budgetData);
 		res.send(budgetData);
+	});
+};
+
+exports.getTransactionData = function(req, res){
+	console.log("GETTING TRANSACTION DATA");
+	retrieveData("transaction", function(transactionData)
+	{
+		console.log(transactionData);
+		res.send(transactionData);
 	});
 };
 
@@ -83,17 +92,28 @@ function retrieveUserData(callback)
 	});
 };
 
-function retrieveBudgetData(callback)
+function retrieveData(dataType, callback)
 {
 	connection = database.getConnection();
 	
+	var query;
+	
+	if(dataType === "budget")
+	{
+		query = "SELECT name, email, username, category, amountBudgeted, amountSpent " +  
+				"FROM users INNER JOIN budget ON users.budgetId = budget.budgetId " +
+				"WHERE username = " + "\"" + user + "\";";
+	}
+	else
+	{
+		query = "SELECT transactions.category, transactionAmount, date " +
+				"FROM users INNER JOIN budget ON users.budgetId = budget.budgetId " +
+				"INNER JOIN transactions ON budget.budgetId = transactions.budgetId AND budget.category = transactions.category " +
+				"WHERE username = " + "\"" + user + "\";";
+	}
+		
 	connection.query('USE budgetlive', function (err)
 	{	
-		var query = "SELECT name, email, username, budget.category, amountBudgeted, amountSpent, transactionAmount, date " +  
-					"FROM users INNER JOIN budget ON users.budgetId = budget.budgetId " +
-					"INNER JOIN transactions ON budget.budgetId = transactions.budgetId " +
-					"WHERE username = " + "\"" + user + "\";";
-					
 		console.log(query);
 		connection.query(query, function (err, result)
 		{
