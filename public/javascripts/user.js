@@ -1,3 +1,6 @@
+
+
+
 $(document).ready(function()
 {
     /*$('#left-menu').sidr(
@@ -19,14 +22,30 @@ $(document).ready(function()
 	var email;
 	var username;
 	var categories = {};
+	var dataString;
+	var pieData = [];
+	var userNames = [];
+	var userOneBar = [];
+	var userTwoBar = [];
+	var timeFrameLine = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
 
 	//This is the request to get the JSON object
-	$.ajax({
-	type: "GET",
-	url: '/loginData',
-	dataType: 'json',
-	success: function(data){
-		
+
+	$.ajax(
+	{
+		type: "GET",
+		url: '/loginData',
+		dataType: 'json',
+		success: function(data){
+			handleData(data);
+		},
+		error: function(responseText){
+			alert('Error: ' +  responseText.toString());
+		}
+	});
+	
+	function handleData(data)
+	{
 		//If successful we assign the global variables to the JSON object data
 		email = data[0].email;
 		username = data[0].username
@@ -41,47 +60,25 @@ $(document).ready(function()
 		}
 			
 		//For convenience in printing things out I then put everything into a string var so I could show all the data in one alert.
-		var dataString = "Username: " + username + "\nEmail: " + email + "\n\n";
+		//dataString = "Username: " + username + "\nEmail: " + email + "\n\n";
+		
+		//Adding information in graphs
+		userNames.push(username);
+		userOneBar.push(70);
+	    userTwoBar.push(30);
 		for(var key in categories)
 		{
-			dataString += ("Category: " + key + "\nAmmount Budgeted: " + categories[key][0] + "\nAmmount Spent: "  + categories[key][1] + "\n\n");
+			pieData.push([key, categories[key][0]]);
+			//dataString += ("Category: " + key + "\nAmount Budgeted: " + categories[key][0] + "\nAmount Spent: "  + categories[key][1] + "\n\n");
 		}
 		
-		alert(dataString);
-	},
-	error: function(responseText){
-		alert('Error: ' +  responseText.toString());
+		//creating charts
+		createPieChart($('#pieChart'));
+		createBarChart($('#barChart'));
+		createLineChart($('#SpendingOverTime'));
+		var linegraph = $('#SpendingOverTime').highcharts();
 	}
-	});
-//=======================================================================================
-//=======================================================================================
-	
-	
-	var pieData = [
-		['Groceries', 45.0],
-		['Utilites',  26.8],
-		{
-			name: 'Car Payment', 
-			y: 12.8, // value
-			sliced: true,
-			selected: true
-		}
-    ];
-	
-	var userNames = ["Eric","Iris"];
-	var userOneBar = [70, 50];
-	var userTwoBar = [30, 50];
-	var timeFrameLine = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
-	
-	
-	//creating charts
-	
-    createPieChart($('#pieChart'));
-	createBarChart($('#barChart'));
-	createLineChart($('#SpendingOverTime'));
-	var linegraph = $('#SpendingOverTime').highcharts();
 
-	
 	// pie chart animation
     $.each(chart.series[0].data, function( index, value ) 
 	{
@@ -166,6 +163,20 @@ $(document).ready(function()
 									{
 										toggleLI(i);
 										$("h1").html("<center>"+chart.series[0].data[i].name);
+										
+										for(var key in categories)
+										{
+											if ( key === chart.series[0].data[i].name)
+											{
+												userOneBar = [];
+												userTwoBar = [];
+												userOneBar.push(categories[key][0]- categories[key][1]);
+												userTwoBar.push(categories[key][1] );
+												var bar = $('#barChart').highcharts();
+												bar.destroy();
+												createBarChart($('#barChart'));
+											}
+										}
 										return;
 									}
 								}
@@ -278,7 +289,6 @@ $(document).ready(function()
 			}]
 		});
 	}
-	
 	
 });
 
