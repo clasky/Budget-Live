@@ -25,10 +25,9 @@ $(document).ready(function()
 			if ( key === $("h1").text())
 			{
 				chosen = true;
-				var total = parseFloat(categories[key][0]);
-				var spent = parseFloat([key][1]);
+				var total = categories[key][0];
+				var spent = categories[key][1];
 				var left = total - spent - value;
-				alert( "total: " + total + " spent: " + spent + " left: " + left);
 				if ( left >= 0 )
 				{
 					addTransaction();
