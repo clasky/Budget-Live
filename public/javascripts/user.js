@@ -96,7 +96,7 @@ $(document).ready(function()
 		
 	}
 	
-	function updatebBar(spent)
+	function updatebBar(spent_)
 	{
 		for(var key in categories)
 		{
@@ -104,7 +104,7 @@ $(document).ready(function()
 			{
 				remaining = [];
 				spent = [];
-				categories[key][1] = categories[key][1] +spent;
+				categories[key][1] = categories[key][1] +spent_;
 				remaining.push(categories[key][0]- categories[key][1]);
 				spent.push(categories[key][1] );
 				var bar = $('#barChart').highcharts();
