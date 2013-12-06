@@ -13,6 +13,7 @@ $(document).ready(function()
 	var lineSeries = [];
 	var timeFrameLine = [];
 	var transSize = 0;
+	var budgetId;
 
 	$.ajax(
 	{
@@ -80,13 +81,21 @@ $(document).ready(function()
 		var y = parseInt($("#spent").val());
 		line.series[0].addPoint([x, y]);
 		updatebBar(y);
+		
 		var transaction = new Object();
+		transaction.budgetId = budgetId;
 		transaction.category = $("h1").text();
 		transaction.amountSpent = y;
 		transaction.date = x;
 		transactions[transSize] = transaction;
 		transSize = transSize + 1;
 		
+		$.ajax({
+            url: '/updateBudget',
+            type: 'POST',
+            data: transaction,
+			dataType: "json"
+		});
 		/***************************************************************
 		Cameron, this is where you would want to send over 'transaction'
 		back to the DB. 
@@ -117,9 +126,10 @@ $(document).ready(function()
 	function handleBudgetData(data)
 	{
 		//If successful we assign the global variables to the JSON object data
+		budgetId = data[0].budgetId;
 		name = data[0].name;
 		email = data[0].email;
-		username = data[0].username
+		username = data[0].username;
 		categories = {};
 		
 		//Look through the categories to get the amount budgeted and amount spent.  They are placed in a map

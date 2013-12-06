@@ -24,7 +24,6 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use("/public", express.static(__dirname + '/public'));
-
 app.use(express.bodyParser());
 
 // development only
@@ -50,6 +49,7 @@ app.get('/login', login.get);
 app.post('/login', login.post);
 app.get('/budgetData', login.getBudgetData);
 app.get('/transactionData', login.getTransactionData);
+app.post('/updateBudget', database.updateDatabase);
 
 
 http.createServer(app).listen(app.get('port'), function(){

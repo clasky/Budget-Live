@@ -10,7 +10,6 @@ exports.getBudgetData = function(req, res){
 	console.log("GETTING BUDGET DATA");
 	retrieveData("budget", function(budgetData)
 	{
-		console.log(budgetData);
 		res.send(budgetData);
 	});
 };
@@ -19,7 +18,6 @@ exports.getTransactionData = function(req, res){
 	console.log("GETTING TRANSACTION DATA");
 	retrieveData("transaction", function(transactionData)
 	{
-		console.log(transactionData);
 		res.send(transactionData);
 	});
 };
@@ -100,7 +98,7 @@ function retrieveData(dataType, callback)
 	
 	if(dataType === "budget")
 	{
-		query = "SELECT name, email, username, category, amountBudgeted, amountSpent " +  
+		query = "SELECT name, email, username, category, amountBudgeted, amountSpent, budget.budgetId " +  
 				"FROM users INNER JOIN budget ON users.budgetId = budget.budgetId " +
 				"WHERE username = " + "\"" + user + "\";";
 	}
@@ -114,7 +112,6 @@ function retrieveData(dataType, callback)
 		
 	connection.query('USE budgetlive', function (err)
 	{	
-		console.log(query);
 		connection.query(query, function (err, result)
 		{
 			if (err)

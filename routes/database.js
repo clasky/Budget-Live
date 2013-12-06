@@ -1,11 +1,12 @@
 var mysql = require('mysql');
+
 var connection = mysql.createConnection({
 	host : 'localhost',
 	user : 'root',
 	password : 'default'
 	});
 
-exports.initDatabase = function()
+exports.initDatabase = function(req, res)
 {
 connection.query('CREATE DATABASE IF NOT EXISTS budgetlive', function (err) {
     console.log("Creating Budget Live Database");
@@ -26,6 +27,7 @@ connection.query('CREATE DATABASE IF NOT EXISTS budgetlive', function (err) {
             });
 		
 		connection.query('CREATE TABLE IF NOT EXISTS budget('
+			
 			+ 'budgetId INT,'
             + 'category VARCHAR(60),'
 			+ 'amountBudgeted INT,'
@@ -48,7 +50,33 @@ connection.query('CREATE DATABASE IF NOT EXISTS budgetlive', function (err) {
 });
 }
 
-exports.getConnection = function()
+exports.updateDatabase = function(req, res)
+{	
+	connection.query('USE budgetlive', function (err)
+	{
+		connection.query("INSERT INTO transactions VALUES(" + req.body.budgetId + ",\"" + req.body.category + "\"," + req.body.amountSpent + ",\"" + req.body.date +"\");", function (err)
+		{
+			if (err)
+			{
+				throw err;
+			} 
+		});
+	});
+	
+	connection.query('USE budgetlive', function (err)
+	{
+		console.log("UPDATE budget SET amountSpent = amountSpent + " + req.body.amountSpent + " WHERE budgetId = " + req.body.budgetId + " AND category = \"" + req.body.category + "\";");
+		connection.query("UPDATE budget SET amountSpent = amountSpent + " + req.body.amountSpent + " WHERE budgetId = " + req.body.budgetId + " AND category = \"" + req.body.category + "\";", function (err)
+		{
+			if (err)
+			{
+				throw err;
+			} 
+		});
+	});
+}
+
+exports.getConnection = function(req, res)
 {
 	return connection;
 }
