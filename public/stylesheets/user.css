@@ -23,22 +23,23 @@ form
 {
 	position:absolute;
 	left: 820px; 
-	top: 150px;
+	top: 170px;
 	font-family: Verdana, Arial, Sans-Serif;
-	color: #000;
+	color: #FFF;
 	font-size: 15px;
-	
 }
 
 backDrop
 {
-	background: #E6E6E6;
+	background: #283175;
 	width: 400px;
 	position: absolute;
-	height: 530px;
+	height: 100px;
 	left: 800px;
-	top: 120px;
-	opacity: .85;
+	top: 150px;
+	border-radius: 10px ;
+	-moz-border-radius: 10px ;
+	-webkit-border-radius: 10px 
 }
 
 #spent
@@ -88,7 +89,7 @@ backDrop
 {
 	position:absolute;
 	left:1130px;
-	top:158px;
+	top:177px;
     color: #FFFFFF;
 	height: 50px;
 	width: 50px;

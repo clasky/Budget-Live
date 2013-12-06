@@ -332,10 +332,12 @@ $(document).ready(function()
 			series: 
 			[{
 				name: 'Remaining Amount',
+				color: '#95E243',
 				data: userOneBar
 			}, 
 			{
 				name: 'Spent',
+				color: '#9F0707',
 				data: userTwoBar
 			}]
 		});
@@ -382,6 +384,7 @@ $(document).ready(function()
 			series: 
 			[{
 				name: userNames[0],
+				color: '#283175',
 				data: lineSeries
 			}]
 		});
