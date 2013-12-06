@@ -8,8 +8,8 @@ $(document).ready(function()
 	var dataString;
 	var pieData = [];
 	var userNames = [];
-	var userOneBar = [];
-	var userTwoBar = [];
+	var remaining = [];
+	var spent = [];
 	var lineSeries = [];
 	var timeFrameLine = [];
 	var transSize = 0;
@@ -102,11 +102,11 @@ $(document).ready(function()
 		{
 			if ( key === $("h1").text())
 			{
-				userOneBar = [];
-				userTwoBar = [];
+				remaining = [];
+				spent = [];
 				categories[key][1] = categories[key][1] +spent;
-				userOneBar.push(categories[key][0]- categories[key][1]);
-				userTwoBar.push(categories[key][1] );
+				remaining.push(categories[key][0]- categories[key][1]);
+				spent.push(categories[key][1] );
 				var bar = $('#barChart').highcharts();
 				bar.destroy();
 				createBarChart($('#barChart'));
@@ -140,12 +140,28 @@ $(document).ready(function()
 			pieData.push([key, categories[key][0]]);
 			//dataString += ("Category: " + key + "\nAmount Budgeted: " + categories[key][0] + "\nAmount Spent: "  + categories[key][1] + "\n\n");
 		}
-		
+		// setting up total summary for bar graph
+		totalSummary();
 		
 		//creating charts
 		createPieChart($('#pieChart'));
 		createBarChart($('#barChart'));
 		createLineChart($('#SpendingOverTime'));
+	}
+	
+	function totalSummary()
+	{
+		var total_ = 0;
+		var spent_ = 0;
+		for(var key in categories)
+		{
+			spent_ = spent_ + categories[key][1];
+			total_ = total_ + categories[key][0];
+		}
+		//alert(spent_ + " " + total_);
+		remaining.push(parseInt(total_ - spent_));
+		spent.push(parseInt(spent_));
+		
 	}
 	
 	function handleTransactionData(data)
@@ -266,10 +282,10 @@ $(document).ready(function()
 										{
 											if ( key === chart.series[0].data[i].name)
 											{
-												userOneBar = [];
-												userTwoBar = [];
-												userOneBar.push(categories[key][0]- categories[key][1]);
-												userTwoBar.push(categories[key][1] );
+												remaining = [];
+												spent = [];
+												remaining.push(categories[key][0]- categories[key][1]);
+												spent.push(categories[key][1] );
 												var bar = $('#barChart').highcharts();
 												bar.destroy();
 												createBarChart($('#barChart'));
@@ -333,12 +349,12 @@ $(document).ready(function()
 			[{
 				name: 'Remaining Amount',
 				color: '#95E243',
-				data: userOneBar
+				data: remaining
 			}, 
 			{
 				name: 'Spent',
 				color: '#9F0707',
-				data: userTwoBar
+				data: spent
 			}]
 		});
 	}

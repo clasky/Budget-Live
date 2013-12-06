@@ -19,24 +19,40 @@ a
     padding: 8px 8px 8px 8px;
 }
 
+
 form
 {
 	position:absolute;
-	left: 820px; 
-	top: 170px;
+	left: 890px; 
+	top: 50px;
 	font-family: Verdana, Arial, Sans-Serif;
 	color: #FFF;
 	font-size: 15px;
 }
 
+
+#addSpent
+{
+	position:absolute;
+	left:1202px;
+	top:57px;
+    color: #FFFFFF;
+	height: 50px;
+	width: 50px;
+	line-height: 10px;
+    font-size: 15px;
+	background: #95E243;
+	
+}
+
 backDrop
 {
-	background: #283175;
+	background: #FFF;
 	width: 400px;
 	position: absolute;
 	height: 100px;
 	left: 800px;
-	top: 150px;
+	top: 110px;
 	border-radius: 10px ;
 	-moz-border-radius: 10px ;
 	-webkit-border-radius: 10px 
@@ -85,18 +101,5 @@ backDrop
     border-radius: 8px;
 }
 
-#addSpent
-{
-	position:absolute;
-	left:1130px;
-	top:177px;
-    color: #FFFFFF;
-	height: 50px;
-	width: 50px;
-	line-height: 10px;
-    font-size: 15px;
-	background: #95E243;
-	
-}
 
 
