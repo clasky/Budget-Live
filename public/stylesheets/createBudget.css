@@ -57,7 +57,14 @@ form
 	font-size: 15px;
 	
 }
-
+#pieChart
+{
+	width: 500px; 
+	height: 500px;
+	position:absolute; 
+	left: 180px; 
+	top: 140px;
+}
 #additionalInfo
 {
 	color: #000;
@@ -146,28 +153,25 @@ form
     font-size: 15px;
 }
 
-#addCategory
-{
-	position:absolute;
-	left:905px;
-	top:227px;
-	background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,rgba(169,3,41,1)), color-stop(44%,rgba(143,2,34,1)), color-stop(100%,rgba(109,0,25,1)));
-    color: #FFFFFF;
-	height: 50px;
-	width: 50px;
-	line-height: 10px;
-    font-size: 15px;
-}
-
 #categoryTextBox
 {
 	height:30px;
 	width: 180px;
 	font-size:20px;
 	position:absolute;
-	left:875px;
+	left:750px;
+	top:360px;
+}
+#categoryChoice
+{
+	height:30px;
+	width: 180px;
+	font-size:20px;
+	position:absolute;
+	left:750px;
 	top:310px;
 }
+
 #categoryAmount
 {
 	position: absolute;
@@ -197,14 +201,19 @@ form
 	opacity: 0.95;
 }
 
-#categoryChoice
+
+
+#addCategory
 {
-	height:30px;
-	width: 180px;
-	font-size:20px;
 	position:absolute;
-	left:700px;
-	top:235px;
+	left:955px;
+	top:355px;
+	background: #0B173B;
+    color: #FFFFFF;
+	height: 50px;
+	width: 50px;
+	line-height: 10px;
+    font-size: 15px;
 }
 
 #budgetTotal
