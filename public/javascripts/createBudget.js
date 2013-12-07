@@ -334,7 +334,7 @@ $(document).ready(function()
         });
         alert("Json Posted!");
     };
-}
+
 	
 	function addAmountToCategory( t,  amount)
 	{
