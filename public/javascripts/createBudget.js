@@ -67,7 +67,7 @@ $(document).ready(function()
 		$("body").append("<input id=\"budgetTotal\" type=\"text\" placeholder=\"budget amount $\"/> ");
 		$("#budgetTotal").hide().delay(500);
 		$("#budgetTotal").fadeIn("fast");
-		$("body").append("<button id=\"enterAmount\">next</button>");
+		$("body").append("<button id=\"enterAmount\">Next</button>");
 		$("#enterAmount").hide().delay(500);
 		$("#enterAmount").fadeIn("fast");
 		
@@ -79,13 +79,20 @@ $(document).ready(function()
 		buttonAnimation();
 		$("#enterAmount").click( function()
 		{
-			clean($("currentImage"), $("#enterAmount"));
-			$("#budgetTotal").fadeOut("fast");
-			$("#budgetStyle").fadeOut("fast");
-			budget.total = $("#budgetTotal").val();
-			budgetCategories();
-			$("body").append("<div id=\"pieChart\"</div>");
-			createPieChart($("#pieChart"));
+			if ( $("#budgetTotal").val() > 0)
+			{
+				clean($("currentImage"), $("#enterAmount"));
+				$("#budgetTotal").fadeOut("fast");
+				$("#budgetStyle").fadeOut("fast");
+				budget.total = $("#budgetTotal").val();
+				budgetCategories();
+				$("body").append("<div id=\"pieChart\"</div>");
+				createPieChart($("#pieChart"));
+			}
+			else
+			{
+				alert("A budget needs some real money in there!");
+			}
 			
 		});
 	}
@@ -100,9 +107,9 @@ $(document).ready(function()
 		$("#categoryChoice").hide().delay(800);
 		$("#categoryChoice").fadeIn("fast");
 		$("body").append("<div><input id = \"categoryTextBox\" type=\"text\" placeholder=\"$Amount\"/></div>");
-		$("#categoryTextBox").hide().delay(500);
+		$("#categoryTextBox").hide().delay(800);
 		$("#categoryTextBox").fadeIn("fast");
-		$("body").append("<button id=\"next\">next</button>");
+		$("body").append("<button id=\"next\">Next</button>");
 		$("#next").hide().delay(500);
 		$("#next").fadeIn("fast");
 		buttonAnimation();
@@ -240,23 +247,30 @@ $(document).ready(function()
 		{
 			var catName = $("#categoryChoice").val();
 			var amount = $("#categoryTextBox").val();
-			if ( catName !="")
+			if ( catName !="" )
 			{
-				
-				$("#categoryChoice").val("");
-				pieData.push([catName,parseInt(amount)]);
-				var chart = $('#pieChart').highcharts();
-				chart.destroy();
-				createPieChart($("#pieChart"));
-				
-				var categ = new Category();
-				categ.name = catName;
-				budget.categories.push(categ);
-				
-				/*for ( var i =0; i < pieData.length ; i++)
+				if ( amount > 0)
 				{
-					alert( pieData[i][0]+ " "  + i );
-				}*/
+					$("#categoryChoice").val("");
+					$("#categoryTextBox").val("");
+					pieData.push([catName,parseInt(amount)]);
+					var chart = $('#pieChart').highcharts();
+					chart.destroy();
+					createPieChart($("#pieChart"));
+					
+					var categ = new Category();
+					categ.name = catName;
+					budget.categories.push(categ);
+				
+				}
+				else
+				{
+					alert("Hey don't forget to add an amount greater than 0 \n Make sure you add NUMBERS!");
+				}
+			}
+			else
+			{
+				alert("You need to name the category!\n i.e. Groceries,Games,Bills");
 			}
 		});
 				
@@ -270,14 +284,17 @@ $(document).ready(function()
 		$("category").fadeOut("fast");
 		$("#addCategory").fadeOut("fast");
 		$("#categoryChoice").fadeOut("fast");
+		$("#categoryTextBox").fadeOut("fast");
 		$("category").remove();
 		var chart = $('#pieChart').highcharts();
-		chart.destroy();
-		createPieChart($("#pieChart"));
-		addCategoryAmounts();
+		$('#pieChart').fadeOut("fast");
+		//chart.destroy();
+		//createPieChart($("#pieChart"));
+		registrationForm();
+		//addCategoryAmounts();
 	}
 	
-	
+	/*
 	function addCategoryAmounts()
 	{
 		
@@ -301,7 +318,7 @@ $(document).ready(function()
 		//$("body").append("<div id=\"progressBar\"><div></div></div>");
 	}
 
-/*
+
 	function layoutCategories()
 	{
 		basicCategoryLayout();
