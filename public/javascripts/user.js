@@ -14,6 +14,7 @@ $(document).ready(function()
 	var timeFrameLine = [];
 	var transSize = 0;
 	var budgetId;
+	var totalSpending = 0;
 
 	$.ajax(
 	{
@@ -79,7 +80,8 @@ $(document).ready(function()
 				+ currentdate.getDate() + "/"
                 + currentdate.getFullYear();
 		var y = parseInt($("#spent").val());
-		line.series[0].addPoint([x, y]);
+		totalSpending = totalSpending + y;
+		line.series[0].addPoint([x, totalSpending]);
 		updatebBar(y);
 		
 		var transaction = new Object();
@@ -197,7 +199,8 @@ $(document).ready(function()
 			var line = $('#SpendingOverTime').highcharts()
 			var x = transactions[key].date;
 			var y = transactions[key].amountSpent;
-			line.series[0].addPoint([x, y]);
+			totalSpending = totalSpending + y;
+			line.series[0].addPoint([x, totalSpending]);
 			
 		}
 		
