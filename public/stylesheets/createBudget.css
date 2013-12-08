@@ -96,32 +96,6 @@ form
 #currentImage{}
 
 
-#progressBar 
-{
-	width: 400px;
-	height: 22px;
-	/*border: 1px solid #111;*/
-	background-color: #FFF;
-	position: absolute;
-	left: 300px;
-	top: 200px;
-	border-radius: 10px ;
-	-moz-border-radius: 10px ;
-	-webkit-border-radius: 10px ;
-}
- 
-#progressBar div 
-{
-	height: 100%;
-	color: #000;
-	text-align: right;
-	/*line-height: 22px; same as #progressBar height if we want text middle aligned */
-	width: 0;
-	background-color: gray;
-	background-image: repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255,255,255,.5) 35px, rgba(255,255,255,.5) 70px);
-	font-family: Verdana, Arial, Sans-Serif;
-}
-
 
 #catagorySelection
 {
@@ -153,24 +127,7 @@ form
     font-size: 15px;
 }
 
-#categoryTextBox
-{
-	height:30px;
-	width: 180px;
-	font-size:20px;
-	position:absolute;
-	left:750px;
-	top:360px;
-}
-#categoryChoice
-{
-	height:30px;
-	width: 180px;
-	font-size:20px;
-	position:absolute;
-	left:750px;
-	top:310px;
-}
+
 
 #categoryAmount
 {
@@ -196,24 +153,51 @@ form
 	position:absolute;
 	left:1200px;
 	top:520px;
-	background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,rgba(254,252,234,1)), color-stop(0%,rgba(241,218,54,1)));
+	background: #FFBF00;
     color: #FFFFFF;
 	opacity: 0.95;
 }
 
+#categoryTextBox
+{
+	height:30px;
+	width: 180px;
+	font-size:20px;
+	position:absolute;
+	left:770px;
+	top:360px;
+}
+#categoryChoice
+{
+	height:30px;
+	width: 180px;
+	font-size:20px;
+	position:absolute;
+	left:770px;
+	top:310px;
+}
 
+#amountLeft
+{
+	position: absolute;
+	left:705px;
+	top:100px;
+	font-family: Veranda, Arial, Sans-Serif;
+	font-size: 50px;
+	
+}
 
 #addCategory
 {
-	position:absolute;
-	left:955px;
-	top:355px;
-	background: #0080FF;
-    color: #FFFFFF;
-	height: 50px;
-	width: 50px;
-	line-height: 10px;
-    font-size: 15px;
+	background-color: #FFBF00;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 10px;
+	color: #FFFFFF;
+	font-family: Veranda, Arial, Sans-Serif;
+	font-size: 17px;
+	left:770px;
+	top:410px;
 }
 
 #budgetTotal
@@ -223,12 +207,12 @@ form
 	font-size:20px;
 	position:absolute;
 	left:690px;
-	top:250px;
+	top:357px;
 }
 
 #enterAmount
 {
-	background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,rgba(254,252,234,1)), color-stop(0%,rgba(241,218,54,1)));
+	background: #FFBF00;
 	position:absolute;
 	left:1200px;
 	top:520px;
@@ -242,7 +226,7 @@ form
 
 #twoWeek
 {
-	background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,rgba(254,252,234,1)), color-stop(0%,rgba(241,218,54,1)));
+	background: #FFBF00;
 	left:840px;
 	top:190px;
 	position:absolute;
@@ -253,7 +237,7 @@ form
 	position:absolute;
 	left:840px;
 	top:370px;
-	background: -webkit-gradient(linear, left bottom, right top, color-stop(0%,rgba(254,252,234,1)), color-stop(0%,rgba(241,218,54,1)));
+	background: #FFBF00;
 }
 
 #menu ul

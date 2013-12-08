@@ -57,7 +57,7 @@ $(document).ready(function()
 	function budgetAmount()
 	{
 		$("body").append("<img id = \"currentImage\" src=\"../images/budgetAmount.png\""+
-		"width=\"595\" height=\"422\" ; style=\"position:absolute;left:420px;top:155px\">");
+		"width=\"595\" height=\"513\" ; style=\"position:absolute;left:420px;top:100px\">");
 		$("#currentImage").hide().delay(500);
 		$("#currentImage").fadeIn("fast");
 		//$("body").append("<div id=\"budgetStyle\"><center><br>Click \"Next\" <br>When Your Amount<br>"+
@@ -67,7 +67,7 @@ $(document).ready(function()
 		$("body").append("<input id=\"budgetTotal\" type=\"text\" placeholder=\"budget amount $\"/> ");
 		$("#budgetTotal").hide().delay(500);
 		$("#budgetTotal").fadeIn("fast");
-		$("body").append("<button id=\"enterAmount\">Next</button>");
+		$("body").append("<button id=\"enterAmount\">Add</button>");
 		$("#enterAmount").hide().delay(500);
 		$("#enterAmount").fadeIn("fast");
 		
@@ -99,6 +99,8 @@ $(document).ready(function()
 	
 	function budgetCategories()
 	{	
+	   // $("body").append("<div class=\"container\"><div class=\"progressbar\"></div></div>");
+		//progress(0, $('#progressBar'));
 		$("body").append("<img id = \"currentImage\" src=\"../images/budgetCategories.png\""+
 		"width=\"694\" height=\"509\" ; style=\"position:absolute;left:600px;top:140px\">");
 		$("#currentImage").hide().delay(500);
@@ -109,20 +111,30 @@ $(document).ready(function()
 		$("body").append("<div><input id = \"categoryTextBox\" type=\"text\" placeholder=\"$Amount\"/></div>");
 		$("#categoryTextBox").hide().delay(800);
 		$("#categoryTextBox").fadeIn("fast");
-		$("body").append("<button id=\"next\">Next</button>");
+		$("body").append("<button id=\"next\">Finish</button>");
 		$("#next").hide().delay(500);
 		$("#next").fadeIn("fast");
 		buttonAnimation();
-		$("body").append("<button id =\"addCategory\">add</button>");
+		//$("body").append("<button id =\"addCategory\">add</button>");
+		$("body").append("<input type=\"submit\" value=\"Add\" id=\"addCategory\"/>");
+		$("body").append("<div id= \"amountLeft\">$"+ budget.total+ "</div>");
 		$("#addCategory").hide().delay(800);
 		$("#addCategory").fadeIn("fast");
+		
 		categoryAddition();
 		$("#next").click( function()
 		{
 			var list = budget.categories;
 			if (list.length > 0 )
 			{
-				cleanCategories();
+				if ( $("#amountLeft").html() === "$0")
+				{
+					cleanCategories();
+				}
+				else
+				{
+					alert("Make sure to use all your money \n You have "+ $("#amountLeft").html() + " left!");
+				}
 			}
 			else
 			{
@@ -184,6 +196,7 @@ $(document).ready(function()
 									{
 										var list = budget.categories;
 										list.splice(i,1);
+										updateProgress();
 										pieData.splice(i,1);
 										chart.destroy();
 										createPieChart($("#pieChart"));
@@ -260,8 +273,9 @@ $(document).ready(function()
 					
 					var categ = new Category();
 					categ.name = catName;
+					categ.total = amount;
 					budget.categories.push(categ);
-				
+					updateProgress();
 				}
 				else
 				{
@@ -276,6 +290,28 @@ $(document).ready(function()
 				
 	}
 	
+	
+	
+	function updateProgress()
+	{
+		var list = budget.categories;
+		var sofar = 0;
+		for (var i = 0; i < list.length; i++) 
+		{	
+			//alert("cate tot: " + list[i].total);
+			var tot = parseInt(list[i].total,10);
+			sofar = sofar + tot;
+			//alert("so far: "+sofar);
+		}
+		var totBudget = parseInt(budget.total,10);
+		var left = totBudget - sofar;
+		
+		$("#amountLeft").html("$"+left);
+		
+		
+	}
+	
+	
 
 	function cleanCategories()
 	{
@@ -288,127 +324,10 @@ $(document).ready(function()
 		$("category").remove();
 		var chart = $('#pieChart').highcharts();
 		$('#pieChart').fadeOut("fast");
-		//chart.destroy();
-		//createPieChart($("#pieChart"));
-		registrationForm();
-		//addCategoryAmounts();
-	}
-	
-	/*
-	function addCategoryAmounts()
-	{
-		
-		$("body").append("<img id = \"currentImage\" src=\"../images/categoryAmountInst.png\""+
-		"width=\"529\" height=\"548\" ; style=\"position:absolute;left:700px;top:100px\">");
-		$("#currentImage").hide().delay(500);
-		$("#currentImage").fadeIn("fast");
-		//$("body").append("<div id=\"categoryAmount\"></div>");
-		//$("#categoryAmount").hide().delay(500);
-		//$("#categoryAmount").fadeIn("fast");
-		$("body").append("<div><input id = \"categoryTextBox\" type=\"text\" placeholder=\"click on something\"/></div>");
-		$("body").append("<button id =\"addAmountToCategory\">add</button>");
-		$("#addAmountToCategory").hide().delay(500);
-		$("#addAmountToCategory").fadeIn("fast");
-		$("#categoryTextBox").hide().delay(500);
-		$("#categoryTextBox").fadeIn("fast");
-		$("body").append("<button id=\"next\">next</button>");
-		$("#next").hide().delay(500);
-		$("#next").fadeIn("fast");
-		buttonAnimation();
-		//$("body").append("<div id=\"progressBar\"><div></div></div>");
-	}
-
-
-	function layoutCategories()
-	{
-		basicCategoryLayout();
-		var x = 340;
-		var y = 220;
-		var list = budget.categories;
-		var layers = 1;
-		for (var i = 0; i < list.length; i++) 
-		{	
-			var catName = list[i].name;
-			$("body").append("<category title =\""+ catName 
-			+"\"; style=\"position:absolute;left:"+x+"px;top:"
-			+y+"px; opacity: 1; background: -webkit-gradient(linear, left bottom,"+
-			" right top, color-stop(0%,rgba(169,3,41,1)),"+
-			"color-stop(44%,rgba(143,2,34,1)), color-stop(100%,rgba(109,0,25,1)));\">"
-			+catName+"</category>");
-			$("category").hide().delay(1000);
-			$("category").slideDown("slow");
-			x = x +115;
-			if ( x > 600)
-			{
-				x = 340;
-				y = y + 110;
-				if ( (i+1) < list.length)
-				{
-					layers = layers + 1;
-				}
-			}
-		}
-		
-		$('#progressBar').height ((layers * 105) + 30);
-			
-		progress(0, $('#progressBar'));
-		findClickedCategory();
-	}
-	
-	function findClickedCategory()
-	{	
-		var t ="";
-		$("category").click( function()
-		{	
-				t = $(this).attr('title')
-				$("#categoryTextBox").attr("placeholder", $(this).attr('title'));
-				
-		});
-		
-		$("#addAmountToCategory").click( function()
-		{
-			var amount = $("#categoryTextBox").val();
-			//alert("amount " + amount);
-			addAmountToCategory( t, amount);
-			$("#categoryTextBox").val("");
-			var list = budget.categories;
-			var sofar = 0;
-			for (var i = 0; i < list.length; i++) 
-			{	
-				//alert("cate tot: " + list[i].total);
-				var tot = parseInt(list[i].total,10);
-				sofar = sofar + tot;
-				//alert("so far: "+sofar);
-			}
-			var totBudget = parseInt(budget.total,10);
-			var percent = sofar/ totBudget;
-			if ( percent <= 1)
-			{
-				progress(percent*100, $('#progressBar'));
-			}
-			else
-			{
-				//$element.find('div').
-				alert("We can't let you go over a 100%!");
-			}
-		});
-		
-		$("#next").click( function()
-		{
-			cleanCategoryPage();
-		});
-		
-	}
-	
-	function cleanCategoryPage()
-	{
-		clean($("#categoryTextBox"), $("#next"));
-		clean($("#categoryAmount"),$("#addAmountToCategory"));
-		clean( $("#progressBar"), $("category"));
+		$("#amountLeft").html("");
 		registrationForm();
 	}
 	
-	*/
 	function registrationForm()
 	{
 		$("body").append("<img id = \"currentImage\" src=\"../images/signUp.jpg\""+
@@ -472,47 +391,7 @@ $(document).ready(function()
         });
         alert("Json Posted!");
     };
-
 	
-	function addAmountToCategory( t,  amount)
-	{
-		var list = budget.categories;
-		for (var i = 0; i < list.length; i++) 
-		{	
-			if ( list[i].name === t)
-			{
-				list[i].total = amount;
-				$('[title = "'+t+'"]').css("line-height","30px");
-				$('[title = "'+t+'"]').html("<br>"+list[i].name + "<br>$"+list[i].total+"</br></br>");
-				
-			}
-		}
-		
-	}
-	
-	function progress(percent, $element)
-	{
-		var progressBarWidth = percent * $element.width() / 100;
-		$element.find('div').animate({ width: progressBarWidth }, 500).html(percent.toPrecision(2) + "%");
-    }
-	
-	function deleteCategory()
-	{	
-		$("category").click( function()
-		{	
-			$(this).animate({height:'-=100px' ,width: '-=100px'},800);
-			t = $(this).attr('title')
-			var list = budget.categories;
-			for (var i = 0; i < list.length; i++) 
-			{	
-				if ( list[i].name === t)
-				{
-					list.splice(i,1);
-				}
-			}
-			
-		});
-	}
 	
 	function buttonAnimation()
 	{
