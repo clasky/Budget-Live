@@ -1,10 +1,9 @@
 var mysql = require('mysql');
 
 var connection = mysql.createConnection({
-
-	user : 'adminXACDnCs',
-	password : 'BSJxmUYgzAyS'
-	
+	host : 'localhost',
+	user : 'root',
+	password : 'default'
 	});
 
 exports.initDatabase = function(req, res)
