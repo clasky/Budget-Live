@@ -1,6 +1,6 @@
 $(document).ready(function()
 {
-	var budget = new Budget();
+	var budget = new Object();
 	var pieData = [];
 	
 	buttonAnimation();
@@ -84,7 +84,7 @@ $(document).ready(function()
 				clean($("currentImage"), $("#enterAmount"));
 				$("#budgetTotal").fadeOut("fast");
 				$("#budgetStyle").fadeOut("fast");
-				budget.total = $("#budgetTotal").val();
+				budget.totalBudget = $("#budgetTotal").val();
 				budgetCategories();
 				$("body").append("<div id=\"pieChart\"</div>");
 				createPieChart($("#pieChart"));
@@ -99,6 +99,7 @@ $(document).ready(function()
 	
 	function budgetCategories()
 	{	
+		budget.categories = [];
 	   // $("body").append("<div class=\"container\"><div class=\"progressbar\"></div></div>");
 		//progress(0, $('#progressBar'));
 		$("body").append("<img id = \"currentImage\" src=\"../images/budgetCategories.png\""+
@@ -117,7 +118,7 @@ $(document).ready(function()
 		buttonAnimation();
 		//$("body").append("<button id =\"addCategory\">add</button>");
 		$("body").append("<input type=\"submit\" value=\"Add\" id=\"addCategory\"/>");
-		$("body").append("<div id= \"amountLeft\">$"+ budget.total+ "</div>");
+		$("body").append("<div id= \"amountLeft\">$"+ budget.totalBudget + "</div>");
 		$("#addCategory").hide().delay(800);
 		$("#addCategory").fadeIn("fast");
 		
@@ -271,9 +272,10 @@ $(document).ready(function()
 					chart.destroy();
 					createPieChart($("#pieChart"));
 					
-					var categ = new Category();
+					var categ = new Object();
 					categ.name = catName;
-					categ.total = amount;
+					categ.amountBudgeted = amount;
+					categ.amountSpent = 0;
 					budget.categories.push(categ);
 					updateProgress();
 				}
@@ -299,16 +301,13 @@ $(document).ready(function()
 		for (var i = 0; i < list.length; i++) 
 		{	
 			//alert("cate tot: " + list[i].total);
-			var tot = parseInt(list[i].total,10);
+			var tot = parseInt(list[i].amountBudgeted,10);
 			sofar = sofar + tot;
 			//alert("so far: "+sofar);
 		}
-		var totBudget = parseInt(budget.total,10);
+		var totBudget = parseInt(budget.totalBudget,10);
 		var left = totBudget - sofar;
-		
 		$("#amountLeft").html("$"+left);
-		
-		
 	}
 	
 	
@@ -336,21 +335,39 @@ $(document).ready(function()
 		$("#currentImage").fadeIn("fast");
 		$("body").append("<registration></registration>");
 		
-		$("body").append("<form method=\"POST\" action=\"/createBudget\" id=\"signUp\">"
-		+"E-mail<br><input type=\"text\" name=\"user_email\"/><br><br><br>"
-		+"First Name<br><input type=\"text\" name=\"first_name\"/><br><br><br>"
-		+"Username<br><input type=\"text\" name=\"username\"/><br><br><br>"
-		+"Password<br><input type=\"password\" name=\"password\"/><br><br><br>"
-		+"Confirm Password<br><input type=\"password\" name=\"confirm_password\"/><br><br><br>"
-		+"<input type=\"submit\" value=\"Sign Up\" id=\"signUpButton\"/></form>");
+		$("body").append("<form id=\"signUp\">"
+		+"E-mail<br><input type=\"text\" id=\"user_email\"/><br><br><br>"
+		+"First Name<br><input type=\"text\" id=\"first_name\"/><br><br><br>"
+		+"Username<br><input type=\"text\" id=\"username\"/><br><br><br>"
+		+"Password<br><input type=\"password\" id=\"password\"/><br><br><br>"
+		+"Confirm Password<br><input type=\"password\" id=\"confirm_password\"/><br><br><br>"
+		+"<input type=\"button\" value=\"Sign Up\" id=\"signUpButton\"/></form>");
 		
-		//$("#signUp").validator();
+		$("#signUpButton").click(function()
+		{
+			var user = new Object();
+			user.name = document.getElementById("first_name").value;
+			user.username = document.getElementById("username").value;
+			user.email = document.getElementById("user_email").value;
+			user.password = document.getElementById("password").value;
+			user.budget = budget;
+			
+			$.ajax({
+				url: '/addNewUser',
+				type: 'POST',
+				data: user,
+				dataType: "json"
+			});
+			
+			window.location.href = "user";
+		});
 		
-		setUpUserInfo();
+		//setUpUserInfo();
 	}
 	
 	function setUpUserInfo()
-	{
+	{	
+		alert("Got Here");
 		var list = budget.categories;
 		var formStr = "id = \"additionalInfo\"><br>budget total: "+ budget.total
 		+"<br>timeframe: "+ budget.timeframe + "<br>categories amount: "
@@ -404,29 +421,29 @@ $(document).ready(function()
 	
 	//------------------------------- objects
 	
-	function Category()
+	/*function Category()
 	{
 		this.name = "[category name]";
-		this.total = 0;
+		this.budgetAmount = 0;
 		this.amountSpent = 0;
 		
 	}
 
 	function Budget()
 	{
-		this.total = 0
+		this.budgetTotal = 0
 		this.timeframe = "[timeframe]";
 		this.categories = [];
 	}
 
-	function User(name_,budget_) 
+	function User(name_,username_,email_,password_,budget_) 
 	{
 		this.name = name_;
 		this.username = username_;
 		this.email = email_;
 		this.password = password_;
 		this.budget = budget_;
-	}
+	}*/
 	
     
 });

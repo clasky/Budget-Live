@@ -46,10 +46,11 @@ app.post('/createBudget', budgetCreator.post);
 app.get('/link', linkCreator.get);
 app.post('/link', linkCreator.post);
 app.get('/login', login.get);
-app.post('/login', login.post);
-app.get('/budgetData', login.getBudgetData);
-app.get('/transactionData', login.getTransactionData);
+app.post('/login', database.post);
+app.get('/budgetData', database.getBudgetData);
+app.get('/transactionData', database.getTransactionData);
 app.post('/updateBudget', database.updateDatabase);
+app.post('/addNewUser', database.addNewUser);
 
 
 http.createServer(app).listen(app.get('port'), function(){
