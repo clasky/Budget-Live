@@ -136,6 +136,8 @@ $(document).ready(function()
 		name = data[0].name;
 		email = data[0].email;
 		username = data[0].username;
+		timeframe = data[0].timeframe;
+		linkUpPassword = data[0].linkUpPassword;
 		categories = {};
 		
 		//Look through the categories to get the amount budgeted and amount spent.  They are placed in a map
@@ -189,6 +191,7 @@ $(document).ready(function()
 			transaction.category = data[key].category;
 			transaction.amountSpent = data[key].transactionAmount;
 			transaction.date = data[key].date;
+			transaction.name = data[key].name;
 			transactions[key] = transaction;
 			transSize = transSize + 1;
 		}

@@ -156,8 +156,6 @@ exports.getTransactionData = function(req, res){
 	});
 };
 
-
-
 exports.post = function(req, res){
 	var username = req.param("username");
 	var password = req.param("password")
@@ -230,13 +228,13 @@ function retrieveData(dataType, callback)
 	
 	if(dataType === "budget")
 	{
-		query = "SELECT name, email, username, category, amountBudgeted, amountSpent, budget.budgetId " +  
+		query = "SELECT name, email, username, linkUpPassword, timeframe, category, amountBudgeted, amountSpent, budget.budgetId " +  
 				"FROM users INNER JOIN budget ON users.budgetId = budget.budgetId " +
 				"WHERE username = " + "\"" + user + "\";";
 	}
 	else
 	{
-		query = "SELECT transactions.category, transactionAmount, date " +
+		query = "SELECT transactions.category, transactionAmount, date, transactions.name " +
 				"FROM users INNER JOIN budget ON users.budgetId = budget.budgetId " +
 				"INNER JOIN transactions ON budget.budgetId = transactions.budgetId AND budget.category = transactions.category " +
 				"WHERE username = " + "\"" + user + "\";";
