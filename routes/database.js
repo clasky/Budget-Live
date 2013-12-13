@@ -135,9 +135,16 @@ function addUserBudget(req, budgetId)
 	});
 };
 
-exports.getConnection = function(req, res)
-{
+exports.getConnection = function(req, res){
 	return connection;
+}
+
+exports.getUserData = function(req, res){
+	console.log("GETTING USER DATA");
+	retrieveUserData(function(req, userData)
+	{
+		res.send(userData);
+	});
 }
 
 exports.getBudgetData = function(req, res){
@@ -185,7 +192,7 @@ function validateUser(username, password, cb)
 	async.series([
 		function(callback)
 		{
-			retrieveUserData(function(queryData){
+			retrieveUserLoginData(function(queryData){
 				console.log(queryData);
 				for(var i = 0; i < Object.keys(queryData).length; i++)
 				{	
@@ -207,7 +214,22 @@ function validateUser(username, password, cb)
     });
 };
 
-function retrieveUserData(callback)
+function retrieveUserData(userData callback)
+{	
+	connection.query('USE budgetlive', function (err)
+	{
+		connection.query("SELECT name, email, username, password, linkUpPassword FROM users WHERE username = "\"" + user + "\";", function (err, result)
+		{
+			if (err)
+			{
+				throw err;
+			} 
+			callback(result);
+		});
+	});
+};
+
+function retrieveUserLoginData(callback)
 {	
 	connection.query('USE budgetlive', function (err)
 	{
@@ -228,7 +250,7 @@ function retrieveData(dataType, callback)
 	
 	if(dataType === "budget")
 	{
-		query = "SELECT name, email, username, linkUpPassword, timeframe, category, amountBudgeted, amountSpent, budget.budgetId " +  
+		query = "SELECT name, email, username, timeframe, category, amountBudgeted, amountSpent, budget.budgetId " +  
 				"FROM users INNER JOIN budget ON users.budgetId = budget.budgetId " +
 				"WHERE username = " + "\"" + user + "\";";
 	}

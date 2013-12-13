@@ -52,6 +52,7 @@ app.get('/transactionData', database.getTransactionData);
 app.post('/updateBudget', database.updateDatabase);
 app.post('/addNewUser', database.addNewUser);
 app.get('/userInfo', function(req, res){res.sendfile('views/userInfo.html');});
+app.get('/userData', database.getUserData);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
