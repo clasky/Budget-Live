@@ -40,9 +40,9 @@ linkRegistration
 	background:#E6E6E6;
 	width: 300px;
 	position: absolute;
-	height: 540px;
+	height: 570px;
 	left: 820px;
-	top: 105px;
+	top: 80px;
 	opacity: .85;
 }
 
@@ -58,7 +58,7 @@ form
 {
 	position:absolute;
 	left:880px;
-	top: 130px;
+	top: 100px;
 	font-family: Verdana, Arial, Sans-Serif;
 	color: #000;
 	font-size: 15px;

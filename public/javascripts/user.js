@@ -2,6 +2,7 @@ $(document).ready(function()
 {
 	var email;
 	var name;
+	var name2;
 	var username;
 	var categories = {};
 	var transactions = {};
@@ -11,10 +12,13 @@ $(document).ready(function()
 	var remaining = [];
 	var spent = [];
 	var lineSeries = [];
+	var lineSeries2 = [];
 	var timeFrameLine = [];
 	var transSize = 0;
 	var budgetId;
 	var totalSpending = 0;
+	var totalSpending1 = 0;
+	var totalSpending2 = 0;
 
 	$.ajax(
 	{
@@ -203,13 +207,63 @@ $(document).ready(function()
 	{
 		for(var key in transactions)
 		{
-			var line = $('#SpendingOverTime').highcharts()
+				var line = $('#SpendingOverTime').highcharts()
+				var x = transactions[key].date;
+				var y = transactions[key].amountSpent;
+				totalSpending = totalSpending + y;
+				line.series[0].addPoint([x, totalSpending]);
+				
+		}
+		/*var userCount = 0;
+		var names = [];
+		for ( var key in transactions)
+		{
+			var name_ = transactions[key].name;
+			if ( name_ != name)
+			{
+				name2 = name_;
+			}
+			if ( userCount === 0 )
+			{
+				names[userCount] = name_;
+				userCount = userCount + 1;
+			}
+			else if ( name_ != names[0])
+			{
+				if ( userCount === 1)
+				{
+					names[userCount] = name_;
+					userCount = userCount + 1;
+				}
+			}
+		}
+		var line = $('#SpendingOverTime').highcharts();
+		if ( userCount === 2 )
+		{
+			line.addSeries({
+				name: name2;
+				data: lineSeries2;
+			});
+		}
+		for(var key in transactions)
+		{
+			
 			var x = transactions[key].date;
 			var y = transactions[key].amountSpent;
-			totalSpending = totalSpending + y;
-			line.series[0].addPoint([x, totalSpending]);
+			var userName = transactions[key].name;
 			
-		}
+			if ( userName === name)
+			{
+				totalSpending1 = totalSpending1 + y;
+				line.series[0].addPoint([x, totalSpending1]);
+			}
+			else if ( userName === name2)
+			{
+				totalSpending2 = totalSpending2 + y;
+				line.series[1].addPoint([x, totalSpending2]);
+			}
+			
+		}*/
 		
 	}
 
