@@ -92,10 +92,14 @@ $(document).ready(function()
 		transactions[transSize] = transaction;
 		transSize = transSize + 1;
 		
+		var user = new Object();
+		user.name = name;
+		user.transaction = transaction;
+		
 		$.ajax({
             url: '/updateBudget',
             type: 'POST',
-            data: transaction,
+            data: user,
 			dataType: "json"
 		});
 		/***************************************************************
