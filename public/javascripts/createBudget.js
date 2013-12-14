@@ -13,16 +13,22 @@ $(document).ready(function()
 	{   
 		obj2.fadeOut("fast");
 		obj1.fadeOut("fast");
-		$("#currentImage").fadeOut("fast");
-		$("#currentImage").remove();
+		$(".words").fadeOut("fast");
+		$(".words").remove();
 		obj2.remove();
 	}
 	
 	function timeFrame()
 	{
-		clean($("#currentImage"),$("#ready"));
-		$("body").append("<img id = \"currentImage\" src=\"../images/timeFrame.png\""+
-		"width=\"542\" height=\"326\" ; style=\"position:absolute;left:270px;top:170px\">");
+		clean($(".words"),$("#ready"));
+		//$("body").append("<img id = \"currentImage\" src=\"../images/timeFrame.png\""+
+		//"width=\"542\" height=\"326\" ; style=\"position:absolute;left:270px;top:170px\">");
+		$("body").append("<div class= 'words'; style= 'position: absolute;top: 240px; left: 350px; color: #FFBF00;font-size: 40px;font-family: Blue Highway'>"+
+		"Choose your</div>"
+		+"<div class= 'words'; style= 'position: absolute;top: 280px; left: 350px;font-family: Blue Highway;font-size: 40px;'>TIME FRAME</div>"
+		+"<div class= 'words'; style= 'position: absolute;top: 310px; left: 350px; color: #FFBF00; font-family: Blue Highway;font-size: 55px;'>IT'S IMPORTANT </div>"
+		+"<div class= 'words'; style= 'position: absolute;top: 360px; left: 350px; color: #FFBF00; font-family: Blue Highway;font-size: 55px;'>WE HOW LONG YOUR</div>"
+		+"<div class= 'words'; style= 'position: absolute;top: 410px; left: 350px;font-family: Blue Highway;font-size: 30px;'>MONEY IS SUPPOSE TO LAST</div>");
 		$("#currentImage").hide().delay(500);
 		$("#currentImage").fadeIn("fast");
 		$("body").append("<button id=\"twoWeek\">2-Week </button><button id=\"oneMonth\">1-Month"+
