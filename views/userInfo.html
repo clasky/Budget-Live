@@ -15,7 +15,13 @@
 	<img src="../public/images/BudgetLiveLogo.jpeg" width="200" height="43" ; style="position:absolute;left:20px;top:50px">
 	<div id="menu">
 		<ul>
-			<li><a href="user">Budget Overview</a></li>
+			<script type="text/javascript">
+				function getOverviewUrl()
+				{
+					return 'user' + window.location.search;
+				}
+			</script>
+			<li><a href="javascript:document.location.href=getOverviewUrl();">Budget Overview</a></li>
 			<li><a href="home">Logout</a></li>	
 		</ul>
 	</div>

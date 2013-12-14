@@ -36,6 +36,7 @@
 			   && document.getElementById('password').checkValidity() && document.getElementById('confirm_password').checkValidity()
 			   && document.getElementById('link_code').checkValidity())
 			{
+				e.preventDefault();
 				if(document.getElementById("password").value === document.getElementById("confirm_password").value)
 				{
 					var user = new Object();
@@ -79,7 +80,7 @@
 								alert('A budget with your username and email already exist.');
 							}
 						},
-						error: function() {
+						error: function(data) {
 							alert('An error occured while validating your credentials.');
 						}
 					});

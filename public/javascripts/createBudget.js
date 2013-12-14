@@ -355,54 +355,59 @@ $(document).ready(function()
 		$("body").append("<registration></registration>");
 		
 		$("body").append("<form id=\"signUp\">"
-		+"E-mail<br><input type=\"text\" id=\"user_email\"/><br><br><br>"
-		+"First Name<br><input type=\"text\" id=\"first_name\"/><br><br><br>"
-		+"Username<br><input type=\"text\" id=\"username\"/><br><br><br>"
-		+"Password<br><input type=\"password\" id=\"password\"/><br><br><br>"
-		+"Confirm Password<br><input type=\"password\" id=\"confirm_password\"/><br><br><br>"
-		+"<input type=\"button\" value=\"Sign Up\" id=\"signUpButton\"/></form>");
+		+"E-mail<br><input type=\"text\" id=\"user_email\" required=\"required\"/><br><br><br>"
+		+"First Name<br><input type=\"text\" id=\"first_name\" required=\"required\"/><br><br><br>"
+		+"Username<br><input type=\"text\" id=\"username\" required=\"required\"/><br><br><br>"
+		+"Password<br><input type=\"password\" id=\"password\" required=\"required\"/><br><br><br>"
+		+"Confirm Password<br><input type=\"password\" id=\"confirm_password\" required=\"required\"/><br><br><br>"
+		+"<input type=\"submit\" value=\"Sign Up\" id=\"signUpButton\"/></form>");
 		
-		$("#signUpButton").click(function()
-		{
-			if(document.getElementById("password").value === document.getElementById("confirm_password").value)
+		$("#signUpButton").on('click', function(e) {
+			if(document.getElementById('user_email').checkValidity() && document.getElementById('first_name').checkValidity()
+			   && document.getElementById('username').checkValidity() && document.getElementById('password').checkValidity()
+			   && document.getElementById('confirm_password').checkValidity())
 			{
-				var user = new Object();
-				user.name = document.getElementById("first_name").value;
-				user.username = document.getElementById("username").value;
-				user.email = document.getElementById("user_email").value;
-				user.password = document.getElementById("password").value;
-				user.budget = budget;
-				
-				$.ajax({
-					url: '/validateUniqueUser',
-					type: 'POST',
-					data: user,
-					dataType: "json",
-					success: function(data){
-						if(data)
-						{
-							 $.ajax({
-                                url: '/addNewUser',
-                                type: 'POST',
-                                data: user,
-                                dataType: "json"
-							});
-							
-							window.location.href = "user?" + user.username;
+				e.preventDefault();
+				if(document.getElementById("password").value === document.getElementById("confirm_password").value)
+				{
+					var user = new Object();
+					user.name = document.getElementById("first_name").value;
+					user.username = document.getElementById("username").value;
+					user.email = document.getElementById("user_email").value;
+					user.password = document.getElementById("password").value;
+					user.budget = budget;
+					
+					$.ajax({
+						url: '/validateUniqueUser',
+						type: 'POST',
+						data: user,
+						dataType: "json",
+						success: function(data){
+							if(data)
+							{
+								 $.ajax({
+									url: '/addNewUser',
+									type: 'POST',
+									data: user,
+									dataType: "json"
+								});
+								
+								window.location.href = "user?" + user.username;
+							}
+							else
+							{
+								alert('A budget with your username and email already exist.');
+							}
+						},
+						error: function() {
+							alert('An error occured while validating your credentials.');
 						}
-						else
-						{
-							alert('A budget with your username and email already exist.');
-						}
-					},
-					error: function() {
-						alert('An error occured while validating your credentials.');
-					}
-				});
-			}
-			else
-			{
-				alert('Your password and confirmed password don\'t match');
+					});
+				}
+				else
+				{
+					alert('Your password and confirmed password don\'t match');
+				}
 			}
 		});
 	}
