@@ -22,7 +22,7 @@ $(document).ready(function()
 	var totalSpending2 = 0;
 
 	$.ajax(
-	{
+	{	
 		type: "GET",
 		url: '/budgetData',
 		data: userId,
@@ -36,7 +36,7 @@ $(document).ready(function()
 	});
 	
 	$.ajax(
-	{
+	{	
 		type: "GET",
 		url: '/transactionData',
 		data: userId,
@@ -209,6 +209,7 @@ $(document).ready(function()
 				line.series[0].addPoint([x, totalSpending]);
 				
 		}
+		
 		/*var userCount = 0;
 		var names = [];
 		for ( var key in transactions)

@@ -147,11 +147,13 @@ exports.getConnection = function(req, res){
 exports.getUserData = function(req, res){
 	console.log("GETTING USER DATA");
 	var username = req._parsedUrl.query;
-	retrieveUserData(username, function(req, userData)
+	retrieveUserData(username, function(userData)
 	{
 		res.send(userData);
 	});
-}
+};
+
+
 
 exports.getBudgetData = function(req, res){
 	console.log("GETTING BUDGET DATA");
@@ -171,9 +173,77 @@ exports.getTransactionData = function(req, res){
 	});
 };
 
+exports.validateAccount = function(req, res){
+	var ownersEmail = req.body.owners_email;
+	var linkCode = req.body.link_code;
+	console.log("Owners Email = " + ownersEmail);
+	console.log("Link Code = " + linkCode);
+	
+	validateOwnerAccount(req, ownersEmail, linkCode, function(exists){
+		res.send(exists);
+	});
+}
+
+function validateOwnerAccount(req, ownersEmail, linkCode, cb)
+{
+	var exists = false;
+
+	console.log("Validating Owners Account");
+	
+	async.series([
+		function(callback)
+		{
+			retrieveOwnerData(function(queryData){
+				for(var i = 0; i < Object.keys(queryData).length; i++)
+				{	
+					if(queryData[i].email === ownersEmail && queryData[i].linkUpPassword === linkCode)
+					{
+						exists = true;
+
+						console.log("LINKING TO BUDGET");
+						connection.query("INSERT INTO users(name, email, username, password, timeframe, budgetId, linkUpPassword)" 
+										+" VALUES('"+req.body.name+"','"+req.body.email+"','"+req.body.username+"','"+req.body.password+"','"
+										+queryData[i].timeframe+"',"+queryData[i].budgetId+",'"+queryData[i].linkUpPassword+"');", function (err, result) 
+						{
+							if(err)
+							{
+								console.log("GOT HERE");
+								throw err;
+							}
+						});
+						
+						break;
+					}
+				}
+				callback();
+			});
+		}
+	],
+    function (err) 
+	{
+        console.log(exists);	
+		cb(exists);
+    });
+}
+
+function retrieveOwnerData(callback)
+{	
+	connection.query('USE budgetlive', function (err)
+	{
+		connection.query("SELECT email, linkUpPassword, timeframe, budgetId FROM users;", function (err, result)
+		{
+			if (err)
+			{
+				throw err;
+			} 
+			callback(result);
+		});
+	});
+};
+
 exports.validateUser = function(req, res){
-	var username = req.param("username");
-	var password = req.param("password")
+	var username = req.body.username;
+	var password = req.body.password;
 	console.log("username = " + username);
 	console.log("password = " + password);
 	
@@ -181,13 +251,53 @@ exports.validateUser = function(req, res){
 		res.send(valid);
 	});
 };
+
+exports.validateUniqueUser = function(req, res){
+	var username = req.body.username;
+	var email = req.body.email;
+	console.log("username = " + username);
+	console.log("email = " + email);
+	
+	validateUnique(username, email, function(unique){
+		res.send(unique);
+	});
+};
+	
+function validateUnique(username, email, cb)
+{
+	var unique = true;
+
+	console.log("Validating Unique User");
+	
+	async.series([
+		function(callback)
+		{
+			retrieveUserUniqueData(function(queryData){
+				for(var i = 0; i < Object.keys(queryData).length; i++)
+				{	
+					if(queryData[i].username === username && queryData[i].email === email)
+					{
+						unique = false;
+						break;
+					}
+				}
+				callback();
+			});
+		}
+	],
+    function (err) 
+	{
+        console.log(unique);
+		cb(unique);
+    });
+}	
 	
 	
 function validateUser(username, password, cb)
 {
 	var valid = false;
 
-	console.log("Validating User");
+	console.log("Validating User Login");
 	
 	async.series([
 		function(callback)
@@ -197,7 +307,6 @@ function validateUser(username, password, cb)
 				{	
 					if(queryData[i].username === username && queryData[i].password === password)
 					{
-						//The username already exists for the email
 						valid = true;
 						break;
 					}
@@ -213,14 +322,29 @@ function validateUser(username, password, cb)
     });
 };
 
-function retrieveUserData(userData, username, callback)
+function retrieveUserData(username, callback)
 {	
 	connection.query('USE budgetlive', function (err)
 	{
-		connection.query("SELECT name, email, username, password, linkUpPassword FROM users WHERE username = " + "\"" + username + "\";", function (err, result)
+		connection.query("SELECT name, email, username, password, linkUpPassword FROM users WHERE username = \"" + username + "\";", function (err, result)
 		{
-			console.log(user);
+			console.log(username);
 			console.log(result);
+			if (err)
+			{
+				throw err;
+			} 
+			callback(result);
+		});
+	});
+};
+
+function retrieveUserUniqueData(callback)
+{	
+	connection.query('USE budgetlive', function (err)
+	{
+		connection.query("SELECT username, email FROM users;", function (err, result)
+		{
 			if (err)
 			{
 				throw err;
