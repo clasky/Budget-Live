@@ -26,26 +26,42 @@ $(document).ready(function()
 	{
 		$("body").append("<div id=\"login\"; style=\"position:absolute;left:760px;top:310px\"></div>");
 		$("#login").slideDown("slow");
-		$("body").append("<form method=\"POST\" action=\"/login\" id=\"signUp\">"+
+		$("body").append("<form id=\"signUp\">"+
 						"Username<br><input type=\"text\" name=\"username\" id=\"username\"><br><br><br>"+
 						"Password<br><input type=\"password\" name=\"password\" id=\"password\"/><br><br><br>"+
-						"<input type=\"submit\" value=\"Login\" id=\"signUpButton\"/>"+
+						"<input type=\"button\" value=\"Login\" id=\"signUpButton\"/>"+
 						"</form>");
 		$("body").append("<img id=\"welcomeMessage\" src=\"../public/images/welcome.png\">");
 		$("#welcomeMessage").hide().delay(500);
 		$("#welcomeMessage").fadeIn("fast");
-		goToUserProfile();
-	}
-	
-	function goToUserProfile()
-	{
-		$("#signIn").click(function()
+		
+		$("#signUpButton").click(function()
 		{
-			window.location.href = "user";
+			var user = new Object();
+			user.username = document.getElementById("username").value;
+			user.password = document.getElementById("password").value;
+			
+			$.ajax({
+				url: '/validateUser',
+				type: 'POST',
+				data: user,
+				dataType: "json",
+				success: function(data){
+					if(data)
+					{
+						window.location.href = "user?" + document.getElementById("username").value;
+					}
+					else
+					{
+						alert('Invalid username or password.');
+					}
+				},
+				error: function() {
+					alert('An error occured while validating your credentials.');
+				}
+			});	
 		});
 	}
-    
-    
 });
 
 

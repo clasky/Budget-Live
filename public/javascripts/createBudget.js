@@ -365,56 +365,9 @@ $(document).ready(function()
 				dataType: "json"
 			});
 			
-			window.location.href = "user";
-		});
-		
-		//setUpUserInfo();
-	}
-	
-	function setUpUserInfo()
-	{	
-		alert("Got Here");
-		var list = budget.categories;
-		var formStr = "id = \"additionalInfo\"><br>budget total: "+ budget.total
-		+"<br>timeframe: "+ budget.timeframe + "<br>categories amount: "
-		+ list.length;
-		
-		for (var i = 0; i < list.length; i++) 
-		{
-			formStr = formStr + "<br>category name: "+ list[i].name
-			+ "<br>cateogry total: " + list[i].total;
-		}
-		
-		$("body").append("<form "+formStr+"</form>");
-		// line 315 is the information hidden. 
-		//Comment out to make visible. 
-		$("#additionalInfo").hide();
-		//Function for the click handler
-		signUp();
-			
-	}
-	
-	function signUp()
-	{
-		// Put the javascript to call your GET on the page.
-		$("#signUpButton").click(function()
-		{
-			window.location.href = "user";
-			sendData();
+			window.location.href = "user?" + user.username;
 		});
 	}
-	
-	function sendData() {
-    $.ajax({
-            url: '/createBudget',
-            type: 'POST',
-            contentType: 'application/json',
-            data: {json: JSON.stringify({name:"Bob"})},
-            dataType: 'json'
-        });
-        alert("Json Posted!");
-    };
-	
 	
 	function buttonAnimation()
 	{
@@ -423,35 +376,7 @@ $(document).ready(function()
 			$(this).animate({top:'-=10px'},200);
 			$(this).animate({top:'+=10px'},200);
 		});
-	}
-	
-	//------------------------------- objects
-	
-	/*function Category()
-	{
-		this.name = "[category name]";
-		this.budgetAmount = 0;
-		this.amountSpent = 0;
-		
-	}
-
-	function Budget()
-	{
-		this.budgetTotal = 0
-		this.timeframe = "[timeframe]";
-		this.categories = [];
-	}
-
-	function User(name_,username_,email_,password_,budget_) 
-	{
-		this.name = name_;
-		this.username = username_;
-		this.email = email_;
-		this.password = password_;
-		this.budget = budget_;
-	}*/
-	
-    
+	}    
 });
 
 

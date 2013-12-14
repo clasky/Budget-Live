@@ -40,6 +40,4 @@ var email;
 		alert( name + " " + email + " " + username + " " + linkUpPassword );
 		
 	}
-	
-	
 });

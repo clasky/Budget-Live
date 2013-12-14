@@ -46,7 +46,7 @@ app.post('/createBudget', budgetCreator.post);
 app.get('/link', linkCreator.get);
 app.post('/link', linkCreator.post);
 app.get('/login', login.get);
-app.post('/login', database.post);
+app.post('/validateUser', database.validateUser);
 app.get('/budgetData', database.getBudgetData);
 app.get('/transactionData', database.getTransactionData);
 app.post('/updateBudget', database.updateDatabase);

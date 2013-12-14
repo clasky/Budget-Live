@@ -1,5 +1,6 @@
 $(document).ready(function()
 {
+	var userId = window.location.search.slice(1);
 	var email;
 	var name;
 	var name2;
@@ -24,6 +25,7 @@ $(document).ready(function()
 	{
 		type: "GET",
 		url: '/budgetData',
+		data: userId,
 		dataType: 'json',
 		success: function(data){
 			handleBudgetData(data);
@@ -37,6 +39,7 @@ $(document).ready(function()
 	{
 		type: "GET",
 		url: '/transactionData',
+		data: userId,
 		dataType: 'json',
 		success: function(data){
 			handleTransactionData(data);
@@ -106,13 +109,6 @@ $(document).ready(function()
             data: user,
 			dataType: "json"
 		});
-		/***************************************************************
-		Cameron, this is where you would want to send over 'transaction'
-		back to the DB. 
-		
-		
-		****************************************************************/
-		
 	}
 	
 	function updatebBar(spent_)

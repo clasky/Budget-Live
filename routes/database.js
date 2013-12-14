@@ -1,7 +1,6 @@
 var mysql = require('mysql');
 var async = require('async');
 var passgen = require('passgen');
-var user;
 
 var connection = mysql.createConnection({
 	host : 'localhost',
@@ -17,13 +16,14 @@ connection.query('CREATE DATABASE IF NOT EXISTS budgetlive', function (err) {
     connection.query('USE budgetLive', function (err) {
         if (err) throw err;
         connection.query('CREATE TABLE IF NOT EXISTS users('
-            + 'budgetId INT NOT NULL AUTO_INCREMENT,'
-            + 'PRIMARY KEY(budgetId),'
+            + 'userId INT NOT NULL AUTO_INCREMENT,'
+            + 'PRIMARY KEY(userId),'
 			+ 'name VARCHAR(30),'
 			+ 'email VARCHAR(60),'
             + 'username VARCHAR(30),'
 			+ 'password VARCHAR(60),'
 			+ 'timeframe VARCHAR(60),'
+			+ 'budgetId INT,'
 			+ 'linkUpPassword VARCHAR(12)'
             + ');',function (err) {
                 if (err) throw err;
@@ -100,17 +100,23 @@ exports.addNewUser = function(req, res)
 
 function addUser(req, callback)
 {
-	user = req.body.username;
 	linkUpPassword = passgen.create(6);
 	connection.query('USE budgetlive', function (err)
 	{	
 		connection.query("INSERT INTO users VALUES(null,\"" + req.body.name + "\",\"" + req.body.email + "\",\"" + req.body.username 
-						+ "\",\"" + req.body.password + "\",\"" + req.body.budget.timeframe + "\",\"" + linkUpPassword + "\");", function (err, info)
-		{
+						+ "\",\"" + req.body.password + "\",\"" + req.body.budget.timeframe + "\",null,\"" + linkUpPassword + "\");", function (err, info){
 			if (err)
 			{
 				throw err;
 			} 
+			
+			connection.query("UPDATE users SET budgetId = userId WHERE username = \"" +  req.body.username + "\";", function (err){
+				if (err)
+				{
+					throw err;
+				}
+			});
+			
 			callback(info);
 		});
 	});
@@ -124,8 +130,7 @@ function addUserBudget(req, budgetId)
 		{	
 			
 			connection.query("INSERT INTO budget VALUES(\"" + budgetId + "\",\"" + req.body.budget.categories[i].name + "\"," 
-							+ req.body.budget.categories[i].amountBudgeted + "," + req.body.budget.categories[i].amountSpent + ");", function (err)
-			{
+							+ req.body.budget.categories[i].amountBudgeted + "," + req.body.budget.categories[i].amountSpent + ");", function (err){
 				if (err)
 				{
 					throw err;
@@ -141,7 +146,8 @@ exports.getConnection = function(req, res){
 
 exports.getUserData = function(req, res){
 	console.log("GETTING USER DATA");
-	retrieveUserData(function(req, userData)
+	var username = req._parsedUrl.query;
+	retrieveUserData(username, function(req, userData)
 	{
 		res.send(userData);
 	});
@@ -149,7 +155,8 @@ exports.getUserData = function(req, res){
 
 exports.getBudgetData = function(req, res){
 	console.log("GETTING BUDGET DATA");
-	retrieveData("budget", function(budgetData)
+	var username = req._parsedUrl.query;
+	retrieveData("budget", username, function(budgetData)
 	{
 		res.send(budgetData);
 	});
@@ -157,28 +164,21 @@ exports.getBudgetData = function(req, res){
 
 exports.getTransactionData = function(req, res){
 	console.log("GETTING TRANSACTION DATA");
-	retrieveData("transaction", function(transactionData)
+	var username = req._parsedUrl.query;
+	retrieveData("transaction", username, function(transactionData)
 	{
 		res.send(transactionData);
 	});
 };
 
-exports.post = function(req, res){
+exports.validateUser = function(req, res){
 	var username = req.param("username");
 	var password = req.param("password")
 	console.log("username = " + username);
 	console.log("password = " + password);
 	
 	validateUser(username, password, function(valid){
-		if(valid)
-		{
-			user = username;
-			res.sendfile('views/user.html');
-		}
-		else
-		{
-			res.sendfile('views/invalidPassword.html');
-		}
+		res.send(valid);
 	});
 };
 	
@@ -193,7 +193,6 @@ function validateUser(username, password, cb)
 		function(callback)
 		{
 			retrieveUserLoginData(function(queryData){
-				console.log(queryData);
 				for(var i = 0; i < Object.keys(queryData).length; i++)
 				{	
 					if(queryData[i].username === username && queryData[i].password === password)
@@ -214,12 +213,14 @@ function validateUser(username, password, cb)
     });
 };
 
-function retrieveUserData(userData callback)
+function retrieveUserData(userData, username, callback)
 {	
 	connection.query('USE budgetlive', function (err)
 	{
-		connection.query("SELECT name, email, username, password, linkUpPassword FROM users WHERE username = "\"" + user + "\";", function (err, result)
+		connection.query("SELECT name, email, username, password, linkUpPassword FROM users WHERE username = " + "\"" + username + "\";", function (err, result)
 		{
+			console.log(user);
+			console.log(result);
 			if (err)
 			{
 				throw err;
@@ -244,7 +245,7 @@ function retrieveUserLoginData(callback)
 	});
 };
 
-function retrieveData(dataType, callback)
+function retrieveData(dataType, username, callback)
 {	
 	var query;
 	
@@ -252,14 +253,14 @@ function retrieveData(dataType, callback)
 	{
 		query = "SELECT name, email, username, timeframe, category, amountBudgeted, amountSpent, budget.budgetId " +  
 				"FROM users INNER JOIN budget ON users.budgetId = budget.budgetId " +
-				"WHERE username = " + "\"" + user + "\";";
+				"WHERE username = " + "\"" + username + "\";";
 	}
 	else
 	{
 		query = "SELECT transactions.category, transactionAmount, date, transactions.name " +
 				"FROM users INNER JOIN budget ON users.budgetId = budget.budgetId " +
 				"INNER JOIN transactions ON budget.budgetId = transactions.budgetId AND budget.category = transactions.category " +
-				"WHERE username = " + "\"" + user + "\";";
+				"WHERE username = " + "\"" + username + "\";";
 	}
 		
 	connection.query('USE budgetlive', function (err)
