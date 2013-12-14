@@ -23,12 +23,12 @@ $(document).ready(function()
 		clean($(".words"),$("#ready"));
 		//$("body").append("<img id = \"currentImage\" src=\"../images/timeFrame.png\""+
 		//"width=\"542\" height=\"326\" ; style=\"position:absolute;left:270px;top:170px\">");
-		$("body").append("<div class= 'words'; style= 'position: absolute;top: 240px; left: 350px; color: #FFBF00;font-size: 40px;font-family: Blue Highway'>"+
+		$("body").append("<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 240px; left: 350px; color: #FFBF00;font-size: 40px;font-family: Blue Highway'>"+
 		"Choose your</div>"
-		+"<div class= 'words'; style= 'position: absolute;top: 280px; left: 350px;font-family: Blue Highway;font-size: 40px;'>TIME FRAME</div>"
-		+"<div class= 'words'; style= 'position: absolute;top: 310px; left: 350px; color: #992424; font-family: Blue Highway;font-size: 55px;'>IT'S IMPORTANT </div>"
-		+"<div class= 'words'; style= 'position: absolute;top: 360px; left: 350px; color: #992424; font-family: Blue Highway;font-size: 55px;'>WE HOW LONG YOUR</div>"
-		+"<div class= 'words'; style= 'position: absolute;top: 410px; left: 350px;font-family: Blue Highway;font-size: 30px;'>MONEY IS SUPPOSE TO LAST</div>");
+		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 280px; left: 350px;font-family: Blue Highway;font-size: 40px;'>TIME FRAME</div>"
+		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 310px; left: 350px; color: #992424; font-family: Blue Highway;font-size: 55px;'>IT'S IMPORTANT </div>"
+		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 360px; left: 350px; color: #992424; font-family: Blue Highway;font-size: 55px;'>WE HOW LONG YOUR</div>"
+		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 410px; left: 350px;font-family: Blue Highway;font-size: 30px;'>MONEY IS SUPPOSE TO LAST</div>");
 		$("#currentImage").hide().delay(500);
 		$("#currentImage").fadeIn("fast");
 		$("body").append("<button id=\"twoWeek\">2-Week </button><button id=\"oneMonth\">1-Month"+
@@ -62,12 +62,12 @@ $(document).ready(function()
 	
 	function budgetAmount()
 	{
-		$("body").append("<div class= 'words'; style= 'position: absolute;top: 240px; left: 350px; color: #FFBF00;font-size: 40px;font-family: Blue Highway'>"+
+		$("body").append("<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 240px; left: 350px; color: #FFBF00;font-size: 40px;font-family: Blue Highway'>"+
 		"Enter your...</div>"
-		+"<div class= 'words'; style= 'position: absolute;top: 280px; left: 350px;font-family: Blue Highway;font-size: 40px;'>TOTOAL</div>"
-		+"<div class= 'words'; style= 'position: absolute;top: 310px; left: 350px; color: #FFBF00; font-family: Blue Highway;font-size: 55px;'>BUDGET AMOUNT</div>"
-		+"<div class= 'words'; style= 'position: absolute;top: 360px; left: 350px;font-family: Blue Highway;font-size: 30px;'>THIS IS THE AMOUNT YOU WILL</div>"
-		+"<div class= 'words'; style= 'position: absolute;top: 400px; left: 350px;font-family: Blue Highway;font-size: 30px;'>GAIN IN YOUR BUDGET EVERY TIME FRAME</div>");
+		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 280px; left: 350px;font-family: Blue Highway;font-size: 40px;'>TOTOAL</div>"
+		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 310px; left: 350px; color: #FFBF00; font-family: Blue Highway;font-size: 55px;'>BUDGET AMOUNT</div>"
+		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 360px; left: 350px;font-family: Blue Highway;font-size: 30px;'>THIS IS THE AMOUNT YOU WILL</div>"
+		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 400px; left: 350px;font-family: Blue Highway;font-size: 30px;'>GAIN IN YOUR BUDGET EVERY TIME FRAME</div>");
 		$("#budgetStyle").hide().delay(500);
 		$("#budgetStyle").fadeIn("fast");
 		$("body").append("<input id=\"budgetTotal\" type=\"text\" placeholder=\"budget amount $\"/> ");
@@ -113,10 +113,10 @@ $(document).ready(function()
 		//$("#currentImage").hide().delay(500);
 		//$("#currentImage").fadeIn("fast");
 		$("body").append(
-		"<div class= 'words'; style= 'position: absolute;top: 160px; left: 755px;font-family: Blue Highway;font-size: 40px;'>ADD CATEGORIES TO </div>"
-		+"<div class= 'words'; style= 'position: absolute;top: 190px; left: 760px; color: #992424; font-family: Blue Highway;font-size: 55px;'>YOUR BUDGET</div>"
-		+"<div class= 'words'; style= 'position: absolute;top: 240px; left: 755px;font-family: Blue Highway;font-size: 30px;'>THIS IS THE AMOUNT YOU WILL</div>"
-		+"<div class= 'words'; style= 'position: absolute;top: 270px; left: 720px;font-family: Blue Highway;font-size: 30px;'>GAIN IN YOUR BUDGET EVERY TIME FRAME</div>");
+		"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 160px; left: 755px;font-family: Blue Highway;font-size: 40px;'>ADD CATEGORIES TO </div>"
+		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 190px; left: 760px; color: #992424; font-family: Blue Highway;font-size: 55px;'>YOUR BUDGET</div>"
+		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 240px; left: 755px;font-family: Blue Highway;font-size: 30px;'>THIS IS THE AMOUNT YOU WILL</div>"
+		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 270px; left: 720px;font-family: Blue Highway;font-size: 30px;'>GAIN IN YOUR BUDGET EVERY TIME FRAME</div>");
 		$("body").append("<input id=\"categoryChoice\" type=\"text\" placeholder=\"Category\"/> ");
 		$("#categoryChoice").hide().delay(800);
 		$("#categoryChoice").fadeIn("fast");
