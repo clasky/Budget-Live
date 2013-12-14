@@ -26,8 +26,8 @@ $(document).ready(function()
 		$("body").append("<div class= 'words'; style= 'position: absolute;top: 240px; left: 350px; color: #FFBF00;font-size: 40px;font-family: Blue Highway'>"+
 		"Choose your</div>"
 		+"<div class= 'words'; style= 'position: absolute;top: 280px; left: 350px;font-family: Blue Highway;font-size: 40px;'>TIME FRAME</div>"
-		+"<div class= 'words'; style= 'position: absolute;top: 310px; left: 350px; color: #FFBF00; font-family: Blue Highway;font-size: 55px;'>IT'S IMPORTANT </div>"
-		+"<div class= 'words'; style= 'position: absolute;top: 360px; left: 350px; color: #FFBF00; font-family: Blue Highway;font-size: 55px;'>WE HOW LONG YOUR</div>"
+		+"<div class= 'words'; style= 'position: absolute;top: 310px; left: 350px; color: #992424; font-family: Blue Highway;font-size: 55px;'>IT'S IMPORTANT </div>"
+		+"<div class= 'words'; style= 'position: absolute;top: 360px; left: 350px; color: #992424; font-family: Blue Highway;font-size: 55px;'>WE HOW LONG YOUR</div>"
 		+"<div class= 'words'; style= 'position: absolute;top: 410px; left: 350px;font-family: Blue Highway;font-size: 30px;'>MONEY IS SUPPOSE TO LAST</div>");
 		$("#currentImage").hide().delay(500);
 		$("#currentImage").fadeIn("fast");
@@ -62,12 +62,12 @@ $(document).ready(function()
 	
 	function budgetAmount()
 	{
-		$("body").append("<img id = \"currentImage\" src=\"../images/budgetAmount.png\""+
-		"width=\"595\" height=\"513\" ; style=\"position:absolute;left:420px;top:100px\">");
-		$("#currentImage").hide().delay(500);
-		$("#currentImage").fadeIn("fast");
-		//$("body").append("<div id=\"budgetStyle\"><center><br>Click \"Next\" <br>When Your Amount<br>"+
-		//	" Is Entered </br></br></br></center></div>");
+		$("body").append("<div class= 'words'; style= 'position: absolute;top: 240px; left: 350px; color: #FFBF00;font-size: 40px;font-family: Blue Highway'>"+
+		"Enter your...</div>"
+		+"<div class= 'words'; style= 'position: absolute;top: 280px; left: 350px;font-family: Blue Highway;font-size: 40px;'>TOTOAL</div>"
+		+"<div class= 'words'; style= 'position: absolute;top: 310px; left: 350px; color: #FFBF00; font-family: Blue Highway;font-size: 55px;'>BUDGET AMOUNT</div>"
+		+"<div class= 'words'; style= 'position: absolute;top: 360px; left: 350px;font-family: Blue Highway;font-size: 30px;'>THIS IS THE AMOUNT YOU WILL</div>"
+		+"<div class= 'words'; style= 'position: absolute;top: 400px; left: 350px;font-family: Blue Highway;font-size: 30px;'>GAIN IN YOUR BUDGET EVERY TIME FRAME</div>");
 		$("#budgetStyle").hide().delay(500);
 		$("#budgetStyle").fadeIn("fast");
 		$("body").append("<input id=\"budgetTotal\" type=\"text\" placeholder=\"budget amount $\"/> ");
@@ -108,22 +108,27 @@ $(document).ready(function()
 		budget.categories = [];
 	   // $("body").append("<div class=\"container\"><div class=\"progressbar\"></div></div>");
 		//progress(0, $('#progressBar'));
-		$("body").append("<img id = \"currentImage\" src=\"../images/budgetCategories.png\""+
-		"width=\"694\" height=\"509\" ; style=\"position:absolute;left:600px;top:140px\">");
-		$("#currentImage").hide().delay(500);
-		$("#currentImage").fadeIn("fast");
+		//$("body").append("<img id = \"currentImage\" src=\"../images/budgetCategories.png\""+
+		//"width=\"694\" height=\"509\" ; style=\"position:absolute;left:600px;top:140px\">");
+		//$("#currentImage").hide().delay(500);
+		//$("#currentImage").fadeIn("fast");
+		$("body").append(
+		"<div class= 'words'; style= 'position: absolute;top: 160px; left: 755px;font-family: Blue Highway;font-size: 40px;'>ADD CATEGORIES TO </div>"
+		+"<div class= 'words'; style= 'position: absolute;top: 190px; left: 760px; color: #992424; font-family: Blue Highway;font-size: 55px;'>YOUR BUDGET</div>"
+		+"<div class= 'words'; style= 'position: absolute;top: 240px; left: 755px;font-family: Blue Highway;font-size: 30px;'>THIS IS THE AMOUNT YOU WILL</div>"
+		+"<div class= 'words'; style= 'position: absolute;top: 270px; left: 720px;font-family: Blue Highway;font-size: 30px;'>GAIN IN YOUR BUDGET EVERY TIME FRAME</div>");
 		$("body").append("<input id=\"categoryChoice\" type=\"text\" placeholder=\"Category\"/> ");
 		$("#categoryChoice").hide().delay(800);
 		$("#categoryChoice").fadeIn("fast");
 		$("body").append("<div><input id = \"categoryTextBox\" type=\"text\" placeholder=\"$Amount\"/></div>");
 		$("#categoryTextBox").hide().delay(800);
 		$("#categoryTextBox").fadeIn("fast");
+		$("body").append("<input type=\"submit\" value=\"Add\" id=\"addCategory\"/>");
 		$("body").append("<button id=\"next\">Finish</button>");
 		$("#next").hide().delay(500);
 		$("#next").fadeIn("fast");
 		buttonAnimation();
 		//$("body").append("<button id =\"addCategory\">add</button>");
-		$("body").append("<input type=\"submit\" value=\"Add\" id=\"addCategory\"/>");
 		$("body").append("<div id= \"amountLeft\">$"+ budget.totalBudget + "</div>");
 		$("#addCategory").hide().delay(800);
 		$("#addCategory").fadeIn("fast");
@@ -271,19 +276,25 @@ $(document).ready(function()
 			{
 				if ( amount > 0)
 				{
-					$("#categoryChoice").val("");
-					$("#categoryTextBox").val("");
-					pieData.push([catName,parseInt(amount)]);
-					var chart = $('#pieChart').highcharts();
-					chart.destroy();
-					createPieChart($("#pieChart"));
-					
-					var categ = new Object();
-					categ.name = catName;
-					categ.amountBudgeted = amount;
-					categ.amountSpent = 0;
-					budget.categories.push(categ);
-					updateProgress();
+					var totBudget = parseInt(budget.totalBudget,10);
+					if (amount <= totBudget)
+					{
+						pieData.push([catName,parseInt(amount)]);
+						var chart = $('#pieChart').highcharts();
+						chart.destroy();
+						createPieChart($("#pieChart"));
+						
+						var categ = new Object();
+						categ.name = catName;
+						categ.amountBudgeted = amount;
+						categ.amountSpent = 0;
+						budget.categories.push(categ);
+						updateProgress();
+					}
+					else
+					{
+						alert("You don't have THAT much!");
+					}
 				}
 				else
 				{
@@ -294,6 +305,8 @@ $(document).ready(function()
 			{
 				alert("You need to name the category!\n i.e. Groceries,Games,Bills");
 			}
+			$("#categoryChoice").val("");
+			$("#categoryTextBox").val("");
 		});
 				
 	}
@@ -357,17 +370,16 @@ $(document).ready(function()
 			user.email = document.getElementById("user_email").value;
 			user.password = document.getElementById("password").value;
 			user.budget = budget;
-			
 			$.ajax({
 				url: '/addNewUser',
 				type: 'POST',
 				data: user,
 				dataType: "json"
 			});
-			
 			window.location.href = "user?" + user.username;
 		});
 	}
+	
 	
 	function buttonAnimation()
 	{
@@ -376,7 +388,9 @@ $(document).ready(function()
 			$(this).animate({top:'-=10px'},200);
 			$(this).animate({top:'+=10px'},200);
 		});
-	}    
+	}
+	
+    
 });
 
 
