@@ -38,6 +38,13 @@ $(document).ready(function()
 		email = data[0].email;
 		username = data[0].username;
 		linkUpPassword = data[0].linkUpPassword;
-		alert( "Name: " + name + "\nEmail: " + email + "\nUsername: " + username + "\nLink Code: " + linkUpPassword );	
+		//alert( "Name: " + name + "\nEmail: " + email + "\nUsername: " + username + "\nLink Code: " + linkUpPassword );	
+		//$("body").append("<div id='backDrop'></div>");
+		$("body").append("<div id= 'backDrop'> Name: "+name+"<br><br>Username: "+
+		username+"<br><br>E-mail: "+email+"<br><br>Link Pass Code: "+ linkUpPassword+ "</div>");
+		$("body").append("<h1 style = 'position:absolute;left: 620px;top: 90px;white-space: nowrap;font-family: Verdana, Arial, Sans-Serif;'>User Info</h1>");
 	}
+	
+	
+	
 });
