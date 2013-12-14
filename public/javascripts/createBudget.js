@@ -364,19 +364,46 @@ $(document).ready(function()
 		
 		$("#signUpButton").click(function()
 		{
-			var user = new Object();
-			user.name = document.getElementById("first_name").value;
-			user.username = document.getElementById("username").value;
-			user.email = document.getElementById("user_email").value;
-			user.password = document.getElementById("password").value;
-			user.budget = budget;
-			$.ajax({
-				url: '/addNewUser',
-				type: 'POST',
-				data: user,
-				dataType: "json"
-			});
-			window.location.href = "user?" + user.username;
+			if(document.getElementById("password").value === document.getElementById("confirm_password").value)
+			{
+				var user = new Object();
+				user.name = document.getElementById("first_name").value;
+				user.username = document.getElementById("username").value;
+				user.email = document.getElementById("user_email").value;
+				user.password = document.getElementById("password").value;
+				user.budget = budget;
+				
+				$.ajax({
+					url: '/validateUniqueUser',
+					type: 'POST',
+					data: user,
+					dataType: "json",
+					success: function(data){
+						if(data)
+						{
+							 $.ajax({
+                                url: '/addNewUser',
+                                type: 'POST',
+                                data: user,
+                                dataType: "json"
+							});
+							
+							window.location.href = "user?" + user.username;
+						}
+						else
+						{
+							alert('A budget with your username and email already exist.');
+						}
+					},
+					error: function() {
+						alert('An error occured while validating your credentials.');
+					}
+				});
+			}
+			else
+			{
+				alert('Your password and confirmed password don\'t match');
+			}
 		});
 	}
 	

@@ -16,8 +16,13 @@
 	<img src="../public/images/BudgetLiveLogo.jpeg" width="200" height="43" ; style="position:absolute;left:1160px;top:50px">
 	<div id="menu">
 		<ul>
-			<!-- WE NEED TO FIGURE OUT HOW TO PASS IN THE NAME AS WELL....-->
-			<li><a href="userInfo">Info</a></li>
+			<script type="text/javascript">
+				function getInfoUrl()
+				{
+					return 'userInfo' + window.location.search;
+				}
+			</script>
+			<li><a href="javascript:document.location.href=getInfoUrl();">Info</a></li>
 			<li><a href="home">Logout</a></li>	
 		</ul>
 	</div>

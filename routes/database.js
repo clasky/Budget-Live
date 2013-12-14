@@ -147,13 +147,12 @@ exports.getConnection = function(req, res){
 exports.getUserData = function(req, res){
 	console.log("GETTING USER DATA");
 	var username = req._parsedUrl.query;
+	console.log(username);
 	retrieveUserData(username, function(userData)
 	{
 		res.send(userData);
 	});
 };
-
-
 
 exports.getBudgetData = function(req, res){
 	console.log("GETTING BUDGET DATA");

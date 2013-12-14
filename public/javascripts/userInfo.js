@@ -1,6 +1,7 @@
 $(document).ready(function()
 {
-var email;
+	var userId = window.location.search.slice(1);
+	var email;
 	var name;
 	var username;
 	var categories = {};
@@ -20,7 +21,9 @@ var email;
 	{
 		type: "GET",
 		url: '/userData',
+		data: userId,
 		dataType: 'json',
+		
 		success: function(data){
 			handleBudgetData(data);
 		},
@@ -31,13 +34,10 @@ var email;
 	
 	function handleBudgetData(data)
 	{
-		//If successful we assign the global variables to the JSON object data
-		//budgetId = data[0].budgetId;
 		name = data[0].name;
 		email = data[0].email;
 		username = data[0].username;
 		linkUpPassword = data[0].linkUpPassword;
-		alert( name + " " + email + " " + username + " " + linkUpPassword );
-		
+		alert( "Name: " + name + "\nEmail: " + email + "\nUsername: " + username + "\nLink Code: " + linkUpPassword );	
 	}
 });

@@ -1,4 +1,4 @@
-var database = require('../routes/database');
+/*var database = require('../routes/database');
 var async = require('async');
 
 function validateUser(budgetEmail, userEmail, username, cb)
@@ -108,4 +108,5 @@ exports.post = function(req, res){
 		}
 	});	
 };
+*/
 

@@ -1,10 +1,5 @@
 $(document).ready(function()
-{
-    
-    
-	
-    
-    
+{  
 });
 
 
