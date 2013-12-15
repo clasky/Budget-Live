@@ -1,109 +1,32 @@
-$(function() {
-    $(document).snow({ SnowImage: "../images/snow.gif" });
-});
-function __ShowSnow(settings)
-	{
-
-		var snowsrc = settings.SnowImage;
-		var no = settings.Quantity;
-
-		var dx, xp, yp;    
-		var am, stx, sty;  
-		var i; 
-
-		var doc_width = $(window).width() - 10;
-		var doc_height = $(window).height();
-
-		dx = [];
-		xp = [];
-		yp = [];
-		am = [];
-		stx = [];
-		sty = [];
-		flakes = [];
-		for (i = 0; i < no; ++i) 
-		{
-			dx[i] = 0;                        // set coordinate variables
-			xp[i] = Math.random()*(doc_width-50);  // set position variables
-			yp[i] = Math.random()*doc_height;
-			am[i] = Math.random()*20;         // set amplitude variables
-			stx[i] = 0.02 + Math.random()/10; // set step variables
-			sty[i] = 0.7 + Math.random();     // set step variables
-
-			var flake = $("<div />");
-
-			var id = ("dot" + i);
-			flake.attr("id", id);
-			flake.css({
-						position: "absolute",
-						zIndex: i,
-						top: "15px",
-						left: "15px"
-					});
-
-			flake.append("<img src='" + snowsrc + "'>");
-			flake.appendTo("body");
-
-			flakes[i] = $("#" + id);
-		}
-
-		var animateSnow;
-		animateSnow = function() 
-		{  
-			for (i = 0; i < no; ++ i) 
-			{
-				// iterate for every dot
-				yp[i] += sty[i];
-				if (yp[i] > doc_height - 50) 
-				{
-					xp[i] = Math.random() * (doc_width - am[i] - 30);
-					yp[i] = 0;
-					stx[i] = 0.02 + Math.random() / 10;
-					sty[i] = 0.7 + Math.random();
-				}
-		  
-				dx[i] += stx[i];
-				flakes[i].css("top", yp[i] + "px");
-				flakes[i].css("left", (xp[i] + am[i] * Math.sin(dx[i])) + "px");
-			}
-
-			snowtimer = setTimeout(animateSnow, 10);
-		};
-
-		function hidesnow()
-		{
-			if(window.snowtimer)
-				clearTimeout(snowtimer)
-
-			for (i = 0; i < no; i++)
-				flakes[i].hide();
-		}
-			
-		animateSnow();
-		if (settings.HideSnowTime > 0)
-			setTimeout(hidesnow, settings.HideSnowTime * 1000)
-	}
-
-	(function($) {
-		$.fn.snow = function(options) {
-	  
-		var settings = $.extend({
-				SnowImage:      undefined,
-				Quantity:       7,
-				HideSnowTime:   0
-			}, options);
-
-		__ShowSnow(settings);
-
-		return this;
-	  }
-
-	})(jQuery);
+(function($){
+$.fn.snow=function(options)
+{var $flake=$('<div id="flake" />').css(
+{'position':'absolute','top':'-50px'}).html('&#10052;'),
+documentHeight=$(document).height(),
+documentWidth=$(document).width(),
+defaults={minSize:10,maxSize:20,newOn:500,flakeColor:"#BDBDBD"},
+options=$.extend({},defaults,options);
+var interval=setInterval(function()
+{
+	var startPositionLeft=Math.random()*documentWidth-100,
+	startOpacity=0.5+Math.random(),
+	sizeFlake=options.minSize+Math.random()*options.maxSize,
+	endPositionTop=documentHeight-40,
+	endPositionLeft=startPositionLeft-100+Math.random()*200,
+	durationFall=documentHeight*10+Math.random()*5000;
+	$flake.clone().appendTo('body').css({left:startPositionLeft,
+	opacity:startOpacity,
+	'font-size':sizeFlake,color:options.flakeColor}).animate({
+	top:endPositionTop,left:endPositionLeft,opacity:0.2},
+	durationFall,'linear',function(){$(this).remove()});},options.newOn
+	);
+};
+})(jQuery);
 	
 	//*************************Added snow flakes :) 
 $(document).ready(function()
 {
-	
+	$.fn.snow();
     $("button").mouseenter(function()
     {
 		$(this).animate({top:'+=10px'},200);
