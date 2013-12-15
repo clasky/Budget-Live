@@ -13,7 +13,7 @@ exports.initDatabase = function(req, res)
 connection.query('CREATE DATABASE IF NOT EXISTS budgetlive', function (err) {
     console.log("Creating Budget Live Database");
 	if (err) throw err;
-    connection.query('USE budgetLive', function (err) {
+    connection.query('USE budgetlive', function (err) {
         if (err) throw err;
         connection.query('CREATE TABLE IF NOT EXISTS users('
             + 'userId INT NOT NULL AUTO_INCREMENT,'
