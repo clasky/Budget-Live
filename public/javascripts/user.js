@@ -200,7 +200,7 @@ $(document).ready(function()
 	
 	function updateLine()
 	{
-		for(var key in transactions)
+		/*for(var key in transactions)
 		{
 				var line = $('#SpendingOverTime').highcharts()
 				var x = transactions[key].date;
@@ -208,9 +208,9 @@ $(document).ready(function()
 				totalSpending = totalSpending + y;
 				line.series[0].addPoint([x, totalSpending]);
 				
-		}
+		}*/
 		
-		/*var userCount = 0;
+		var userCount = 0;
 		var names = [];
 		for ( var key in transactions)
 		{
@@ -233,12 +233,13 @@ $(document).ready(function()
 				}
 			}
 		}
+		//alert("users: " + name + " " + name2);
 		var line = $('#SpendingOverTime').highcharts();
 		if ( userCount === 2 )
 		{
 			line.addSeries({
-				name: name2;
-				data: lineSeries2;
+				name: name2,
+				data: lineSeries2
 			});
 		}
 		for(var key in transactions)
@@ -259,7 +260,7 @@ $(document).ready(function()
 				line.series[1].addPoint([x, totalSpending2]);
 			}
 			
-		}*/
+		}
 		
 	}
 
