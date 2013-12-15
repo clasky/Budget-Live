@@ -394,7 +394,7 @@ $(document).ready(function()
 			},
 			xAxis:
 			{
-				categories: userNames
+				categories: [$("h1").text()]
 			},
 			yAxis: 
 			{
