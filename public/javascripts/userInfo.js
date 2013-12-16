@@ -42,7 +42,7 @@ $(document).ready(function()
 		//$("body").append("<div id='backDrop'></div>");
 		$("body").append("<div id= 'backDrop'> Name: "+name+"<br><br>Username: "+
 		username+"<br><br>E-mail: "+email+"<br><br>Link Pass Code: "+ linkUpPassword+ "</div>");
-		$("body").append("<h1 style = 'position:absolute;left: 620px;top: 90px;white-space: nowrap;font-family: Verdana, Arial, Sans-Serif;'>User Info</h1>");
+		$("body").append("<h1 style = 'position:absolute;left: 620px;top: 90px;white-space: nowrap;font-family: \"Franklin Gothic Book\",Arial,sans-serif;'>User Info</h1>");
 	}
 	
 	
