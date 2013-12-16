@@ -34,14 +34,15 @@ form
 #addSpent
 {
 	position:absolute;
-	left:492px;
-	top:137px;
-    color: #FFFFFF;
-	height: 50px;
-	width: 50px;
-	line-height: 10px;
-    font-size: 15px;
-	background: #FFBF00;
+	left:370px;
+	top:10px;
+    color: #FFF;
+	height: 30px;
+	width: 30px;
+	line-height: 11px;
+	text-align:center;
+    font-size: 10px;
+	background:rgb(143,200,0);
 	
 }
 
@@ -49,10 +50,12 @@ form
 
 #spent
 {
-	height:30px;
-	width: 300px;
-	font-size:20px;
+	height:16px;
+	width: 160px;
+	font-size:15px;
 	position:absolute;
+	left:190px;
+	top:14px;
 	
 }
 backDrop

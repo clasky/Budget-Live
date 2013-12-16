@@ -87,8 +87,8 @@ $(document).ready(function()
 				+ currentdate.getDate() + "/"
                 + currentdate.getFullYear();
 		var y = parseInt($("#spent").val());
-		totalSpending = totalSpending + y;
-		line.series[0].addPoint([x, totalSpending]);
+		totalSpending1 = totalSpending1 + y;
+		line.series[0].addPoint([x, totalSpending1]);
 		updatebBar(y);
 		
 		var transaction = new Object();
