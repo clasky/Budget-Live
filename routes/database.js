@@ -54,6 +54,20 @@ connection.query('CREATE DATABASE IF NOT EXISTS budgetlive', function (err) {
 });
 }
 
+exports.resetBudgetAmounts = function()
+{
+	connection.query('USE budgetlive', function (err)
+	{
+		connection.query("UPDATE budget SET amountSpent = 0;", function (err)
+		{
+			if (err)
+			{
+				throw err;
+			} 
+		});
+	});
+}
+
 exports.updateDatabase = function(req, res)
 {	
 	connection.query('USE budgetlive', function (err)

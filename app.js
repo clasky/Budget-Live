@@ -53,7 +53,22 @@ app.post('/updateBudget', database.updateDatabase);
 app.post('/addNewUser', database.addNewUser);
 app.get('/userInfo', function(req, res){res.sendfile('views/userInfo.html');});
 app.get('/userData', database.getUserData);
+app.get('/budgetOverview', function(req, res){res.sendfile('views/budgetOverview.html');});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
+	  //Reset budget amounts every month.
+	  setInterval(function(){
+	  var today = new Date();
+	  var day = today.getDate();
+	  var month = today.getMonth() + 1;
+	  var year = today.getFullYear();
+	  console.log("Date: " + month + "/" + day + "/" + year);
+	  if(day === 1)
+	  {
+		console.log("Resetting Monthly Budgets");
+		database.resetBudgetAmounts();
+	  }
+	  
+  },86400000);
 });
