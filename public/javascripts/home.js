@@ -81,7 +81,7 @@ $(document).ready(function()
 						}
 						else
 						{
-							alert('Invalid username or password.');
+							$("body").append("<div style='font-size: 15px;white-space: nowrap;font-family: \"Franklin Gothic Book\",Arial,sans-serif;color:red;position:absolute;top:510px;left:750px;'><center>Incorrect Username and/or Password.<br>Please try again.</div>");
 						}
 					},
 					error: function() {
