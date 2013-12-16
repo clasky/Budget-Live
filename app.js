@@ -12,7 +12,7 @@ var app = express();
 //http://budgetlive.nodejitsu.com
 // all environments
 
-app.set('port', process.env.PORT || 80);
+app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.engine('.html', require('jade').__express);

@@ -35,8 +35,7 @@ $(document).ready(function()
     
     $("#startButton").click(function()
     {
-		$("#linkUpButton").fadeOut("slow");
-		$("#loginButton").fadeOut("slow");
+		window.location.href = "createBudget";
 
 	});
 	
