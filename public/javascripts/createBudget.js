@@ -367,7 +367,7 @@ $(document).ready(function()
 	
 	function registrationForm()
 	{
-		$("body").append("<img src=\"../public/images/BudgetLiveLogo_new.jpg\" width=\"598\" height=\"145\" ; style=\"position:absolute;left:140px;top:330px\">");
+		$("body").append("<img src=\"../public/images/BudgetLiveLogo_new.jpg\" width=\"598\" height=\"120\" ; style=\"position:absolute;left:140px;top:350px\">");
 		$("body").append("<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 170px; left: 190px; color: #017890;font-size: 50px;font-family:Verdana,sans-serif;'>"+
 		"<strong>Loved how YOU</strong></div>"
 		+"<div class= 'words'; style= 'white-space: nowrap;position: relative;top: 230px; left: 185px;font-family: Verdana,sans-serif;font-size: 30px;'>SET UP YOUR BUDGET?</div>"
