@@ -1,6 +1,7 @@
 var mysql = require('mysql');
 var async = require('async');
 var passgen = require('passgen');
+var md5 = require('MD5');
 
 var connection = mysql.createConnection({
 	host : 'localhost',
@@ -21,8 +22,8 @@ connection.query('CREATE DATABASE IF NOT EXISTS budgetlive', function (err) {
 			+ 'name VARCHAR(30),'
 			+ 'email VARCHAR(60),'
             + 'username VARCHAR(30),'
-			+ 'password VARCHAR(60),'
-			+ 'timeframe VARCHAR(60),'
+			+ 'password VARCHAR(512),'
+			+ 'salt VARCHAR(512),'
 			+ 'budgetId INT,'
 			+ 'linkUpPassword VARCHAR(12)'
             + ');',function (err) {
@@ -158,6 +159,7 @@ function storeAnnualBudgetAmounts(month)
     });
 }
 
+//FIX THIS PART JUST SELECT THE VALUES WANTED NO ALL VALUES......
 function getAllBudgetData(callback)
 {
 	connection.query('USE budgetlive', function (err)
@@ -253,11 +255,15 @@ exports.addNewUser = function(req, res)
 
 function addUser(req, callback)
 {
-	linkUpPassword = passgen.create(6);
+	var linkUpPassword = passgen.create(6);
+	var salt = passgen.create(128);
+	var passwordHash = md5(req.body.password);
+	var saltedHash = md5(passwordHash + salt);
+	console.log(saltedHash);
 	connection.query('USE budgetlive', function (err)
 	{	
 		connection.query("INSERT INTO users VALUES(null,\"" + req.body.name + "\",\"" + req.body.email + "\",\"" + req.body.username 
-						+ "\",\"" + req.body.password + "\",\"" + req.body.budget.timeframe + "\",null,\"" + linkUpPassword + "\");", function (err, info){
+						+ "\",\"" + saltedHash + "\",\"" + salt + "\",null,\"" + linkUpPassword + "\");", function (err, info){
 			if (err)
 			{
 				throw err;
@@ -362,9 +368,13 @@ function validateOwnerAccount(req, ownersEmail, linkCode, cb)
 						exists = true;
 
 						console.log("LINKING TO BUDGET");
-						connection.query("INSERT INTO users(name, email, username, password, timeframe, budgetId, linkUpPassword)" 
-										+" VALUES('"+req.body.name+"','"+req.body.email+"','"+req.body.username+"','"+req.body.password+"','"
-										+queryData[i].timeframe+"',"+queryData[i].budgetId+",'"+queryData[i].linkUpPassword+"');", function (err, result) 
+						var passwordHash = md5(req.body.password);
+						var salt = passgen.create(128);
+						var saltedPassword = md5(passwordHash + salt);
+						
+						connection.query("INSERT INTO users(name, email, username, password, salt, budgetId, linkUpPassword)" 
+										+" VALUES('"+req.body.name+"','"+req.body.email+"','"+req.body.username+"','"+saltedPassword+"','"
+										+salt+"',"+queryData[i].budgetId+",'"+queryData[i].linkUpPassword+"');", function (err, result) 
 						{
 							if(err)
 							{
@@ -390,7 +400,7 @@ function retrieveOwnerData(callback)
 {	
 	connection.query('USE budgetlive', function (err)
 	{
-		connection.query("SELECT email, linkUpPassword, timeframe, budgetId FROM users;", function (err, result)
+		connection.query("SELECT email, linkUpPassword, budgetId FROM users;", function (err, result)
 		{
 			if (err)
 			{
@@ -465,7 +475,9 @@ function validateUser(username, password, cb)
 			retrieveUserLoginData(function(queryData){
 				for(var i = 0; i < Object.keys(queryData).length; i++)
 				{	
-					if(queryData[i].username === username && queryData[i].password === password)
+					var hashedPassword = md5(password);
+					var saltedPassword = md5(hashedPassword + queryData[i].salt);
+					if(queryData[i].username === username && queryData[i].password === saltedPassword)
 					{
 						valid = true;
 						break;
@@ -535,7 +547,7 @@ function retrieveUserLoginData(callback)
 {	
 	connection.query('USE budgetlive', function (err)
 	{
-		connection.query("SELECT username, password FROM users;", function (err, result)
+		connection.query("SELECT username, password, salt FROM users;", function (err, result)
 		{
 			if (err)
 			{
@@ -552,7 +564,7 @@ function retrieveData(dataType, username, callback)
 	
 	if(dataType === "budget")
 	{
-		query = "SELECT name, email, username, timeframe, category, amountBudgeted, amountSpent, budget.budgetId " +  
+		query = "SELECT name, email, username, category, amountBudgeted, amountSpent, budget.budgetId " +  
 				"FROM users INNER JOIN budget ON users.budgetId = budget.budgetId " +
 				"WHERE username = " + "\"" + username + "\";";
 	}

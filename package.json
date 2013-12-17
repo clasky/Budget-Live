@@ -1,5 +1,5 @@
 {
-  "name": "Budget Live",
+  "name": "BudgetLive",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -10,6 +10,7 @@
     "jade": "*",
 	"async": "0.2.9",
 	"mysql": "2.0.0-rc2",
-	"passgen": "1.0.1"
+	"passgen": "1.0.1",
+	"MD5": "1.2.0"
   }
 }
