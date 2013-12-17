@@ -23,7 +23,7 @@ $(document).ready(function()
 		clean($(".words"),$("#ready"));
 		//$("body").append("<img id = \"currentImage\" src=\"../images/timeFrame.png\""+
 		//"width=\"542\" height=\"326\" ; style=\"position:absolute;left:270px;top:170px\">");
-		$("body").append("<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 240px; left: 350px; color: #017890;font-size: 40px;font-family: Blue Highway'>"+
+		/*$("body").append("<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 240px; left: 350px; color: #017890;font-size: 40px;font-family: Blue Highway'>"+
 		"Choose your</div>"
 		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 280px; left: 350px;font-family: Blue Highway;font-size: 40px;'>TIME FRAME</div>"
 		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 310px; left: 350px; color: #992424; font-family: Blue Highway;font-size: 55px;'>IT'S IMPORTANT </div>"
@@ -36,13 +36,13 @@ $(document).ready(function()
 		$("#twoWeek").hide().delay(500);
 		$("#oneMonth").hide().delay(500);
 		$("#twoWeek").fadeIn("fast");
-		$("#oneMonth").fadeIn("fast");
+		$("#oneMonth").fadeIn("fast");*/
 		timeFrameAnimation();
 	}
 	
 	function timeFrameAnimation()
 	{   
-		buttonAnimation();
+		/*buttonAnimation();
 		$("button").click( function()
 		{
 			if(this.id === "twoWeek")
@@ -55,22 +55,24 @@ $(document).ready(function()
 				budget.timeframe = "one month";
 				clean($(this),$("#twoWeek"));
 			}
+		*/
 			budgetAmount();
 		
-		});
+		//});
 	}
 	
 	function budgetAmount()
 	{
+		$("body").append("<div id = 'backgroundTotal'></div>");
 		$("body").append("<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 120px; left: 500px; color: #017890;font-size: 45px;font-family: Blue Highway'>"+
 		"Enter your... $$$</div>"
 		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 150px; left: 500px;font-family: Blue Highway D Type;font-size: 50px;'>TOTAL</div>"
 		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 195px; left: 500px; color: #FFBF00; font-family: Blue Highway;font-size: 75px;'>BUDGET AMOUNT</div>"
 		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 260px; left: 500px;font-family: Blue Highway;font-size: 30px;'>THIS IS THE AMOUNT YOU WILL</div>"
-		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 300px; left: 500px;font-family: Blue Highway;font-size: 30px;'>GAIN IN YOUR BUDGET EVERY TIME FRAME</div>");
+		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 300px; left: 500px;font-family: Blue Highway;font-size: 30px;'>GAIN IN YOUR BUDGET EVERY 1st OF THE MONTH</div>");
 		$("#budgetStyle").hide().delay(500);
 		$("#budgetStyle").fadeIn("fast");
-		$("body").append("<div style=\"font-family: Blue Highway D Type;position:absolute;left:550px;top:350px; font-size: 50px;\">$<input id=\"budgetTotal\" type=\"text\" placeholder=\"YUM!\"/></div> ");
+		$("body").append("<div style=\"font-family: Blue Highway D Type;position:absolute;left:525px;top:370px; font-size: 50px;\">$<input id=\"budgetTotal\" type=\"text\" placeholder=\"YUM!\"/></div> ");
 		$("#budgetTotal").hide().delay(500);
 		$("#budgetTotal").fadeIn("fast");
 		$("body").append("<button id=\"enterAmount\">add</button>");
@@ -87,7 +89,7 @@ $(document).ready(function()
 		{
 			if ( $("#budgetTotal").val() > 0)
 			{
-				clean($("currentImage"), $("#enterAmount"));
+				clean($("#backgroundTotal"), $("#enterAmount"));
 				$("#budgetTotal").fadeOut("fast");
 				$("#budgetStyle").fadeOut("fast");
 				budget.totalBudget = $("#budgetTotal").val();
@@ -112,11 +114,12 @@ $(document).ready(function()
 		//"width=\"694\" height=\"509\" ; style=\"position:absolute;left:600px;top:140px\">");
 		//$("#currentImage").hide().delay(500);
 		//$("#currentImage").fadeIn("fast");
+		$("body").append("<div id = 'backgroundCateg'></div>");
 		$("body").append(
-		"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 160px; left: 770px;font-family: Blue Highway;font-size: 40px;'>ADD CATEGORIES TO </div>"
-		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 190px; left: 765px; color: #992424; font-family: Blue Highway;font-size: 55px;'>YOUR BUDGET</div>"
+		"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 135px; left: 720px;font-family: Blue Highway;font-size: 70px; color: #FFBF00;'>ADD CATEGORIES</div>"
+		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 190px; left: 765px; color: #992424; font-family: Blue Highway;font-size: 55px;'>to YOUR BUDGET</div>"
 		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 240px; left: 760px;font-family: Blue Highway;font-size: 30px;'>THIS IS THE AMOUNT YOU WILL</div>"
-		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 270px; left: 720px;font-family: Blue Highway;font-size: 30px;color: #017890;'>GAIN IN YOUR BUDGET EVERY TIME FRAME</div>");
+		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 270px; left: 730px;font-family: Blue Highway;font-size: 30px;color: #017890;'>GAIN IN YOUR BUDGET EVERY MONTH</div>");
 		$("body").append("<input id=\"categoryChoice\" type=\"text\" placeholder=\"Category\"/> ");
 		$("#categoryChoice").hide().delay(800);
 		$("#categoryChoice").fadeIn("fast");
@@ -272,12 +275,23 @@ $(document).ready(function()
 		{
 			var catName = $("#categoryChoice").val();
 			var amount = $("#categoryTextBox").val();
+			var list = budget.categories;
+			var sofar = 0;
+			for (var i = 0; i < list.length; i++) 
+			{	
+				//alert("cate tot: " + list[i].total);
+				var tot = parseInt(list[i].amountBudgeted,10);
+				sofar = sofar + tot;
+				//alert("so far: "+sofar);
+			}
+			var totBudget = parseInt(budget.totalBudget,10);
+			var left = totBudget - sofar;
 			if ( catName !="" )
 			{
 				if ( amount > 0)
 				{
 					var totBudget = parseInt(budget.totalBudget,10);
-					if (amount <= totBudget)
+					if (amount <= left)
 					{
 						pieData.push([catName,parseInt(amount)]);
 						var chart = $('#pieChart').highcharts();
@@ -333,7 +347,7 @@ $(document).ready(function()
 
 	function cleanCategories()
 	{
-		clean($("#currentImage"), $("#next"));
+		clean($("#backgroundCateg"), $("#next"));
 		//$("#deletionInstr").fadeOut("fast");
 		$("category").fadeOut("fast");
 		$("#addCategory").fadeOut("fast");
