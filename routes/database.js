@@ -50,8 +50,127 @@ connection.query('CREATE DATABASE IF NOT EXISTS budgetlive', function (err) {
 			, function (err) {
                 if (err) throw err;
             });
+			
+			connection.query('CREATE TABLE IF NOT EXISTS annualbudget('
+			+ 'budgetId INT,'
+            + 'month INT,'
+			+ 'amountBudgeted INT,'
+			+ 'amountSpent INT,'
+			+ 'category VARCHAR(60)'
+			+ ');'
+			, function (err) {
+                if (err) throw err;
+            });
     });
 });
+}
+
+exports.deleteAnualBudgetAmounts = function()
+{
+	connection.query('USE budgetlive', function (err)
+	{	
+		connection.query("DROP TABLE annualbudget;", function (err)
+		{
+			if (err)
+			{
+				throw err;
+			}	 
+		});
+		
+		connection.query('CREATE TABLE IF NOT EXISTS annualbudget('
+			+ 'budgetId INT,'
+            + 'month INT,'
+			+ 'amountBudgeted INT,'
+			+ 'amountSpent INT'
+			+ ');'
+			, function (err) {
+                if (err) throw err;
+			});
+	});
+}
+
+exports.storeAnualBudgetAmounts = function(month)
+{
+	async.series([
+		function(callback)
+		{
+			getAllBudgetData(function(data){
+				connection.query('USE budgetlive', function (err)
+				{	
+					for(var i = 0; i < Object.keys(data).length; i++)
+					{
+						connection.query("INSERT INTO annualbudget VALUES(" + data[i].budgetId + "," + month + "," + data[i].amountBudgeted + "," 
+										+ data[i].amountSpent + "," + data[i].category +");", function (err)
+						{
+							if (err)
+							{
+								throw err;
+							}	 
+						});
+					}
+				});
+				callback();
+			});
+		}
+	],
+    function (err) 
+	{	
+		if(err)
+		{
+			console.log(err);
+		}
+    });
+}
+
+
+function storeAnnualBudgetAmounts(month)
+{
+	console.log("STORING ANNUAL BUDGET AMOUNTS");
+	async.series([
+		function(callback)
+		{
+			getAllBudgetData(function(data){
+				connection.query('USE budgetlive', function (err)
+				{	
+					for(var i = 0; i < Object.keys(data).length; i++)
+					{
+						console.log(data[i].category);
+						connection.query("INSERT INTO annualbudget VALUES(" + data[i].budgetId + "," + month + "," + data[i].amountBudgeted 
+										+ "," + data[i].amountSpent+ ",\"" + data[i].category +"\");", function (err)
+						{
+							if (err)
+							{
+								throw err;
+							}	 
+						});
+					}
+				});
+				callback();
+			});
+		}
+	],
+    function (err) 
+	{	
+		if(err)
+		{
+			console.log(err);
+		}
+    });
+}
+
+function getAllBudgetData(callback)
+{
+	connection.query('USE budgetlive', function (err)
+	{
+		connection.query("SELECT budgetId, amountSpent, amountBudgeted, category FROM budget;", function (err,result)
+		{
+			if (err)
+			{
+				throw err;
+			} 
+			callback(result);
+		});
+	});
 }
 
 exports.resetBudgetAmounts = function()
@@ -93,6 +212,19 @@ exports.updateDatabase = function(req, res)
 			} 
 		});
 	});
+	
+	connection.query('USE budgetlive', function (err)
+	{
+		connection.query("UPDATE annualbudget SET amountSpent = amountSpent + " + req.body.transaction.amountSpent + " WHERE budgetId = " 
+						+ req.body.transaction.budgetId + " AND category = \"" + req.body.transaction.category + "\";", function (err)
+		{
+			console.log("UPDATING ANNUAL BUDGET LOG");
+			if (err)
+			{
+				throw err;
+			} 
+		});
+	});
 }
 
 exports.addNewUser = function(req, res)
@@ -104,6 +236,13 @@ exports.addNewUser = function(req, res)
 				addUserBudget(req, info.insertId);
 				callback();
 			});
+		},
+		function(callback)
+		{
+			var today = new Date();
+			var month = today.getMonth() + 1;
+			storeAnnualBudgetAmounts(month);
+			callback();
 		}
 	],
     function (err) 
@@ -156,6 +295,15 @@ function addUserBudget(req, budgetId)
 
 exports.getConnection = function(req, res){
 	return connection;
+}
+
+exports.getAnnualBudgetData = function(req, res){
+	console.log("GETTING ANNUAL BUDGET DATA");
+	var username = req._parsedUrl.query;
+	retrieveAnnualBudgetData(username, function(budgetData)
+	{
+		res.send(budgetData);
+	});
 }
 
 exports.getUserData = function(req, res){
@@ -220,7 +368,6 @@ function validateOwnerAccount(req, ownersEmail, linkCode, cb)
 						{
 							if(err)
 							{
-								console.log("GOT HERE");
 								throw err;
 							}
 						});
@@ -333,6 +480,23 @@ function validateUser(username, password, cb)
         console.log(valid);	
 		cb(valid);
     });
+};
+
+function retrieveAnnualBudgetData(username, callback)
+{	
+	connection.query('USE budgetlive', function (err)
+	{
+		connection.query("SELECT amountSpent, amountBudgeted, month, category FROM annualbudget INNER JOIN users ON users.budgetId = annualbudget.budgetId " +
+				"WHERE username = " + "\"" + username + "\";", function (err, result)
+		{
+			console.log(result);
+			if (err)
+			{
+				throw err;
+			} 
+			callback(result);
+		});
+	});
 };
 
 function retrieveUserData(username, callback)

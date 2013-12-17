@@ -21,12 +21,32 @@
 					return 'user' + window.location.search;
 				}
 			</script>
-			<li><a href="javascript:document.location.href=getOverviewUrl();">Budget Overview</a></li>
+			<li><a href="javascript:document.location.href=getOverviewUrl();">Budget</a></li>
+			
+			<script type="text/javascript">
+				function getInfoUrl()
+				{
+					return 'userInfo' + window.location.search;
+				}
+			</script>
+			<li><a href="javascript:document.location.href=getInfoUrl();">Info</a></li>
+			
 			<li><a href="home">Logout</a></li>	
 		</ul>
 	</div>
 	
-	<div id="barChart" style="width: 650px; height: 210px; position:absolute; left: 600px; top: 160px;"></div>
+	<div id="containerChart0" style="float: left; width: 400px; height: 200px; margin: 0 auto"></div>
+	<div id="containerChart1" style="float: left; width: 400px; height: 200px; margin: 0 auto"></div>
+	<div id="containerChart2" style="float: left; width: 400px; height: 200px; margin: 0 auto"></div>
+	<div id="containerChart3" style="float: left; width: 400px; height: 200px; margin: 0 auto"></div>
+	<div id="containerChart4" style="float: left; width: 400px; height: 200px; margin: 0 auto"></div>
+	<div id="containerChart5" style="float: left; width: 400px; height: 200px; margin: 0 auto"></div>
+	<div id="containerChart6" style="float: left; width: 400px; height: 200px; margin: 0 auto"></div>
+	<div id="containerChart7" style="float: left; width: 400px; height: 200px; margin: 0 auto"></div>
+	<div id="containerChart8" style="float: left; width: 400px; height: 200px; margin: 0 auto"></div>
+	<div id="containerChart9" style="float: left; width: 400px; height: 200px; margin: 0 auto"></div>
+	<div id="containerChart10" style="float: left; width: 400px; height: 200px; margin: 0 auto"></div>
+	<div id="containerChart11" style="float: left; width: 400px; height: 200px; margin: 0 auto"></div>
 	
 	<!-- scripts -->
 	<script class="include" type="text/javascript" src='../public/jquery/jquery.jqplot.min.js'></script>

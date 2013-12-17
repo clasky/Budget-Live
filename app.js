@@ -54,11 +54,13 @@ app.post('/addNewUser', database.addNewUser);
 app.get('/userInfo', function(req, res){res.sendfile('views/userInfo.html');});
 app.get('/userData', database.getUserData);
 app.get('/budgetOverview', function(req, res){res.sendfile('views/budgetOverview.html');});
+app.get('/annualBudgetData', database.getAnnualBudgetData);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
-	  //Reset budget amounts every month.
+	  //Reset budget amounts every month. 
 	  setInterval(function(){
+	  var startingYear = 2013;
 	  var today = new Date();
 	  var day = today.getDate();
 	  var month = today.getMonth() + 1;
@@ -67,8 +69,15 @@ http.createServer(app).listen(app.get('port'), function(){
 	  if(day === 1)
 	  {
 		console.log("Resetting Monthly Budgets");
+		console.log("Saving Annual Budget Data");
+		database.storeAnualBudgetAmounts(month);
 		database.resetBudgetAmounts();
-	  }
+	  }  
 	  
+	  if(year != startingYear)
+	  {
+		console.log("Deleting Annual Budget Data");
+		database.deleteAnualBudgetAmounts();
+	  }
   },86400000);
 });

@@ -1,11 +1,117 @@
-//var userId = window.location.search.slice(1);
-var userId = "clasky";
+$.ajax(
+{	
+	type: "GET",
+	url: '/annualBudgetData',
+	data: window.location.search.slice(1),
+	dataType: 'json',
+	success: function(data){
+		handleTransactionData(data);
+	},
+	error: function(responseText){
+		alert('Error: ' +  responseText.toString());
+	}
+});
+
+function handleTransactionData(data)
+{
+	var monthlyBudgets = {};
+	
+	for(key in data)
+	{	
+		var index = data[key].month;
+		if(monthlyBudgets.hasOwnProperty(index))
+		{
+			monthlyBudgets[index].budgeted += data[key].amountBudgeted;
+			monthlyBudgets[index].spent += data[key].amountSpent;
+		}
+		else
+		{
+			var tempBudget = new Object();
+			tempBudget.budgeted = data[key].amountBudgeted;
+			tempBudget.spent = data[key].amountSpent;
+			monthlyBudgets[index] = tempBudget;
+		}
+	}
+	
+	var containerId = 0;
+	for(key in monthlyBudgets)
+	{
+		createBarChart(monthlyBudgets[key], key, containerId);
+		containerId++;
+	}
+}
+
+function createBarChart(budget, month, containerId) 
+{
+	var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	var remaining = [];
+	remaining.push(budget.budgeted);
+	var spent = [];
+	spent.push(budget.spent);
+
+	$('#containerChart' + containerId).highcharts({
+		chart: 
+		{
+			type: 'bar'
+		},
+		title: 
+		{
+			text: 'Total Spending ' + months[month - 1]
+		},
+		xAxis:
+		{
+			categories: [$("h1").text()]
+		},
+		yAxis: 
+		{
+			min: 0,
+			title: 
+			{
+				text: null
+			}
+		},
+		tooltip:
+		{
+			formatter: function() {
+				return 'Overall Budget <br>' + this.series.name + ': <b>' + this.y + '</b>';
+			}
+		},
+		legend: 
+		{
+			backgroundColor: '#FFFFFF',
+			reversed: true
+		},
+		exporting: 
+		{
+			enabled: false 
+		},
+		plotOptions:
+		{
+			series: 
+			{
+				stacking: 'normal'
+			}
+		},
+		series: [{
+			name: 'Remaining Amount',
+			color: '#95E243',
+			data: remaining
+		}, 
+		{
+			name: 'Spent',
+			color: '#9F0707',
+			data: spent
+		}]
+	});
+};
+
+/*var userId = "clasky"
 var email;
 var name;
 var name2;
 var username;
 var categories = {};
-var transactions = {};
+
 var dataString;
 var pieData = [];
 var userNames = [];
@@ -14,7 +120,7 @@ var spent = [];
 var lineSeries = [];
 var lineSeries2 = [];
 var timeFrameLine = [];
-var transSize = 0;
+
 var budgetId;
 var totalSpending = 0;
 var totalSpending1 = 0;
@@ -48,47 +154,7 @@ $.ajax(
 	}
 });
 
-function handleTransactionData(data)
-{
-	for(var key in data)
-	{	
-		var transaction = new Object();
-		transaction.category = data[key].category;
-		transaction.amountSpent = data[key].transactionAmount;
-		transaction.date = data[key].date;
-		transaction.name = data[key].name;
-		transactions[key] = transaction;
-		transSize = transSize + 1;
-	}
-		
-	var transactionsByMonth = {};	
-	
-	for(var key in transactions)
-	{
-		var date = transactions[key].date;
-		var parsedDate = date.split("/");
-		
-		if(transactionsByMonth.hasOwnProperty(parsedDate[0]))
-		{	
-			transactionsByMonth[parsedDate[0]].push(transactions[key]);
-		}
-		else
-		{
-			var tempArray = new Array();
-			tempArray.push(transactions[key]);
-			transactionsByMonth[parsedDate[0]] = tempArray;	
-		}
-		
-	}
-	
-	for(var key in transactionsByMonth)
-	{
-		for(var i = 0; i < transactionsByMonth[key].length; i++)
-		{
-			alert(JSON.stringify(transactionsByMonth[key][i]));
-		}
-	}
-}
+
 	
 function handleBudgetData(data)
 {
@@ -126,19 +192,7 @@ function handleBudgetData(data)
 	createBarChart($('#barChart'));
 }
 
-function totalSummary()
-{
-	var total_ = 0;
-	var spent_ = 0;
-	for(var key in categories)
-	{
-		spent_ = spent_ + categories[key][1];
-		total_ = total_ + categories[key][0];
-	}
-	//alert(spent_ + " " + total_);
-	remaining.push(parseInt(total_ - spent_));
-	spent.push(parseInt(spent_));
-}
+
 
 // creates Bar Chart
 function createBarChart(bar)
@@ -189,4 +243,4 @@ function createBarChart(bar)
 			data: spent
 		}]
 	});
-}
+}*/

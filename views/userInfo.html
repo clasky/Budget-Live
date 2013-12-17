@@ -20,7 +20,14 @@
 					return 'user' + window.location.search;
 				}
 			</script>
-			<li><a href="javascript:document.location.href=getOverviewUrl();">Budget Overview</a></li>
+			<li><a href="javascript:document.location.href=getOverviewUrl();">Budget</a></li>
+			<script type="text/javascript">
+				function getBudgetOverviewUrl()
+				{
+					return 'budgetOverview' + window.location.search;
+				}
+			</script>
+			<li><a href="javascript:document.location.href=getBudgetOverviewUrl();">Annual Budget</a></li>
 			<li><a href="home">Logout</a></li>	
 		</ul>
 	</div>
