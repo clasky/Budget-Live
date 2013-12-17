@@ -56,16 +56,14 @@ $(document).ready(function()
 	
 	function signInSetup()
 	{
-		$("body").append("<div id=\"login\"; style=\"position:absolute;left:760px;top:310px\"></div>");
+		$("body").append("<div id=\"login\"; style=\"position:absolute;left:560px;top:330px\"></div>");
 		$("#login").slideDown("slow");
 		$("body").append("<form id=\"signUp\">"+
 						"Username<br><input type=\"text\" id=\"username\" required=\"required\"><br><br><br>"+
 						"Password<br><input type=\"password\" id=\"password\" required=\"required\"/><br><br><br>"+
 						"<input type=\"submit\" value=\"Login\" id=\"signUpButton\"/>"+
 						"</form>");
-		$("body").append("<img id=\"welcomeMessage\" src=\"../public/images/welcome.png\">");
-		$("#welcomeMessage").hide().delay(500);
-		$("#welcomeMessage").fadeIn("fast");
+		
 		
 		$("#signUpButton").on('click', function(e) {
 			if(document.getElementById('username').checkValidity() && document.getElementById('password').checkValidity())

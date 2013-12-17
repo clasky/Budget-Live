@@ -77,9 +77,8 @@ a
     margin: -10px 0 0 -8px;
     height: 200px;
     width: 230px;
-    background-color: #82FA58;
-    color: #FFFFFF;
-	opacity: 0.75;
+    background: #E6E6E6;
+    opacity: 0.75;
     font-family: Verdana, Arial, Sans-Serif;
     display:none;
 	border-radius: 10px ;
@@ -119,8 +118,8 @@ input
 form
 {
 	position:absolute;
-	left:775px;
-	top: 310px;
+	left:575px;
+	top: 330px;
 	font-family: Verdana, Arial, Sans-Serif;
 	color: #000;
 	font-size: 15px;
