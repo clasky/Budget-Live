@@ -39,6 +39,12 @@ $(document).ready(function()
 
 	});
 	
+	$("#linkUpButton").click(function()
+    {
+		window.location.href = "linkUp";
+
+	});
+	
 	$("#loginButton").click(function()
     {	
 		$("#startButton").fadeOut("slow");

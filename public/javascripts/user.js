@@ -183,16 +183,25 @@ $(document).ready(function()
 	
 	function handleTransactionData(data)
 	{
+		var trans = 0;
 		for(var key in data)
 		{	
-			//alert ("key: " + key);
-			var transaction = new Object();
-			transaction.category = data[key].category;
-			transaction.amountSpent = data[key].transactionAmount;
-			transaction.date = data[key].date;
-			transaction.name = data[key].name;
-			transactions[key] = transaction;
-			transSize = transSize + 1;
+			var currentdate = new Date(); 
+			var currMonth = (currentdate.getMonth()+1);
+			var transDate = data[key].date;
+			var dateList = transDate.split("/");
+			var transMonth = parseInt(dateList[0]);
+			if ( currMonth === transMonth)
+			{
+				var transaction = new Object();
+				transaction.category = data[key].category;
+				transaction.amountSpent = data[key].transactionAmount;
+				transaction.date = data[key].date;
+				transaction.name = data[key].name;
+				transactions[trans] = transaction;
+				transSize = transSize + 1;
+				trans = trans + 1;
+			}
 		}
 		
 		updateLine();
