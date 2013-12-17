@@ -64,15 +64,15 @@ $(document).ready(function()
 	function budgetAmount()
 	{
 		$("body").append("<div id = 'backgroundTotal'></div>");
-		$("body").append("<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 120px; left: 500px; color: #017890;font-size: 45px;font-family: Blue Highway'>"+
-		"Enter your... $$$</div>"
-		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 150px; left: 500px;font-family: Blue Highway D Type;font-size: 50px;'>TOTAL</div>"
-		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 195px; left: 500px; color: #FFBF00; font-family: Blue Highway;font-size: 75px;'>BUDGET AMOUNT</div>"
-		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 260px; left: 500px;font-family: Blue Highway;font-size: 30px;'>THIS IS THE AMOUNT YOU WILL</div>"
-		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 300px; left: 500px;font-family: Blue Highway;font-size: 30px;'>GAIN IN YOUR BUDGET EVERY 1st OF THE MONTH</div>");
+		$("body").append("<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 150px; left: 457px; color: #017890;font-size: 30px;font-family:Verdana,sans-serif;'>"+
+		"<strong>Enter your</strong></div>"
+		+"<div class= 'words'; style= 'white-space: nowrap;position: relative;top: 140px; left: 450px;font-family: Verdana,sans-serif;font-size: 30px;'>TOTAL</div>"
+		+"<div class= 'words'; style= 'white-space: nowrap;position: relative;top: 135px; left: 450px; color: #FFBF00; font-family: Verdana,sans-serif;font-size: 40px;'>BUDGET AMOUNT</div>"
+		+"<div class= 'words'; style= 'white-space: nowrap;position: relative;top: 135px; left: 450px;font-family: Verdana,sans-serif;font-size: 30px;'>THIS IS THE AMOUNT YOU WILL</div>"
+		+"<div class= 'words'; style= 'white-space: nowrap;position: relative;top: 135px; left: 450px;font-family:Verdana,sans-serif;font-size: 20px;'>GAIN IN YOUR BUDGET EVERY 1st OF THE MONTH</div>");
 		$("#budgetStyle").hide().delay(500);
 		$("#budgetStyle").fadeIn("fast");
-		$("body").append("<div style=\"font-family: Blue Highway D Type;position:absolute;left:525px;top:370px; font-size: 50px;\">$<input id=\"budgetTotal\" type=\"text\" placeholder=\"YUM!\"/></div> ");
+		$("body").append("<div style=\"font-family: Blue Highway D Type;position:absolute;left:490px;top:370px; font-size: 50px;\">$<input id=\"budgetTotal\" type=\"text\" placeholder=\"BUDGET AMOUNT\"/></div> ");
 		$("#budgetTotal").hide().delay(500);
 		$("#budgetTotal").fadeIn("fast");
 		$("body").append("<button id=\"enterAmount\">add</button>");
@@ -116,10 +116,10 @@ $(document).ready(function()
 		//$("#currentImage").fadeIn("fast");
 		$("body").append("<div id = 'backgroundCateg'></div>");
 		$("body").append(
-		"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 135px; left: 720px;font-family: Blue Highway;font-size: 70px; color: #FFBF00;'>ADD CATEGORIES</div>"
-		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 190px; left: 765px; color: #992424; font-family: Blue Highway;font-size: 55px;'>to YOUR BUDGET</div>"
-		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 240px; left: 760px;font-family: Blue Highway;font-size: 30px;'>THIS IS THE AMOUNT YOU WILL</div>"
-		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 270px; left: 730px;font-family: Blue Highway;font-size: 30px;color: #017890;'>GAIN IN YOUR BUDGET EVERY MONTH</div>");
+		"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 135px; left: 740px;font-family: Verdana,sans-serif ;font-size: 40px; color: #FFBF00;'>ADD CATEGORIES</div>"
+		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 190px; left: 775px; color: #992424; font-family: Verdana,sans-serif;font-size: 30px;'>to YOUR BUDGET</div>"
+		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 240px; left: 760px;font-family: Verdana,sans-serif;font-size: 20px;'>THIS IS THE AMOUNT YOU WILL</div>"
+		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 270px; left: 730px;font-family: Verdana,sans-serif;font-size: 20px;color: #017890;'>GAIN IN YOUR BUDGET EVERY MONTH</div>");
 		$("body").append("<input id=\"categoryChoice\" type=\"text\" placeholder=\"Category\"/> ");
 		$("#categoryChoice").hide().delay(800);
 		$("#categoryChoice").fadeIn("fast");
