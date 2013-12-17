@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+	<title>User Profile</title>
+	<link rel='stylesheet' type='text/css' href='../public/stylesheets/userInfo.css'/>
+    <link class="include" rel="stylesheet" type="text/css" href="../public/jquery/jquery.jqplot.min.css" />
+    <script class="include" type="text/javascript" src="../public/jquery/jquery.min.js"></script>
+    <script type='text/javascript' src='../public/javascripts/userInfo.js'></script>
+	<script src="../public/jquery.jpanelmenu.min.js" type="text/javascript"></script>
+	<script type="text/javascript"></script>
+	</head>
+	<body>
+	<img src="../public/images/BudgetLiveLogo-inverse.jpeg" width="155" height="30" ; style="position:absolute;left:10px;top:10px">
+	<div id="menu">
+		<ul>
+			<script type="text/javascript">
+				function getOverviewUrl()
+				{
+					return 'user' + window.location.search;
+				}
+			</script>
+			<li><a href="javascript:document.location.href=getOverviewUrl();">Budget Overview</a></li>
+			<li><a href="home">Logout</a></li>	
+		</ul>
+	</div>
+	<!--<div id="left-menu" href="#left-menu">Left Menu</div>-->
+	
+	
+	<!--<ul id="extra-data"></ul>-->
+	
+	<!-- scripts -->
+	<script class="include" type="text/javascript" src='../public/jquery/jquery.jqplot.min.js'></script>
+	<script class="include" type="text/javascript" src="../public/plugins/jqplot.pieRenderer.min.js"></script>
+	<script src="../public/plugins/jquery.sidr.min.js"></script>
+	<script src="../public/plugins/highcharts.js"></script>
+	<script src="../public/plugins/exporting.js"></script>
+	<script src="../public/plugins/jquery.sidr.min.js"></script>
+	</body>
+</html>

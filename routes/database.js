@@ -124,13 +124,13 @@ exports.storeAnualBudgetAmounts = function(month)
 }
 
 
-function storeAnnualBudgetAmounts(month)
+function storeAnnualBudgetAmounts(month, username)
 {
 	console.log("STORING ANNUAL BUDGET AMOUNTS");
 	async.series([
 		function(callback)
 		{
-			getAllBudgetData(function(data){
+			retrieveData("budget", username, function(data){
 				connection.query('USE budgetlive', function (err)
 				{	
 					for(var i = 0; i < Object.keys(data).length; i++)
@@ -160,7 +160,7 @@ function storeAnnualBudgetAmounts(month)
 }
 
 //FIX THIS PART JUST SELECT THE VALUES WANTED NO ALL VALUES......
-function getAllBudgetData(callback)
+function getAllBudgetData(name, callback)
 {
 	connection.query('USE budgetlive', function (err)
 	{
@@ -243,7 +243,7 @@ exports.addNewUser = function(req, res)
 		{
 			var today = new Date();
 			var month = today.getMonth() + 1;
-			storeAnnualBudgetAmounts(month);
+			storeAnnualBudgetAmounts(month,req.body.username);
 			callback();
 		}
 	],
