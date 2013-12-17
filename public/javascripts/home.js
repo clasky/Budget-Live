@@ -1,4 +1,4 @@
-(function($){
+/*(function($){
 $.fn.snow=function(options)
 {var $flake=$('<div id="flake" />').css(
 {'position':'absolute','top':'-50px'}).html('&#10052;'),
@@ -22,11 +22,11 @@ var interval=setInterval(function()
 	);
 };
 })(jQuery);
-	
+*/	
 	//*************************Added snow flakes :) 
 $(document).ready(function()
 {
-	$.fn.snow();
+	//$.fn.snow();
     $("button").mouseenter(function()
     {
 		$(this).animate({top:'+=10px'},200);

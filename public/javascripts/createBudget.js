@@ -72,7 +72,7 @@ $(document).ready(function()
 		+"<div class= 'words'; style= 'white-space: nowrap;position: relative;top: 135px; left: 450px;font-family:Verdana,sans-serif;font-size: 20px;'>GAIN IN YOUR BUDGET EVERY 1st OF THE MONTH</div>");
 		$("#budgetStyle").hide().delay(500);
 		$("#budgetStyle").fadeIn("fast");
-		$("body").append("<div style=\"font-family: Blue Highway D Type;position:absolute;left:490px;top:370px; font-size: 50px;\">$<input id=\"budgetTotal\" type=\"text\" placeholder=\"BUDGET AMOUNT\"/></div> ");
+		$("body").append("<div style=\"font-family: Blue Highway D Type;position:absolute;left:490px;top:370px; font-size: 50px;\">$<input id=\"budgetTotal\" type=\"text\" placeholder=\"Budget Amount\"/></div> ");
 		$("#budgetTotal").hide().delay(500);
 		$("#budgetTotal").fadeIn("fast");
 		$("body").append("<button id=\"enterAmount\">add</button>");
@@ -116,14 +116,14 @@ $(document).ready(function()
 		//$("#currentImage").fadeIn("fast");
 		$("body").append("<div id = 'backgroundCateg'></div>");
 		$("body").append(
-		"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 135px; left: 740px;font-family: Verdana,sans-serif ;font-size: 40px; color: #FFBF00;'>ADD CATEGORIES</div>"
-		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 190px; left: 775px; color: #992424; font-family: Verdana,sans-serif;font-size: 30px;'>to YOUR BUDGET</div>"
+		"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 140px; left: 730px;font-family: Verdana,sans-serif ;font-size: 40px; color: #FFBF00;'><strong>ADD CATEGORIES</strong></div>"
+		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 195px; left: 780px; color: #992424; font-family: Verdana,sans-serif;font-size: 30px;'>to YOUR BUDGET</div>"
 		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 240px; left: 760px;font-family: Verdana,sans-serif;font-size: 20px;'>THIS IS THE AMOUNT YOU WILL</div>"
 		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 270px; left: 730px;font-family: Verdana,sans-serif;font-size: 20px;color: #017890;'>GAIN IN YOUR BUDGET EVERY MONTH</div>");
 		$("body").append("<input id=\"categoryChoice\" type=\"text\" placeholder=\"Category\"/> ");
 		$("#categoryChoice").hide().delay(800);
 		$("#categoryChoice").fadeIn("fast");
-		$("body").append("<div><input id = \"categoryTextBox\" type=\"text\" placeholder=\"$ Amount\"/></div>");
+		$("body").append("<div><input id = \"categoryTextBox\" type=\"text\" placeholder=\"Amount\"/></div>");
 		$("#categoryTextBox").hide().delay(800);
 		$("#categoryTextBox").fadeIn("fast");
 		$("body").append("<input type=\"submit\" value=\"Add\" id=\"addCategory\"/>");
@@ -269,6 +269,8 @@ $(document).ready(function()
 	    $(("#hidden-content-"+index)).toggle( "slow" );
     }
 	
+	
+	
 	function categoryAddition()
 	{
 		$("#addCategory").click( function()
@@ -348,6 +350,7 @@ $(document).ready(function()
 	function cleanCategories()
 	{
 		clean($("#backgroundCateg"), $("#next"));
+		clean($("div"), $("#next"));
 		//$("#deletionInstr").fadeOut("fast");
 		$("category").fadeOut("fast");
 		$("#addCategory").fadeOut("fast");
@@ -356,17 +359,24 @@ $(document).ready(function()
 		$("category").remove();
 		var chart = $('#pieChart').highcharts();
 		$('#pieChart').fadeOut("fast");
+		chart.destroy();
+		createPieChart($("#pieChart"));
 		$("#amountLeft").html("");
 		registrationForm();
 	}
 	
 	function registrationForm()
 	{
-		$("body").append("<img id = \"currentImage\" src=\"../images/signUp.jpg\""+
-		"width=\"587\" height=\"516\" ; style=\"position:absolute;left:200px;top:65px\">");
-		$("#currentImage").hide().delay(500);
-		$("#currentImage").fadeIn("fast");
+		$("body").append("<img src=\"../public/images/BudgetLiveLogo_new.jpg\" width=\"598\" height=\"145\" ; style=\"position:absolute;left:140px;top:330px\">");
+		$("body").append("<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 170px; left: 190px; color: #017890;font-size: 50px;font-family:Verdana,sans-serif;'>"+
+		"<strong>Loved how YOU</strong></div>"
+		+"<div class= 'words'; style= 'white-space: nowrap;position: relative;top: 230px; left: 185px;font-family: Verdana,sans-serif;font-size: 30px;'>SET UP YOUR BUDGET?</div>"
+		+"<div class= 'words'; style= 'white-space: nowrap;position: relative;top: 235px; left: 185px; color: #FFBF00; font-family: Verdana,sans-serif;font-size: 40px;'>SIGN UP TODAY</div>"
+		+"<div class= 'words'; style= 'white-space: nowrap;position: relative;top: 235px; left: 185px;font-family: Verdana,sans-serif;font-size: 30px;'> </div>"
+		+"<div class= 'words'; style= 'white-space: nowrap;position: relative;top: 240px; left: 185px;font-family:Verdana,sans-serif;font-size: 20px;'>It's so easy, you'll love it!</div>");
+		
 		$("body").append("<registration></registration>");
+		
 		
 		$("body").append("<form id=\"signUp\">"
 		+"E-mail<br><input type=\"text\" id=\"user_email\" required=\"required\"/><br><br><br>"
