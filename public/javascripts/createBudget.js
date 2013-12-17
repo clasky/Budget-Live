@@ -400,7 +400,7 @@ $(document).ready(function()
 					user.email = document.getElementById("user_email").value;
 					user.password = document.getElementById("password").value;
 					user.budget = budget;
-					alert("here");
+					
 					$.ajax({
 						url: '/validateUniqueUser',
 						type: 'POST',
@@ -427,7 +427,6 @@ $(document).ready(function()
 							alert('An error occured while validating your credentials.');
 						}
 					});
-					alert("here");
 				}
 				else
 				{
