@@ -72,7 +72,7 @@ $(document).ready(function()
 				var user = new Object();
 				user.username = document.getElementById("username").value;
 				user.password = document.getElementById("password").value;
-				
+				user.logedIn = false;
 				$.ajax({
 					url: '/validateUser',
 					type: 'POST',
@@ -80,8 +80,8 @@ $(document).ready(function()
 					dataType: "json",
 					success: function(data){
 						if(data)
-						{
-							window.location.href = "user?" + document.getElementById("username").value;
+						{	
+							createFormAndSubmit(user.username);
 						}
 						else
 						{
@@ -95,8 +95,48 @@ $(document).ready(function()
 			}
 		});
 	}
-	
-	
 });
 
+//helper function to create the form
+ function getNewSubmitForm(){
+	 var submitForm = document.createElement("FORM");
+	 document.body.appendChild(submitForm);
+	 submitForm.method = "POST";
+	 return submitForm;
+ }
 
+ //helper function to add elements to the form
+ function createNewFormElement(inputForm, inputType, elementName, elementValue) {
+	 var inputElement = document.createElement("INPUT");
+	 inputElement.name = elementName;
+	 inputElement.type = inputType;
+	 try {
+		inputElement.value = elementValue;
+	 } catch(err) {
+		alert(err.description);
+	 }
+	 inputForm.appendChild(inputElement);
+	 return inputElement;
+ }
+
+ //function that creates the form, adds some elements
+ //and then submits it
+ function createFormAndSubmit(username){
+	 var submitForm = getNewSubmitForm();
+	 createNewFormElement(submitForm, "HIDDEN", "loggedIn", true);
+	 submitForm.action= "user?" + username;
+	 submitForm.submit();
+ }
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

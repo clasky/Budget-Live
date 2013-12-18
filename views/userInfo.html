@@ -17,17 +17,19 @@
 			<script type="text/javascript">
 				function getOverviewUrl()
 				{
-					return 'user' + window.location.search;
+					createFormAndSubmit(window.location.search, "user");
+					//return 'user' + window.location.search;
 				}
 			</script>
-			<li><a href="javascript:document.location.href=getOverviewUrl();">Budget</a></li>
+			<li><a href="javascript:getOverviewUrl();">Budget</a></li>
 			<script type="text/javascript">
 				function getBudgetOverviewUrl()
 				{
-					return 'budgetOverview' + window.location.search;
+					createFormAndSubmit(window.location.search, "budgetOverview");
+					//return 'budgetOverview' + window.location.search;
 				}
 			</script>
-			<li><a href="javascript:document.location.href=getBudgetOverviewUrl();">Annual Budget</a></li>
+			<li><a href="javascript:getBudgetOverviewUrl();">Annual Budget</a></li>
 			<li><a href="home">Logout</a></li>	
 		</ul>
 	</div>
@@ -43,5 +45,37 @@
 	<script src="../public/plugins/highcharts.js"></script>
 	<script src="../public/plugins/exporting.js"></script>
 	<script src="../public/plugins/jquery.sidr.min.js"></script>
+	<script>
+	//helper function to create the form
+	 function getNewSubmitForm(){
+		 var submitForm = document.createElement("FORM");
+		 document.body.appendChild(submitForm);
+		 submitForm.method = "POST";
+		 return submitForm;
+	 }
+
+	 //helper function to add elements to the form
+	 function createNewFormElement(inputForm, inputType, elementName, elementValue) {
+		 var inputElement = document.createElement("INPUT");
+		 inputElement.name = elementName;
+		 inputElement.type = inputType;
+		 try {
+			inputElement.value = elementValue;
+		 } catch(err) {
+			alert(err.description);
+		 }
+		 inputForm.appendChild(inputElement);
+		 return inputElement;
+	 }
+
+	 //function that creates the form, adds some elements
+	 //and then submits it
+	 function createFormAndSubmit(username, action){
+		 var submitForm = getNewSubmitForm();
+		 createNewFormElement(submitForm, "HIDDEN", "loggedIn", true);
+		 submitForm.action= action + username;
+		 submitForm.submit();
+	 }
+	 </script>
 	</body>
 </html>

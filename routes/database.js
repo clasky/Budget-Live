@@ -445,7 +445,7 @@ function validateUnique(username, email, cb)
 			retrieveUserUniqueData(function(queryData){
 				for(var i = 0; i < Object.keys(queryData).length; i++)
 				{	
-					if(queryData[i].username === username && queryData[i].email === email)
+					if(queryData[i].username === username || queryData[i].email === email)
 					{
 						unique = false;
 						break;
@@ -588,3 +588,40 @@ function retrieveData(dataType, username, callback)
 		});
 	});
 };
+
+exports.restrict = function(req, res, next)
+{	
+	if(req.body.loggedIn)
+	{	
+		res.sendfile('views/user.html');
+	}
+	else
+	{
+		res.redirect('home');
+	}
+}
+
+exports.validateUserInfoLogin = function(req, res, next)
+{	
+	if(req.body.loggedIn)
+	{	
+		res.sendfile('views/userInfo.html');
+	}
+	else
+	{
+		res.redirect('home');
+	}
+}
+
+exports.validateBudgetOverviewLogin = function(req, res, next)
+{	
+	if(req.body.loggedIn)
+	{	
+		res.sendfile('views/budgetOverview.html');
+	}
+	else
+	{
+		res.redirect('home');
+	}
+}
+

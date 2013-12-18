@@ -17,26 +17,28 @@
 		<ul>
 			<script type="text/javascript">
 				function getInfoUrl()
-				{
-					return 'userInfo' + window.location.search;
+				{	
+					createFormAndSubmit(window.location.search, "userInfo");
+					//return 'userInfo' + window.location.search;
 				}
 			</script>
-			<li><a href="javascript:document.location.href=getInfoUrl();">Info</a></li>
+			<li><a href="javascript:getInfoUrl();">Info</a></li>
 			
 			<script type="text/javascript">
 				function getBudgetOverviewUrl()
 				{
-					return 'budgetOverview' + window.location.search;
+					createFormAndSubmit(window.location.search, "budgetOverview");
+					//return 'budgetOverview' + window.location.search;
 				}
 			</script>
-			<li><a href="javascript:document.location.href=getBudgetOverviewUrl();">Annual Budget</a></li>
+			<li><a href="javascript:getBudgetOverviewUrl();">Annual Budget</a></li>
 			<li><a href="home">Logout</a></li>	
 		</ul>
 	</div>
 	<!--<div id="left-menu" href="#left-menu">Left Menu</div>-->
 	<h1 style = "position: center; white-space: nowrap;font-family: 'Franklin Gothic Book',Arial,sans-serif;"> <center>Overall Budget </h1>
 	<input id="spent" type="text" placeholder="Transaction Amount"/>
-	<button id = "addSpent">add</button>
+	<button id = "addSpent">ADD</button>
 	<div id="pieChart" style="width: 480px; height: 480px; position:absolute; left: 80px; top: 150px"></div>
 	<div id="barChart" style="width: 650px; height: 210px; position:absolute; left: 600px; top: 160px;"></div>
 	<div id="SpendingOverTime"style="width: 650px; height: 190px; position:absolute; left: 600px; top: 410px;"></div>
@@ -50,5 +52,37 @@
 	<script src="../public/plugins/highcharts.js"></script>
 	<script src="../public/plugins/exporting.js"></script>
 	<script src="../public/plugins/jquery.sidr.min.js"></script>
+	<script>
+	//helper function to create the form
+	 function getNewSubmitForm(){
+		 var submitForm = document.createElement("FORM");
+		 document.body.appendChild(submitForm);
+		 submitForm.method = "POST";
+		 return submitForm;
+	 }
+
+	 //helper function to add elements to the form
+	 function createNewFormElement(inputForm, inputType, elementName, elementValue) {
+		 var inputElement = document.createElement("INPUT");
+		 inputElement.name = elementName;
+		 inputElement.type = inputType;
+		 try {
+			inputElement.value = elementValue;
+		 } catch(err) {
+			alert(err.description);
+		 }
+		 inputForm.appendChild(inputElement);
+		 return inputElement;
+	 }
+
+	 //function that creates the form, adds some elements
+	 //and then submits it
+	 function createFormAndSubmit(username, action){
+		 var submitForm = getNewSubmitForm();
+		 createNewFormElement(submitForm, "HIDDEN", "loggedIn", true);
+		 submitForm.action= action + username;
+		 submitForm.submit();
+	 }
+	 </script>
 	</body>
 </html>
