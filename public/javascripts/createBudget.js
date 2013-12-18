@@ -69,7 +69,7 @@ $(document).ready(function()
 		+"<div class= 'words'; style= 'white-space: nowrap;position: relative;top: 140px; left: 450px;font-family: Verdana,sans-serif;font-size: 30px;'>TOTAL</div>"
 		+"<div class= 'words'; style= 'white-space: nowrap;position: relative;top: 135px; left: 450px; color: #FFBF00; font-family: Verdana,sans-serif;font-size: 40px;'>BUDGET AMOUNT</div>"
 		+"<div class= 'words'; style= 'white-space: nowrap;position: relative;top: 135px; left: 450px;font-family: Verdana,sans-serif;font-size: 30px;'>THIS IS THE AMOUNT YOU WILL</div>"
-		+"<div class= 'words'; style= 'white-space: nowrap;position: relative;top: 135px; left: 450px;font-family:Verdana,sans-serif;font-size: 20px;'>GAIN IN YOUR BUDGET EVERY 1st OF THE MONTH</div>");
+		+"<div class= 'words'; style= 'white-space: nowrap;position: relative;top: 135px; left: 450px;font-family:Verdana,sans-serif;font-size: 20px;'>HAVE IN YOUR BUDGET EVERY 1st OF THE MONTH</div>");
 		$("#budgetStyle").hide().delay(500);
 		$("#budgetStyle").fadeIn("fast");
 		$("body").append("<div style=\"font-family: Blue Highway D Type;position:absolute;left:490px;top:370px; font-size: 50px;\">$<input id=\"budgetTotal\" type=\"text\" placeholder=\"Budget Amount\"/></div> ");
@@ -119,7 +119,7 @@ $(document).ready(function()
 		"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 140px; left: 730px;font-family: Verdana,sans-serif ;font-size: 40px; color: #FFBF00;'><strong>ADD CATEGORIES</strong></div>"
 		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 195px; left: 780px; color: #992424; font-family: Verdana,sans-serif;font-size: 30px;'>to YOUR BUDGET</div>"
 		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 240px; left: 760px;font-family: Verdana,sans-serif;font-size: 20px;'>THIS IS THE AMOUNT YOU WILL</div>"
-		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 270px; left: 730px;font-family: Verdana,sans-serif;font-size: 20px;color: #017890;'>GAIN IN YOUR BUDGET EVERY MONTH</div>");
+		+"<div class= 'words'; style= 'white-space: nowrap;position: absolute;top: 270px; left: 730px;font-family: Verdana,sans-serif;font-size: 20px;color: #017890;'>HAVE IN EACH CATEGORY EVERY MONTH</div>");
 		$("body").append("<input id=\"categoryChoice\" type=\"text\" placeholder=\"Category\"/> ");
 		$("#categoryChoice").hide().delay(800);
 		$("#categoryChoice").fadeIn("fast");
